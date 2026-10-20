@@ -1,5 +1,6 @@
 import { usePageMeta } from '../hooks/usePageMeta'
 import { PageHead } from '../components/PageHead'
+import { Faq, type FaqItem } from '../components/Faq'
 import { site, siteConfig } from '../config/site'
 
 const path = [
@@ -25,9 +26,37 @@ export function RegisterPage() {
 
   const registrationUrl = siteConfig.registrationUrl
 
+  /* Answers are limited to things that are true today. A question the
+     organisers have not answered yet is not published at all. */
+  const faqs: FaqItem[] = [
+    {
+      question: 'How do I register?',
+      answer: registrationUrl
+        ? 'Open the official registration button above. It goes straight to the organiser’s own registration page — nothing on this site takes your details.'
+        : 'Registration runs through one official link. It replaces the coming-soon state on this page the moment the organisers publish it.',
+    },
+    {
+      question: 'When and where is the event?',
+      answer:
+        'Date and venue are confirmed by the organisers and published on the Event page. Nothing on this site is estimated, so no date appears until it is fixed.',
+    },
+    {
+      question: 'Does this site collect my details?',
+      answer:
+        'No. There is no form, no account and no payment step here — this site only points you to the official registration route.',
+    },
+    {
+      question: 'Who can I contact with a question?',
+      answer: siteConfig.contactEmail
+        ? `Write to ${siteConfig.contactEmail} and the organisers will answer.`
+        : 'Organiser contact details are published on this page as soon as they are confirmed.',
+    },
+  ]
+
   return (
     <>
       <PageHead
+        tone="forest"
         eyebrow="Register Now"
         title="One link. That is the whole process."
         lede={`${site.fullName} registration runs through a single official link. This page carries it — and nothing else asks you for anything.`}
@@ -36,7 +65,7 @@ export function RegisterPage() {
       <section className="section" aria-labelledby="register-heading">
         <div className="container register-sheet">
           <div>
-            <p className="eyebrow eyebrow--teal">How registration works</p>
+            <p className="eyebrow eyebrow--green">How registration works</p>
 
             <ol className="register-path">
               {path.map((step) => (
@@ -128,6 +157,39 @@ export function RegisterPage() {
               </li>
             </ul>
           </aside>
+        </div>
+      </section>
+
+      {/* ---------------- Questions ---------------- */}
+      <section className="section sheet--sunk" aria-labelledby="faq-heading">
+        <div className="container faq-sheet">
+          <div className="faq-sheet__intro">
+            <p className="eyebrow eyebrow--green">Questions</p>
+            <h2 className="faq-sheet__title" id="faq-heading">
+              Before you register.
+            </h2>
+            <p className="faq-sheet__body">
+              Only answers that are already true are published here. Anything the organisers
+              have not confirmed is left out rather than filled in.
+            </p>
+          </div>
+
+          <div>
+            <Faq items={faqs} />
+
+            <div className="faq-sheet__support">
+              <p className="meta">Still unsure about something?</p>
+              {siteConfig.contactEmail ? (
+                <a className="btn btn--secondary btn--sm" href={`mailto:${siteConfig.contactEmail}`}>
+                  Contact the organisers
+                </a>
+              ) : (
+                <p className="meta">
+                  Organiser contact details are published on this page once they are confirmed.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </section>
     </>

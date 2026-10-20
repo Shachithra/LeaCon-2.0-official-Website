@@ -11,7 +11,7 @@ export function NotFoundPage() {
         <p className="notfound__code" aria-hidden="true">
           404
         </p>
-        <p className="eyebrow eyebrow--teal">Page not found</p>
+        <p className="eyebrow eyebrow--green">Page not found</p>
         <h1 className="notfound__title" id="notfound-heading">
           This page isn’t part of the edition.
         </h1>

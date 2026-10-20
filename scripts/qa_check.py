@@ -5,12 +5,13 @@ heading structure and screenshot files. Run: python scripts/qa_check.py
 """
 
 import json
+import os
 import pathlib
 import sys
 
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:5175"
+BASE = os.environ.get("LEACON_BASE", "http://localhost:5176")
 ROUTES = ["/", "/about", "/team", "/event", "/shop", "/register", "/missing-page"]
 VIEWPORTS = [
     ("360", 360, 800),

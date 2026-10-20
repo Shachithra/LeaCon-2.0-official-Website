@@ -1,6 +1,6 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 
-export type FrameTone = 'indigo' | 'teal' | 'green' | 'outlined'
+export type FrameTone = 'forest' | 'green' | 'outlined'
 
 type Props = {
   /** Leave null until the file exists in public/. Nothing is requested otherwise. */

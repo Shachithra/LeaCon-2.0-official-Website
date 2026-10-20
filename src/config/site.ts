@@ -26,9 +26,52 @@ export const site = {
   edition: '2.0',
   fullName: 'LeaCon 2.0',
   wordmark: 'LeaCon',
+  /** Small edition label used on the cover. */
+  editionLabel: 'The Leadership Edition',
+  /**
+   * Neutral descriptor standing in for the official theme. When the
+   * organisers publish the LeaCon 2.0 theme or slogan, replace this string —
+   * no slogan is invented anywhere in this build.
+   */
+  tagline: 'A youth leadership experience.',
   description:
     'LeaCon 2.0 is a youth leadership experience built around leadership sessions, outbound training, global exchange exploration and delegate recognition.',
-  tagline: "Leadership isn't a title. It's what you do next.",
+} as const
+
+/**
+ * Photography that sits outside the data files.
+ *
+ * Every `src` is null until an approved file exists, so the site renders the
+ * designed plate instead of requesting anything. Drop the photograph into the
+ * folder named on each comment and set `src` — the layout already reserves the
+ * ratio, so nothing shifts when it loads.
+ */
+export const assets = {
+  /** Home cover. public/images/brand/cover.jpg — portrait, 1200×1500 or larger. */
+  cover: {
+    src: null as string | null,
+    alt: 'Delegates of LeaCon 2.0 together at the event',
+  },
+  /** About page opening. public/images/brand/feature.jpg — landscape, 1600×700 or larger. */
+  feature: {
+    src: null as string | null,
+    alt: 'Delegates of LeaCon 2.0 in session',
+  },
+  /** About split-screen. public/images/brand/moment.jpg — portrait, 1200×1500 or larger. */
+  moment: {
+    src: null as string | null,
+    alt: 'A LeaCon 2.0 delegate working through a task with their team',
+  },
+  /** Team page group photograph. public/images/team/group.jpg — landscape. */
+  collective: {
+    src: null as string | null,
+    alt: 'The LeaCon 2.0 organising team together',
+  },
+  /** Shop opening image. public/images/products/hero.jpg — landscape. */
+  merchandise: {
+    src: null as string | null,
+    alt: 'Official LeaCon 2.0 merchandise',
+  },
 } as const
 
 export type NavItem = { label: string; to: string }

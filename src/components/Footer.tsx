@@ -5,7 +5,7 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="footer" data-field="indigo">
+    <footer className="footer" data-field="forest">
       <div className="container">
         <Link to="/" className="footer__mark">
           {site.wordmark} <span>{site.edition}</span>

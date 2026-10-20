@@ -63,14 +63,14 @@ button {
 }
 
 a {
-  color: var(--teal-ink);
+  color: var(--green-ink);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.22em;
   transition: color var(--dur-fast) var(--ease);
 }
 
 a:hover {
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 /* --- Focus: restyled, never removed -------------------------------------- */
@@ -84,12 +84,12 @@ a:hover {
   outline: none;
 }
 
-[data-field="indigo"] {
-  --focus: var(--teal-lift);
+[data-field="forest"] {
+  --focus: var(--green-lift);
 }
 
 ::selection {
-  background: var(--indigo);
+  background: var(--forest);
   color: #fff;
 }
 
@@ -100,7 +100,7 @@ a:hover {
   top: 0;
   z-index: 200;
   padding: var(--space-xs) var(--space-s);
-  background: var(--indigo);
+  background: var(--forest);
   color: #fff;
   font-weight: 600;
   text-decoration: none;
@@ -150,12 +150,12 @@ h4 {
   margin-bottom: var(--space-s);
 }
 
-.eyebrow--teal {
-  color: var(--teal-ink);
+.eyebrow--green {
+  color: var(--green-ink);
 }
 
-[data-field="indigo"] .eyebrow {
-  color: var(--on-indigo-3);
+[data-field="forest"] .eyebrow {
+  color: var(--on-forest-3);
 }
 
 .lede {
@@ -181,7 +181,7 @@ h4 {
   font-size: var(--step-3);
   line-height: 1.25;
   letter-spacing: -0.01em;
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .meta {
@@ -231,7 +231,7 @@ h4 {
 
 .section-head__title {
   font-size: clamp(var(--step-3), 5.5vw, var(--step-6));
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .section-head__lede {
@@ -255,8 +255,8 @@ h4 {
   border: 0;
 }
 
-[data-field="indigo"] .hairline {
-  background: var(--line-on-indigo);
+[data-field="forest"] .hairline {
+  background: var(--line-on-forest);
 }
 
 .sr-only {
@@ -301,7 +301,7 @@ html.js .reveal--lines.is-in .line > span {
   transform: translateY(0);
 }
 
-/* 2. Thin rule draw — teal or green line drawing from the left */
+/* 2. Thin rule draw — green line drawing from the left */
 .reveal--rule {
   transform: scaleX(0);
   transform-origin: left center;

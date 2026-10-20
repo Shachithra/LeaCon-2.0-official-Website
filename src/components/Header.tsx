@@ -149,7 +149,7 @@ export function Header() {
           <div className="menu__foot">
             <Link
               to={registerItem.to}
-              className="btn btn--onIndigo btn--block"
+              className="btn btn--onForest btn--block"
               onClick={() => setOpen(false)}
             >
               Register for {site.fullName}

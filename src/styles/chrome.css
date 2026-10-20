@@ -25,7 +25,7 @@
   bottom: -1px;
   height: 2px;
   width: 100%;
-  background: var(--teal);
+  background: var(--green);
   transform: scaleX(var(--progress, 0));
   transform-origin: left center;
   will-change: transform;
@@ -38,7 +38,7 @@
   gap: var(--space-2xs);
   min-height: 44px;
   text-decoration: none;
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .wordmark__name {
@@ -55,8 +55,8 @@
   font-size: 0.625rem;
   line-height: 1;
   letter-spacing: 0.04em;
-  color: var(--teal-ink);
-  border: 1px solid var(--teal);
+  color: var(--green-ink);
+  border: 1px solid var(--green);
   border-radius: var(--radius);
   padding: 3px 4px 2px;
 }
@@ -66,8 +66,8 @@
 }
 
 .wordmark--invert .wordmark__ed {
-  color: var(--teal-lift);
-  border-color: var(--teal-lift);
+  color: var(--green-lift);
+  border-color: var(--green-lift);
 }
 
 /* --- Primary navigation --------------------------------------------------- */
@@ -100,7 +100,7 @@
   content: "";
   height: 2px;
   margin-top: var(--space-3xs);
-  background: var(--teal);
+  background: var(--green);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform var(--dur) var(--ease-out);
@@ -117,7 +117,7 @@
 }
 
 .nav__link[aria-current="page"] {
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .masthead__actions {
@@ -140,7 +140,7 @@
 }
 
 .burger:hover {
-  border-color: var(--indigo);
+  border-color: var(--forest);
 }
 
 .burger__box {
@@ -154,7 +154,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--indigo);
+  background: var(--forest);
   transition:
     transform var(--dur) var(--ease-out),
     opacity var(--dur-fast) var(--ease);
@@ -189,14 +189,14 @@
   height: 100dvh;
   max-height: 100dvh;
   margin: 0;
-  background: var(--indigo);
-  color: var(--on-indigo);
+  background: var(--forest);
+  color: var(--on-forest);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
 
 .menu::backdrop {
-  background: rgba(26, 24, 48, 0.6);
+  background: var(--forest-veil);
 }
 
 .menu__inner {
@@ -219,7 +219,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: var(--hairline) solid var(--line-on-indigo);
+  border: var(--hairline) solid var(--line-on-forest);
   border-radius: var(--radius);
   color: #fff;
   font-size: var(--step-1);
@@ -231,7 +231,7 @@
 
 .menu__close:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: var(--teal-lift);
+  border-color: var(--green-lift);
 }
 
 .menu__close svg {
@@ -246,11 +246,11 @@
 .menu__list {
   list-style: none;
   margin-top: var(--space-xl);
-  border-top: var(--hairline) solid var(--line-on-indigo);
+  border-top: var(--hairline) solid var(--line-on-forest);
 }
 
 .menu__item {
-  border-bottom: var(--hairline) solid var(--line-on-indigo);
+  border-bottom: var(--hairline) solid var(--line-on-forest);
   opacity: 0;
   transform: translateY(18px);
   transition:
@@ -282,7 +282,7 @@
 
 .menu__link:hover,
 .menu__link[aria-current="page"] {
-  color: var(--teal-lift);
+  color: var(--green-lift);
 }
 
 .menu__index {
@@ -290,7 +290,7 @@
   font-size: var(--step--1);
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--on-indigo-3);
+  color: var(--on-forest-3);
   font-variant-numeric: tabular-nums;
 }
 
@@ -345,54 +345,61 @@
   transform: scaleX(1);
 }
 
+/* On a forest field the primary green would disappear, so dark buttons
+   take the lifted tone of the same hue. */
+.btn--primary::after,
+.btn--ghostForest::after {
+  background: var(--green-lift);
+}
+
 .btn:active {
   transform: translateY(1px);
 }
 
 .btn--primary {
-  background: var(--indigo);
-  border-color: var(--indigo);
+  background: var(--forest);
+  border-color: var(--forest);
   color: #fff;
 }
 
 .btn--primary:hover {
-  background: var(--indigo-deep);
-  border-color: var(--indigo-deep);
+  background: var(--forest-deep);
+  border-color: var(--forest-deep);
   color: #fff;
 }
 
 .btn--secondary {
   background: transparent;
-  border-color: var(--indigo);
-  color: var(--indigo);
+  border-color: var(--forest);
+  color: var(--forest);
 }
 
 .btn--secondary:hover {
-  background: var(--indigo);
+  background: var(--forest);
   color: #fff;
 }
 
-.btn--onIndigo {
+.btn--onForest {
   background: #fff;
   border-color: #fff;
-  color: var(--indigo);
+  color: var(--forest);
 }
 
-.btn--onIndigo:hover {
-  background: var(--teal-lift);
-  border-color: var(--teal-lift);
-  color: var(--indigo);
+.btn--onForest:hover {
+  background: var(--green-lift);
+  border-color: var(--green-lift);
+  color: var(--forest);
 }
 
-.btn--ghostIndigo {
+.btn--ghostForest {
   background: transparent;
-  border-color: var(--line-on-indigo);
+  border-color: var(--line-on-forest);
   color: #fff;
 }
 
-.btn--ghostIndigo:hover {
+.btn--ghostForest:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: var(--teal-lift);
+  border-color: var(--green-lift);
   color: #fff;
 }
 
@@ -434,7 +441,7 @@
    ========================================================================== */
 
 .frame {
-  --frame-mark: rgba(26, 24, 48, 0.4);
+  --frame-mark: var(--ink-veil);
   position: relative;
   overflow: hidden;
   border-radius: var(--radius);
@@ -443,14 +450,9 @@
   container-type: inline-size;
 }
 
-.frame--indigo {
-  background: var(--indigo);
+.frame--forest {
+  background: var(--forest);
   --frame-mark: rgba(255, 255, 255, 0.42);
-}
-
-.frame--teal {
-  background: var(--teal);
-  --frame-mark: rgba(255, 255, 255, 0.62);
 }
 
 .frame--green {
@@ -499,15 +501,14 @@
   font-size: clamp(2.5rem, 34cqw, 11rem);
   line-height: 1;
   letter-spacing: -0.05em;
-  color: rgba(26, 24, 48, 0.13);
+  color: var(--ink-ghost);
   user-select: none;
 }
 
-.frame--indigo .frame__plate {
+.frame--forest .frame__plate {
   color: rgba(255, 255, 255, 0.14);
 }
 
-.frame--teal .frame__plate,
 .frame--green .frame__plate {
   color: rgba(255, 255, 255, 0.3);
 }
@@ -521,11 +522,10 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--teal-ink);
+  color: var(--green-ink);
 }
 
-.frame--indigo .frame__caption,
-.frame--teal .frame__caption,
+.frame--forest .frame__caption,
 .frame--green .frame__caption {
   color: rgba(255, 255, 255, 0.85);
 }
@@ -562,7 +562,7 @@
 
 .page-head__title {
   font-size: clamp(var(--step-5), 8vw, var(--step-8));
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .page-head__lede {
@@ -575,8 +575,27 @@
 .page-head__rule {
   margin-top: var(--space-l);
   height: 3px;
-  background: var(--teal);
+  background: var(--green);
   transform-origin: left center;
+}
+
+/* Forest opening — used by the Register page, which leads with the deep
+   green field rather than another warm-paper header. */
+.page-head--forest {
+  background: var(--forest);
+  border-bottom-color: var(--line-on-forest);
+}
+
+.page-head--forest .page-head__title {
+  color: #fff;
+}
+
+.page-head--forest .page-head__lede {
+  color: var(--on-forest-2);
+}
+
+.page-head--forest .page-head__rule {
+  background: var(--green-lift);
 }
 
 /* ==========================================================================
@@ -584,8 +603,8 @@
    ========================================================================== */
 
 .footer {
-  background: var(--indigo);
-  color: var(--on-indigo-2);
+  background: var(--forest);
+  color: var(--on-forest-2);
   padding-block: var(--space-3xl) var(--space-l);
 }
 
@@ -602,12 +621,12 @@
 }
 
 .footer__mark span {
-  color: var(--teal-lift);
+  color: var(--green-lift);
 }
 
 .footer__tagline {
   max-width: 34ch;
-  color: var(--on-indigo-2);
+  color: var(--on-forest-2);
 }
 
 .footer__grid {
@@ -615,7 +634,7 @@
   gap: var(--space-xl);
   margin-top: var(--space-2xl);
   padding-top: var(--space-l);
-  border-top: var(--hairline) solid var(--line-on-indigo);
+  border-top: var(--hairline) solid var(--line-on-forest);
 }
 
 .footer__heading {
@@ -623,7 +642,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--teal-lift);
+  color: var(--green-lift);
   margin-bottom: var(--space-s);
 }
 
@@ -637,7 +656,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--on-indigo-2);
+  color: var(--on-forest-2);
   text-decoration: none;
   font-weight: 500;
   border-bottom: var(--hairline) solid transparent;
@@ -648,11 +667,11 @@
 
 .footer__link:hover {
   color: #fff;
-  border-bottom-color: var(--teal-lift);
+  border-bottom-color: var(--green-lift);
 }
 
 .footer__note {
-  color: var(--on-indigo-3);
+  color: var(--on-forest-3);
   font-size: var(--step--1);
   max-width: 40ch;
 }
@@ -665,9 +684,9 @@
   align-items: baseline;
   margin-top: var(--space-xl);
   padding-top: var(--space-m);
-  border-top: var(--hairline) solid var(--line-on-indigo);
+  border-top: var(--hairline) solid var(--line-on-forest);
   font-size: var(--step--1);
-  color: var(--on-indigo-3);
+  color: var(--on-forest-3);
 }
 
 /* ==========================================================================

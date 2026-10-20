@@ -1,11 +1,12 @@
 """Section-level screenshots for design review: python scripts/shoot_sections.py"""
 
+import os
 import pathlib
 import sys
 
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:5175"
+BASE = os.environ.get("LEACON_BASE", "http://localhost:5176")
 OUT = pathlib.Path(__file__).resolve().parent.parent / "qa"
 
 SHOTS = [

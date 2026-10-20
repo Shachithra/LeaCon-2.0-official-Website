@@ -2,15 +2,18 @@ import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { Reveal } from '../components/Reveal'
+import { Frame } from '../components/Frame'
 import { Chapter, type ChapterVariant } from '../components/Chapter'
 import { Glimpse } from '../components/Glimpse'
 import { chapters } from '../data/chapters'
 import { partners } from '../data/partners'
-import { site } from '../config/site'
-
-const headline = ["Leadership isn't", 'a title. It’s what', 'you do next.']
+import { team } from '../data/team'
+import { assets, site } from '../config/site'
 
 const variants: ChapterVariant[] = ['a', 'b', 'c', 'd']
+
+/** At most three portraits, so the strip never becomes a wall of thumbnails. */
+const featuredTeam = team.slice(0, 3)
 
 export function HomePage() {
   usePageMeta(
@@ -20,33 +23,30 @@ export function HomePage() {
 
   return (
     <>
-      {/* ---------------- Hero ---------------- */}
+      {/* ---------------- Cover ---------------- */}
       <section className="hero" aria-labelledby="hero-title">
         <div className="container hero__inner">
           <div className="hero__top">
             <Reveal variant="rule" className="hero__rule" />
-            <p className="eyebrow eyebrow--teal">Youth leadership event</p>
+            <p className="eyebrow eyebrow--green">Youth leadership event</p>
           </div>
 
           <Reveal variant="lines" className="hero__titleReveal">
             <h1 className="hero__title" id="hero-title">
-              {headline.map((line, index) => (
-                <span
-                  className="line"
-                  key={line}
-                  style={{ '--i': index } as CSSProperties}
-                >
-                  <span>{line}</span>
-                </span>
-              ))}
+              <span className="line" style={{ '--i': 0 } as CSSProperties}>
+                <span>{site.wordmark}</span>
+              </span>
+              <span className="line" style={{ '--i': 1 } as CSSProperties}>
+                <span className="hero__edition">{site.edition}</span>
+              </span>
             </h1>
           </Reveal>
 
           <div className="hero__lower">
             <div className="hero__action">
               <p className="hero__lede">
-                {site.fullName} is a leadership experience for delegates who would rather do the
-                work than hear about it.
+                The second edition of LeaCon: leadership sessions, outbound training, global
+                exchange and recognition for the delegates who take part.
               </p>
               <div className="btn-row">
                 <Link className="btn btn--primary" to="/register">
@@ -57,28 +57,30 @@ export function HomePage() {
                 </a>
               </div>
             </div>
-
-            <div className="frame frame--indigo hero__panel" data-field="indigo">
-              <span className="hero__panel-plate">{site.edition}</span>
-              <ol className="hero__panel-index">
-                {chapters.map((chapter) => (
-                  <li className="hero__panel-row" key={chapter.id}>
-                    <a className="hero__panel-link" href={`#${chapter.id}`}>
-                      <span className="hero__panel-num">{chapter.index}</span>
-                      <span className="hero__panel-label">{chapter.title}</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </div>
           </div>
+
+          <figure className="hero__figure">
+            <Frame
+              src={assets.cover.src}
+              alt={assets.cover.alt}
+              plate={site.edition}
+              tone="forest"
+              ratio="3 / 4"
+              priority
+              decorative={!assets.cover.src}
+            />
+            <p className="hero__label">{site.editionLabel}</p>
+            <figcaption className="hero__caption accent-phrase">
+              for the people in the room
+            </figcaption>
+          </figure>
         </div>
       </section>
 
       {/* ---------------- One-statement introduction ---------------- */}
       <section className="section section--xl intro" aria-labelledby="intro-title">
         <div className="container intro__grid">
-          <p className="accent-phrase intro__phrase">Think together. Move forward.</p>
+          <p className="accent-phrase intro__phrase">The idea behind LeaCon</p>
 
           <div>
             <h2 className="intro__statement" id="intro-title">
@@ -87,8 +89,8 @@ export function HomePage() {
             </h2>
             <Reveal variant="rule" className="intro__rule" />
             <p className="intro__body body-copy">
-              Four parts carry the event: leadership sessions, outbound training, global exchange,
-              and recognition for the delegates who take part most.
+              Each part asks something different of the people in the room — and the four are run
+              as one experience, not as four items on a programme.
             </p>
           </div>
         </div>
@@ -103,14 +105,14 @@ export function HomePage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow eyebrow--teal">The experience</p>
+              <p className="eyebrow eyebrow--green">The experience</p>
               <h2 className="section-head__title" id="experience-title">
                 What delegates actually do
               </h2>
             </div>
             <p className="section-head__lede">
-              Four parts, run as one experience. Each one asks something different of the people
-              in the room.
+              Read what each one puts in front of you, and what the room looks like when it is
+              running.
             </p>
           </div>
         </div>
@@ -125,7 +127,7 @@ export function HomePage() {
       {/* ---------------- Most Engaging Delegate ---------------- */}
       <section
         className="section section--xl recognition"
-        data-field="indigo"
+        data-field="forest"
         aria-labelledby="recognition-title"
       >
         <div className="container recognition__grid">
@@ -180,7 +182,7 @@ export function HomePage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow eyebrow--teal">LeaCon 1.0</p>
+              <p className="eyebrow eyebrow--green">LeaCon 1.0</p>
               <h2 className="section-head__title" id="glimpse-title">
                 A first chapter. A bigger next step.
               </h2>
@@ -195,11 +197,58 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ---------------- The people behind it ---------------- */}
+      <section className="section people" aria-labelledby="people-title">
+        <div className="container people__grid">
+          <div className="people__text">
+            <p className="eyebrow eyebrow--green">The people behind it</p>
+            <h2 className="section-head__title" id="people-title">
+              Meet the team behind {site.fullName}.
+            </h2>
+            <p className="people__body">
+              Every name, role and portrait published on this site was approved by the
+              organisers first. The Team page carries the confirmed roster — nothing is written
+              for anyone here.
+            </p>
+            <Link className="btn btn--secondary" to="/team">
+              Go to the Team page
+            </Link>
+          </div>
+
+          <ul className="people__strip" role="list">
+            {featuredTeam.length > 0 ? (
+              featuredTeam.map((member) => (
+                <li className="people__member" key={member.id}>
+                  <Frame
+                    src={member.portrait.src}
+                    alt={member.portrait.alt}
+                    plate={site.edition}
+                    tone="outlined"
+                    ratio="4 / 5"
+                    decorative={Boolean(member.portrait.src) === false}
+                  />
+                  <span className="people__name">{member.name}</span>
+                  <span className="people__role">{member.role}</span>
+                </li>
+              ))
+            ) : (
+              <li className="people__member people__member--solo">
+                <Frame plate={site.edition} tone="outlined" ratio="4 / 5" />
+                <span className="people__name">Portraits to follow</span>
+                <span className="people__role">
+                  Group photography drops into public/images/team/
+                </span>
+              </li>
+            )}
+          </ul>
+        </div>
+      </section>
+
       {/* ---------------- Partners ---------------- */}
       <section className="section partners" aria-labelledby="partners-title">
         <div className="container partners__frame">
           <div>
-            <p className="eyebrow eyebrow--teal">Partners</p>
+            <p className="eyebrow eyebrow--green">Partners</p>
             <h2 className="section-head__title" id="partners-title">
               Partners
             </h2>
@@ -247,7 +296,7 @@ export function HomePage() {
       {/* ---------------- Final registration CTA ---------------- */}
       <section
         className="section section--xl final-cta"
-        data-field="indigo"
+        data-field="forest"
         aria-labelledby="final-cta-title"
       >
         <div className="container final-cta__grid">
@@ -262,7 +311,7 @@ export function HomePage() {
               Registration is handled through a single official link. The registration page
               carries it as soon as it is live.
             </p>
-            <Link className="btn btn--onIndigo" to="/register">
+            <Link className="btn btn--onForest" to="/register">
               Register Now
             </Link>
           </div>

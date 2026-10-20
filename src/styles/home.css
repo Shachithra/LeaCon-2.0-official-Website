@@ -2,13 +2,15 @@
    LeaCon 2.0 — Home
    ========================================================================== */
 
-/* --- Hero ---------------------------------------------------------------- */
+/* --- Cover: oversized type left, tall photograph right, edition label
+      straddling the seam between them. ------------------------------------ */
 .hero {
   position: relative;
   border-bottom: var(--hairline) solid var(--line);
 }
 
 .hero__inner {
+  position: relative;
   display: grid;
   gap: var(--space-m);
   padding-block: var(--space-xl) var(--space-2xl);
@@ -23,27 +25,31 @@
 .hero__rule {
   width: 4rem;
   height: 3px;
-  background: var(--teal);
+  background: var(--green);
   transform-origin: left center;
   margin-bottom: var(--space-s);
 }
 
 .hero__title {
-  font-size: clamp(var(--step-2), 9.5vw, var(--step-9));
-  color: var(--indigo);
-  line-height: 0.94;
+  font-size: clamp(var(--step-5), 15vw, var(--step-9));
+  color: var(--forest);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.hero__edition {
+  color: var(--green);
 }
 
 .hero__lower {
-  display: grid;
-  gap: var(--space-xl);
   margin-top: var(--space-m);
 }
 
 .hero__action {
   display: flex;
   flex-direction: column;
-  gap: var(--space-m);
+  gap: var(--space-l);
   align-items: flex-start;
 }
 
@@ -54,67 +60,29 @@
   max-width: 34ch;
 }
 
-.hero__panel {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-m);
-  min-height: 17rem;
-  padding: var(--space-l) var(--space-m);
-}
-
-.hero__panel-plate {
-  position: absolute;
-  top: -0.06em;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(4rem, 42cqw, 16rem);
-  line-height: 0.8;
-  letter-spacing: -0.06em;
-  color: rgba(255, 255, 255, 0.1);
-  user-select: none;
-}
-
-.hero__panel-index {
+.hero__figure {
   position: relative;
-  z-index: 2;
-  list-style: none;
-  border-top: var(--hairline) solid var(--line-on-indigo);
+  margin: 0;
 }
 
-.hero__panel-row {
-  border-bottom: var(--hairline) solid var(--line-on-indigo);
-}
-
-.hero__panel-link {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-s);
-  min-height: 44px;
-  padding: var(--space-2xs) var(--space-2xs);
-  color: #fff;
-  font-size: var(--step-0);
-  font-weight: 600;
-  text-decoration: none;
-  transition:
-    color var(--dur-fast) var(--ease),
-    background-color var(--dur) var(--ease);
-}
-
-.hero__panel-link:hover {
-  color: var(--teal-lift);
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.hero__panel-num {
+/* Small editorial label. Static on small screens, straddling the boundary
+   between headline and photograph once the two sit side by side. */
+.hero__label {
+  display: inline-block;
+  margin-top: var(--space-s);
+  padding: var(--space-2xs) var(--space-s);
+  background: var(--paper);
+  border-block: var(--hairline) solid var(--line-strong);
   font-size: var(--step--1);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--teal-lift);
-  font-variant-numeric: tabular-nums;
-  min-width: 2ch;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+
+.hero__caption {
+  margin-top: var(--space-s);
+  max-width: 20ch;
 }
 
 /* --- One-statement introduction ------------------------------------------ */
@@ -135,7 +103,7 @@
 .intro__statement {
   font-size: clamp(var(--step-2), 3.2vw, var(--step-5));
   line-height: 1.12;
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .intro__rule {
@@ -172,7 +140,7 @@
   font-size: clamp(var(--step-6), 9vw, var(--step-9));
   line-height: 0.76;
   letter-spacing: -0.05em;
-  color: var(--indigo);
+  color: var(--forest);
   opacity: 0.16;
 }
 
@@ -180,7 +148,7 @@
   .chapter__index {
     color: transparent;
     opacity: 1;
-    -webkit-text-stroke: 1.5px var(--indigo);
+    -webkit-text-stroke: 1.5px var(--forest);
   }
 }
 
@@ -190,7 +158,7 @@
 
 .chapter__title {
   font-size: clamp(var(--step-2), 3vw, var(--step-4));
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .chapter__body {
@@ -206,8 +174,8 @@
 }
 
 .chapter--field {
-  background: var(--indigo);
-  border-top-color: var(--line-on-indigo);
+  background: var(--forest);
+  border-top-color: var(--line-on-forest);
   padding-block: var(--space-3xl);
 }
 
@@ -216,11 +184,11 @@
 }
 
 .chapter--field .chapter__body {
-  color: var(--on-indigo-2);
+  color: var(--on-forest-2);
 }
 
 .chapter--field .eyebrow {
-  color: var(--teal-lift);
+  color: var(--green-lift);
 }
 
 .chapter--field .chapter__index {
@@ -230,7 +198,7 @@
 @supports (-webkit-text-stroke: 1px currentColor) {
   .chapter--field .chapter__index {
     color: transparent;
-    -webkit-text-stroke-color: var(--teal-lift);
+    -webkit-text-stroke-color: var(--green-lift);
   }
 }
 
@@ -243,12 +211,12 @@
 .route__svg {
   width: 100%;
   height: auto;
-  color: var(--teal);
+  color: var(--green);
   overflow: visible;
 }
 
 .chapter--field .route__svg {
-  color: var(--teal-lift);
+  color: var(--green-lift);
 }
 
 .route__path {
@@ -265,7 +233,7 @@
 
 /* --- Recognition ---------------------------------------------------------- */
 .recognition {
-  background: var(--indigo);
+  background: var(--forest);
 }
 
 .recognition__grid {
@@ -282,11 +250,11 @@
   margin-top: var(--space-m);
   max-width: 44ch;
   font-size: var(--step-1);
-  color: var(--on-indigo-2);
+  color: var(--on-forest-2);
 }
 
 .recognition__list {
-  border-top: var(--hairline) solid var(--line-on-indigo);
+  border-top: var(--hairline) solid var(--line-on-forest);
 }
 
 .recognition__row {
@@ -295,7 +263,7 @@
   gap: var(--space-s);
   align-items: baseline;
   padding-block: var(--space-m);
-  border-bottom: var(--hairline) solid var(--line-on-indigo);
+  border-bottom: var(--hairline) solid var(--line-on-forest);
 }
 
 .recognition__label {
@@ -303,7 +271,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--teal-lift);
+  color: var(--green-lift);
 }
 
 .recognition__value {
@@ -315,7 +283,7 @@
 .recognition__note {
   margin-top: var(--space-m);
   font-size: var(--step--1);
-  color: var(--on-indigo-3);
+  color: var(--on-forest-3);
 }
 
 /* --- LeaCon 1.0 glimpse --------------------------------------------------- */
@@ -367,13 +335,13 @@
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.94);
-  color: var(--indigo);
+  color: var(--forest);
   border-radius: var(--radius);
   transition: background-color var(--dur-fast) var(--ease);
 }
 
 .glimpse__open:hover {
-  background: var(--teal-lift);
+  background: var(--green-lift);
 }
 
 .glimpse__open svg {
@@ -391,7 +359,7 @@
   border: 0;
   width: min(94vw, 58rem);
   max-width: none;
-  background: var(--indigo);
+  background: var(--forest);
   color: #fff;
   border-radius: var(--radius);
 }
@@ -402,7 +370,7 @@
 }
 
 .lightbox::backdrop {
-  background: rgba(14, 12, 32, 0.93);
+  background: var(--forest-shade);
 }
 
 .lightbox__bar {
@@ -418,7 +386,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: var(--hairline) solid var(--line-on-indigo);
+  border: var(--hairline) solid var(--line-on-forest);
   border-radius: var(--radius);
   color: #fff;
   transition:
@@ -429,7 +397,7 @@
 .lightbox__close:hover,
 .lightbox__step:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.12);
-  border-color: var(--teal-lift);
+  border-color: var(--green-lift);
 }
 
 .lightbox__step:disabled {
@@ -466,7 +434,7 @@
   display: block;
   width: min(70vw, 22rem);
   aspect-ratio: 4 / 3;
-  border: var(--hairline) dashed var(--line-on-indigo);
+  border: var(--hairline) dashed var(--line-on-forest);
 }
 
 .lightbox__foot {
@@ -480,7 +448,47 @@
 .lightbox__count {
   min-width: 8ch;
   text-align: center;
-  color: var(--on-indigo-2);
+  color: var(--on-forest-2);
+}
+
+/* --- The people behind it ------------------------------------------------- */
+.people__grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.people__body {
+  margin-block: var(--space-m) var(--space-l);
+  max-width: 44ch;
+  font-size: var(--step-1);
+  color: var(--ink-2);
+}
+
+.people__strip {
+  list-style: none;
+  display: grid;
+  gap: var(--space-s);
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+}
+
+.people__member {
+  display: grid;
+  gap: var(--space-3xs);
+  align-content: start;
+}
+
+.people__name {
+  margin-top: var(--space-2xs);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-1);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.people__role {
+  font-size: var(--step--1);
+  color: var(--ink-3);
 }
 
 /* --- Partners ------------------------------------------------------------- */
@@ -497,7 +505,7 @@
 .partners__state {
   font-size: var(--step-2);
   font-weight: 600;
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .partners__hint {
@@ -521,18 +529,18 @@
 .partners__name {
   font-size: var(--step-1);
   font-weight: 700;
-  color: var(--indigo);
+  color: var(--forest);
   text-decoration: none;
 }
 
 a.partners__name:hover {
-  color: var(--teal-ink);
+  color: var(--green-ink);
   text-decoration: underline;
 }
 
 /* --- Final registration CTA ----------------------------------------------- */
 .final-cta {
-  background: var(--indigo);
+  background: var(--forest);
 }
 
 .final-cta__grid {
@@ -546,7 +554,7 @@ a.partners__name:hover {
 }
 
 .final-cta__action p {
-  color: var(--on-indigo-2);
+  color: var(--on-forest-2);
   max-width: 38ch;
   margin-bottom: var(--space-m);
   font-size: var(--step-1);
@@ -563,20 +571,56 @@ a.partners__name:hover {
 }
 
 @media (min-width: 960px) {
-  .hero__lower {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  /* The cover: type column left, photograph spanning the right edge. */
+  .hero__inner {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-areas:
+      'top figure'
+      'title figure'
+      'lower figure';
     column-gap: var(--space-3xl);
+    row-gap: var(--space-l);
     align-items: start;
   }
 
-  .hero__panel {
-    min-height: 21rem;
+  .hero__top {
+    grid-area: top;
+  }
+
+  .hero__titleReveal {
+    grid-area: title;
+  }
+
+  .hero__lower {
+    grid-area: lower;
+    margin-top: 0;
+  }
+
+  .hero__figure {
+    grid-area: figure;
+    align-self: stretch;
+  }
+
+  /* The label crosses the boundary between headline and photograph. */
+  .hero__label {
+    position: absolute;
+    top: 38%;
+    left: 0;
+    z-index: 3;
+    margin-top: 0;
+    transform: translateX(-50%);
   }
 
   .intro__grid {
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
     column-gap: var(--space-3xl);
     align-items: start;
+  }
+
+  .people__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-3xl);
+    align-items: center;
   }
 
   .recognition__grid {

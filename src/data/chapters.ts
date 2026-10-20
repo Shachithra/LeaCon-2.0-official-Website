@@ -7,7 +7,7 @@
  * requests a file that does not exist.
  */
 
-export type ChapterTone = 'indigo' | 'teal' | 'green' | 'outlined'
+export type ChapterTone = 'forest' | 'green' | 'outlined'
 
 export type Chapter = {
   id: string
@@ -34,7 +34,7 @@ export const chapters: Chapter[] = [
       'The work covers teamwork, adaptability, problem-solving and personal branding, so the session is something you use rather than something you sit through.',
     ],
     plate: '01',
-    tone: 'indigo',
+    tone: 'forest',
     ratio: '4 / 3',
     image: { src: null, alt: 'Delegates working together during a LeaCon 2.0 leadership session' },
   },
@@ -48,7 +48,7 @@ export const chapters: Chapter[] = [
       'It is the part of the event that tests adaptability and problem-solving under pressure, walked as one team.',
     ],
     plate: '02',
-    tone: 'teal',
+    tone: 'green',
     ratio: '4 / 3',
     image: { src: null, alt: 'A LeaCon 2.0 outbound training team working through a task outdoors' },
   },
@@ -76,7 +76,7 @@ export const chapters: Chapter[] = [
       'Engagement is what the recognition at the end of the event is built on.',
     ],
     plate: '04',
-    tone: 'indigo',
+    tone: 'forest',
     ratio: '4 / 3',
     image: { src: null, alt: 'Delegates taking part in a LeaCon 2.0 group discussion' },
   },

@@ -1,11 +1,12 @@
 """Route/focus behaviour probe: python scripts/focus_probe.py"""
 
 import json
+import os
 import sys
 
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:5175"
+BASE = os.environ.get("LEACON_BASE", "http://localhost:5176")
 
 
 def describe(pg) -> str:

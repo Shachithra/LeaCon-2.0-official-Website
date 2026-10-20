@@ -1,12 +1,13 @@
 """Keyboard, focus and reduced-motion checks: python scripts/a11y_check.py"""
 
 import json
+import os
 import pathlib
 import sys
 
 from playwright.sync_api import sync_playwright
 
-BASE = "http://localhost:5175"
+BASE = os.environ.get("LEACON_BASE", "http://localhost:5176")
 OUT = pathlib.Path(__file__).resolve().parent.parent / "qa"
 
 

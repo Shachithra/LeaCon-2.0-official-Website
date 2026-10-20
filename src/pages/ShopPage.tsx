@@ -1,9 +1,8 @@
 import { usePageMeta } from '../hooks/usePageMeta'
 import { PageHead } from '../components/PageHead'
 import { Frame } from '../components/Frame'
-import { Reveal } from '../components/Reveal'
 import { products } from '../data/products'
-import { site } from '../config/site'
+import { assets, site } from '../config/site'
 
 /**
  * Static merchandise showcase. No cart, no checkout, no stock, no payment.
@@ -24,6 +23,20 @@ export function ShopPage() {
         lede="Official LeaCon merchandise, shown as a small editorial catalogue rather than a store. Nothing is sold on this site."
       />
 
+      {/* Opening merchandise image, full-bleed: the sheet leads on the product
+          rather than closing on it. */}
+      <section className="shop-cover">
+        <Frame
+          src={assets.merchandise.src}
+          alt={assets.merchandise.alt}
+          plate="LeaCon 2.0"
+          tone="green"
+          ratio="16 / 7"
+          priority
+          decorative={!assets.merchandise.src}
+        />
+      </section>
+
       <section className="section" aria-labelledby="catalogue-heading">
         <div className="container">
           {products.length === 0 ? (
@@ -31,7 +44,7 @@ export function ShopPage() {
               <div className="catalogue">
                 <div className="catalogue__state">
                   <div>
-                    <p className="eyebrow eyebrow--teal">Catalogue</p>
+                    <p className="eyebrow eyebrow--green">Catalogue</p>
                     <h2 id="catalogue-heading">Details coming soon.</h2>
                   </div>
                   <p>
@@ -75,7 +88,7 @@ export function ShopPage() {
               <div className="catalogue">
                 <div className="catalogue__state">
                   <div>
-                    <p className="eyebrow eyebrow--teal">Catalogue</p>
+                    <p className="eyebrow eyebrow--green">Catalogue</p>
                     <h2 id="catalogue-heading">Official merchandise</h2>
                   </div>
                   <p>Static showcase. Availability is confirmed through the organiser.</p>
@@ -120,15 +133,6 @@ export function ShopPage() {
               </ul>
             </>
           )}
-        </div>
-      </section>
-
-      {/* One graphic plate keeps the sheet from ending on text alone. */}
-      <section className="section section--compact sheet--sunk" aria-hidden="true">
-        <div className="container shop-plate-row">
-          <Reveal variant="crop">
-            <Frame src={null} alt="" plate="LeaCon 2.0" tone="teal" ratio="16 / 7" decorative />
-          </Reveal>
         </div>
       </section>
     </>

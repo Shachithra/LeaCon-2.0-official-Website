@@ -1,8 +1,8 @@
 [
   {
-    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "title": "LeaCon 2.0 \u2014 A youth leadership experience.",
     "h1": [
-      "Leadership isn'ta title. It\u2019s whatyou do next."
+      "LeaCon2.0"
     ],
     "overflow": false,
     "scrollW": 360,
@@ -14,7 +14,7 @@
       "frame__plate",
       "glimpse__item"
     ],
-    "focusable": 35,
+    "focusable": 32,
     "small": [],
     "route": "/",
     "viewport": "360",
@@ -23,13 +23,13 @@
   {
     "title": "About Us \u2014 LeaCon 2.0",
     "h1": [
-      "A leadership experience, not a lecture."
+      "More than an event. A leadership experience."
     ],
     "overflow": false,
     "scrollW": 360,
     "innerW": 360,
     "wide": [],
-    "focusable": 25,
+    "focusable": 27,
     "small": [],
     "route": "/about",
     "viewport": "360",
@@ -95,7 +95,7 @@
     "scrollW": 360,
     "innerW": 360,
     "wide": [],
-    "focusable": 24,
+    "focusable": 28,
     "small": [],
     "route": "/register",
     "viewport": "360",
@@ -117,9 +117,9 @@
     "consoleErrors": []
   },
   {
-    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "title": "LeaCon 2.0 \u2014 A youth leadership experience.",
     "h1": [
-      "Leadership isn'ta title. It\u2019s whatyou do next."
+      "LeaCon2.0"
     ],
     "overflow": false,
     "scrollW": 390,
@@ -131,7 +131,7 @@
       "frame__plate",
       "glimpse__item"
     ],
-    "focusable": 35,
+    "focusable": 32,
     "small": [],
     "route": "/",
     "viewport": "390",
@@ -140,13 +140,13 @@
   {
     "title": "About Us \u2014 LeaCon 2.0",
     "h1": [
-      "A leadership experience, not a lecture."
+      "More than an event. A leadership experience."
     ],
     "overflow": false,
     "scrollW": 390,
     "innerW": 390,
     "wide": [],
-    "focusable": 25,
+    "focusable": 27,
     "small": [],
     "route": "/about",
     "viewport": "390",
@@ -212,7 +212,7 @@
     "scrollW": 390,
     "innerW": 390,
     "wide": [],
-    "focusable": 24,
+    "focusable": 28,
     "small": [],
     "route": "/register",
     "viewport": "390",
@@ -234,9 +234,9 @@
     "consoleErrors": []
   },
   {
-    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "title": "LeaCon 2.0 \u2014 A youth leadership experience.",
     "h1": [
-      "Leadership isn'ta title. It\u2019s whatyou do next."
+      "LeaCon2.0"
     ],
     "overflow": false,
     "scrollW": 768,
@@ -248,7 +248,7 @@
       "frame__plate",
       "frame__caption"
     ],
-    "focusable": 35,
+    "focusable": 32,
     "small": [],
     "route": "/",
     "viewport": "768",
@@ -257,13 +257,13 @@
   {
     "title": "About Us \u2014 LeaCon 2.0",
     "h1": [
-      "A leadership experience, not a lecture."
+      "More than an event. A leadership experience."
     ],
     "overflow": false,
     "scrollW": 768,
     "innerW": 768,
     "wide": [],
-    "focusable": 25,
+    "focusable": 27,
     "small": [],
     "route": "/about",
     "viewport": "768",
@@ -329,7 +329,7 @@
     "scrollW": 768,
     "innerW": 768,
     "wide": [],
-    "focusable": 24,
+    "focusable": 28,
     "small": [],
     "route": "/register",
     "viewport": "768",
@@ -351,9 +351,9 @@
     "consoleErrors": []
   },
   {
-    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "title": "LeaCon 2.0 \u2014 A youth leadership experience.",
     "h1": [
-      "Leadership isn'ta title. It\u2019s whatyou do next."
+      "LeaCon2.0"
     ],
     "overflow": false,
     "scrollW": 1024,
@@ -365,7 +365,7 @@
       "frame__plate",
       "glimpse__item"
     ],
-    "focusable": 35,
+    "focusable": 32,
     "small": [],
     "route": "/",
     "viewport": "1024",
@@ -374,13 +374,13 @@
   {
     "title": "About Us \u2014 LeaCon 2.0",
     "h1": [
-      "A leadership experience, not a lecture."
+      "More than an event. A leadership experience."
     ],
     "overflow": false,
     "scrollW": 1024,
     "innerW": 1024,
     "wide": [],
-    "focusable": 25,
+    "focusable": 27,
     "small": [],
     "route": "/about",
     "viewport": "1024",
@@ -446,7 +446,7 @@
     "scrollW": 1024,
     "innerW": 1024,
     "wide": [],
-    "focusable": 24,
+    "focusable": 28,
     "small": [],
     "route": "/register",
     "viewport": "1024",
@@ -468,9 +468,9 @@
     "consoleErrors": []
   },
   {
-    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "title": "LeaCon 2.0 \u2014 A youth leadership experience.",
     "h1": [
-      "Leadership isn'ta title. It\u2019s whatyou do next."
+      "LeaCon2.0"
     ],
     "overflow": false,
     "scrollW": 1440,
@@ -482,7 +482,7 @@
       "frame__plate",
       "glimpse__item"
     ],
-    "focusable": 35,
+    "focusable": 32,
     "small": [],
     "route": "/",
     "viewport": "1440",
@@ -491,13 +491,13 @@
   {
     "title": "About Us \u2014 LeaCon 2.0",
     "h1": [
-      "A leadership experience, not a lecture."
+      "More than an event. A leadership experience."
     ],
     "overflow": false,
     "scrollW": 1440,
     "innerW": 1440,
     "wide": [],
-    "focusable": 25,
+    "focusable": 27,
     "small": [],
     "route": "/about",
     "viewport": "1440",
@@ -563,7 +563,7 @@
     "scrollW": 1440,
     "innerW": 1440,
     "wide": [],
-    "focusable": 24,
+    "focusable": 28,
     "small": [],
     "route": "/register",
     "viewport": "1440",

@@ -40,7 +40,7 @@ export function Chapter({ data, variant }: Props) {
     <article
       id={data.id}
       className={`chapter chapter--${variant}${onField ? ' chapter--field' : ''}`}
-      data-field={onField ? 'indigo' : undefined}
+      data-field={onField ? 'forest' : undefined}
     >
       <div className="container">
         <div className="chapter__grid">

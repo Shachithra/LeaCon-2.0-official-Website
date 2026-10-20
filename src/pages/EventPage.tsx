@@ -36,7 +36,7 @@ export function EventPage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow eyebrow--teal">Overview</p>
+              <p className="eyebrow eyebrow--green">Overview</p>
               <h2 className="section-head__title" id="logistics-heading">
                 The parts, and the practical details
               </h2>
@@ -78,7 +78,7 @@ export function EventPage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow eyebrow--teal">The experience</p>
+              <p className="eyebrow eyebrow--green">The experience</p>
               <h2 className="section-head__title" id="parts-heading">
                 Leadership Sessions to Delegate Engagement
               </h2>
@@ -102,7 +102,7 @@ export function EventPage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow eyebrow--teal">Recognition</p>
+              <p className="eyebrow eyebrow--green">Recognition</p>
               <h2 className="section-head__title" id="recognition-heading">
                 Most Engaging Delegate
               </h2>
@@ -141,7 +141,7 @@ export function EventPage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow eyebrow--teal">LeaCon 1.0</p>
+              <p className="eyebrow eyebrow--green">LeaCon 1.0</p>
               <h2 className="section-head__title" id="glimpse-heading">
                 A first chapter. A bigger next step.
               </h2>
@@ -161,7 +161,7 @@ export function EventPage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow eyebrow--teal">Supporters</p>
+              <p className="eyebrow eyebrow--green">Supporters</p>
               <h2 className="section-head__title" id="supporters-heading">
                 Partners and supporters
               </h2>
@@ -202,7 +202,7 @@ export function EventPage() {
       </section>
 
       {/* ---------------- CTA ---------------- */}
-      <section className="section section--compact final-cta" data-field="indigo">
+      <section className="section section--compact final-cta" data-field="forest">
         <div className="container final-cta__grid">
           <div>
             <p className="eyebrow">Registration</p>
@@ -213,7 +213,7 @@ export function EventPage() {
               Registration runs through one official link, carried on the Register page as soon
               as it is live.
             </p>
-            <Link className="btn btn--onIndigo" to="/register">
+            <Link className="btn btn--onForest" to="/register">
               Register Now
             </Link>
           </div>

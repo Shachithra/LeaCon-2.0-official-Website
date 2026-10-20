@@ -69,7 +69,7 @@
 
 .about-prose h2 {
   font-size: clamp(var(--step-3), 4vw, var(--step-4));
-  color: var(--indigo);
+  color: var(--forest);
   margin-top: var(--space-2xl);
   max-width: 22ch;
 }
@@ -102,6 +102,310 @@
   max-width: 58ch;
 }
 
+/* Opening photograph: full measure under the page head, with the edition
+   label running beneath it like a caption line on a printed page. */
+.about-cover {
+  padding-block: var(--space-l) 0;
+}
+
+.about-cover__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  margin-top: var(--space-s);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.about-cover__label::before {
+  content: "";
+  flex: none;
+  width: 2.5rem;
+  height: var(--hairline);
+  background: var(--green);
+}
+
+/* ------------------------------------------------------- The purpose -------
+   Not three equal cards: one theme runs large down the left of the spread,
+   two run smaller on the right, divided by hairlines.
+--------------------------------------------------------------------------- */
+
+.themes {
+  list-style: none;
+  display: grid;
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: var(--hairline) solid var(--line-strong);
+}
+
+.theme {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3xs);
+}
+
+.theme--minor {
+  border-top: var(--hairline) solid var(--line);
+  padding-top: var(--space-m);
+}
+
+.theme__index {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.25rem, 12vw, 6.5rem);
+  line-height: 0.76;
+  letter-spacing: -0.05em;
+  color: var(--forest);
+  opacity: 0.16;
+}
+
+@supports (-webkit-text-stroke: 1px currentColor) {
+  .theme__index {
+    color: transparent;
+    opacity: 1;
+    -webkit-text-stroke: 1.5px var(--forest);
+  }
+}
+
+.theme__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(var(--step-3), 4vw, var(--step-5));
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--forest);
+  margin-top: var(--space-3xs);
+}
+
+.theme__body {
+  margin-top: var(--space-2xs);
+  max-width: 42ch;
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------ Split statement --- */
+.meaning {
+  background: var(--forest);
+  border-top-color: var(--line-on-forest);
+}
+
+.meaning__grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.meaning__title {
+  margin-top: var(--space-m);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(var(--step-4), 6vw, var(--step-7));
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: #fff;
+}
+
+.meaning__body {
+  margin-top: var(--space-l);
+  max-width: 46ch;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--on-forest-2);
+}
+
+.meaning__media .frame {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------- Journey ---
+   1.0 and 2.0 as two plates on one line. No dates are implied by the order.
+--------------------------------------------------------------------------- */
+
+.journey__line {
+  list-style: none;
+  margin-top: var(--space-2xl);
+  display: grid;
+  gap: var(--space-m);
+  align-items: center;
+}
+
+.journey__stop .frame {
+  width: 100%;
+}
+
+.journey__arrow {
+  display: flex;
+  align-items: center;
+}
+
+.journey__arrow span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--hairline);
+  background: var(--line-strong);
+}
+
+.journey__arrow span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-top: 1.5px solid var(--green);
+  border-right: 1.5px solid var(--green);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* --------------------------------------------------------- Closing line --- */
+.about-close {
+  background: var(--forest);
+  border-top-color: var(--line-on-forest);
+}
+
+.about-close__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(var(--step-5), 9vw, var(--step-8));
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.about-close__action {
+  margin-top: var(--space-xl);
+  display: grid;
+  gap: var(--space-l);
+  justify-items: start;
+}
+
+.about-close__action p {
+  max-width: 50ch;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--on-forest-2);
+}
+
+@media (min-width: 64em) {
+  .themes {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-4xl);
+    row-gap: var(--space-2xl);
+  }
+
+  .theme--feature {
+    grid-row: span 2;
+    border-right: var(--hairline) solid var(--line);
+    padding-right: var(--space-2xl);
+  }
+
+  .theme--feature .theme__title {
+    font-size: clamp(var(--step-5), 5vw, var(--step-6));
+  }
+
+  .theme--minor .theme__index {
+    font-size: clamp(2.5rem, 4vw, 3.75rem);
+  }
+
+  .meaning__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    column-gap: var(--space-4xl);
+    align-items: center;
+  }
+
+  .meaning__media {
+    justify-self: end;
+    max-width: 30rem;
+    width: 100%;
+  }
+
+  .journey__line {
+    grid-template-columns: minmax(0, 1fr) minmax(4rem, 9rem) minmax(0, 1fr);
+    gap: var(--space-l);
+  }
+
+  .about-close .container {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-3xl);
+    align-items: end;
+  }
+
+  .about-close__action {
+    margin-top: 0;
+  }
+}
+
+/* --------------------------------------------------------------- Roster ---
+   The team sheet opens on a statement set against the group photograph, and
+   closes on a typographic line rather than a second photograph.
+--------------------------------------------------------------------------- */
+
+.team-intro__grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.team-intro__title {
+  margin-top: var(--space-s);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(var(--step-4), 5vw, var(--step-6));
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--forest);
+}
+
+.team-intro__body {
+  margin-top: var(--space-m);
+  max-width: 46ch;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.team-intro__media .frame {
+  width: 100%;
+}
+
+.collective__phrase {
+  color: var(--forest);
+}
+
+.collective__statement {
+  margin-top: var(--space-s);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(var(--step-4), 8vw, var(--step-7));
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--forest);
+  max-width: 16ch;
+}
+
+.collective__body {
+  margin-top: var(--space-l);
+  max-width: 54ch;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+@media (min-width: 64em) {
+  .team-intro__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-4xl);
+    align-items: center;
+  }
+}
+
 /* ---------------------------------------------------------------- Team ---
    Roster as a list on hairlines — members first, never a card wall.
 --------------------------------------------------------------------------- */
@@ -131,7 +435,7 @@
   font-family: var(--font-display);
   font-size: var(--step--1);
   font-weight: 700;
-  color: var(--teal-ink);
+  color: var(--green-ink);
   font-variant-numeric: tabular-nums;
 }
 
@@ -165,7 +469,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--teal-ink);
+  color: var(--green-ink);
 }
 
 .roster__empty {
@@ -178,7 +482,7 @@
 
 .roster__empty h2 {
   font-size: clamp(var(--step-3), 4vw, var(--step-5));
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .roster__empty p {
@@ -249,6 +553,11 @@
    then an index-card outline of how products will be listed.
 --------------------------------------------------------------------------- */
 
+/* Full-bleed opening band: no container, no gutter, corner to corner. */
+.shop-cover .frame {
+  border-radius: 0;
+}
+
 .catalogue {
   margin-top: 0;
 }
@@ -265,7 +574,7 @@
 
 .catalogue__state h2 {
   font-size: clamp(var(--step-3), 4vw, var(--step-5));
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .catalogue__state p {
@@ -299,7 +608,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--teal-ink);
+  color: var(--green-ink);
 }
 
 .catalogue__column dd {
@@ -400,13 +709,13 @@
   font-family: var(--font-display);
   font-size: var(--step-0);
   font-weight: 700;
-  color: var(--teal-ink);
+  color: var(--green-ink);
   line-height: 1.3;
 }
 
 .register-path__item h2 {
   font-size: var(--step-2);
-  color: var(--indigo);
+  color: var(--forest);
   line-height: 1.15;
 }
 
@@ -420,7 +729,7 @@
 /* The action panel: bordered, flat, no card tricks. */
 .register-action {
   border: 1px solid var(--line-strong);
-  border-top: 4px solid var(--indigo);
+  border-top: 4px solid var(--forest);
   background: var(--paper-raised);
   padding: var(--space-xl) var(--space-l);
   display: grid;
@@ -439,7 +748,7 @@
 
 .register-action__title {
   font-size: clamp(var(--step-3), 4vw, var(--step-4));
-  color: var(--indigo);
+  color: var(--forest);
   line-height: 1.05;
 }
 
@@ -481,6 +790,129 @@
   font-size: var(--step-1);
 }
 
+/* ------------------------------------------------------------- Questions ---
+   An accordion of answers that are already true: native buttons, one panel
+   open at a time, no motion that could strand an answer half-rendered.
+--------------------------------------------------------------------------- */
+
+.faq-sheet {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 64em) {
+  .faq-sheet {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: var(--space-4xl);
+    align-items: start;
+  }
+}
+
+.faq-sheet__title {
+  font-size: clamp(var(--step-3), 4vw, var(--step-5));
+  color: var(--forest);
+  max-width: 12ch;
+}
+
+.faq-sheet__body {
+  margin-top: var(--space-m);
+  max-width: 40ch;
+  color: var(--ink-2);
+}
+
+.faq-sheet__support {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-m);
+  border-top: var(--hairline) solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-l);
+  align-items: center;
+}
+
+.faq__list {
+  list-style: none;
+  border-top: var(--hairline) solid var(--line-strong);
+}
+
+.faq__item {
+  border-bottom: var(--hairline) solid var(--line);
+}
+
+.faq__heading {
+  margin: 0;
+}
+
+.faq__trigger {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-l);
+  padding: var(--space-m) 0;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--forest);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.faq__trigger:hover {
+  color: var(--green);
+}
+
+.faq__sign {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--green);
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.faq__sign svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.faq__sign-v {
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.faq__trigger[aria-expanded='true'] .faq__sign {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: #fff;
+}
+
+.faq__trigger[aria-expanded='true'] .faq__sign-v {
+  opacity: 0;
+}
+
+.faq__panel {
+  padding-bottom: var(--space-m);
+}
+
+.faq__answer {
+  max-width: 62ch;
+  color: var(--ink-2);
+}
+
 /* ------------------------------------------------------------- 404 sheet --- */
 
 .notfound {
@@ -496,12 +928,12 @@
   font-weight: 800;
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 2px var(--indigo);
+  -webkit-text-stroke: 2px var(--forest);
 }
 
 .notfound__title {
   font-size: clamp(var(--step-4), 7vw, var(--step-6));
-  color: var(--indigo);
+  color: var(--forest);
 }
 
 .notfound__body {
@@ -514,10 +946,4 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-s);
-}
-
-/* ----------------------------------------------------- Shop closing plate --- */
-
-.shop-plate-row .reveal {
-  max-width: 64rem;
 }
