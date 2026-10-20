@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LeaCon 2.0">
+  <rect width="64" height="64" fill="#2E286B" />
+  <text
+    x="32"
+    y="42"
+    text-anchor="middle"
+    font-family="Helvetica Neue, Arial, sans-serif"
+    font-size="30"
+    font-weight="800"
+    fill="#FFFFFF"
+    letter-spacing="-1"
+  >L2</text>
+  <rect x="16" y="48" width="32" height="4" fill="#2097A7" />
+</svg>

@@ -1,0 +1,430 @@
+/* ==========================================================================
+   LeaCon 2.0 — reset, typography, utilities, motion system
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + var(--space-s));
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--step-0);
+  font-weight: 400;
+  line-height: 1.62;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  color: var(--teal-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+a:hover {
+  color: var(--indigo);
+}
+
+/* --- Focus: restyled, never removed -------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+[data-field="indigo"] {
+  --focus: var(--teal-lift);
+}
+
+::selection {
+  background: var(--indigo);
+  color: #fff;
+}
+
+/* --- Skip link ----------------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  padding: var(--space-xs) var(--space-s);
+  background: var(--indigo);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius) 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* ==========================================================================
+   Type roles
+   ========================================================================== */
+
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+h3,
+h4 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.eyebrow {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  line-height: 1.4;
+  margin-bottom: var(--space-s);
+}
+
+.eyebrow--teal {
+  color: var(--teal-ink);
+}
+
+[data-field="indigo"] .eyebrow {
+  color: var(--on-indigo-3);
+}
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+.body-copy {
+  max-width: var(--measure);
+  color: var(--ink-2);
+}
+
+.body-copy p + p {
+  margin-top: var(--space-s);
+}
+
+.accent-phrase {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--step-3);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--indigo);
+}
+
+.meta {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Brand terms keep their authored casing (oGX), never restyled to match a
+   neighbouring label. */
+.verbatim {
+  text-transform: none;
+}
+
+/* ==========================================================================
+   Layout utilities
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--space-3xl);
+}
+
+.section--xl {
+  padding-block: var(--space-4xl);
+}
+
+.section--compact {
+  padding-block: var(--space-2xl);
+}
+
+.section-head {
+  display: grid;
+  gap: var(--space-m);
+  margin-bottom: var(--space-2xl);
+}
+
+.section-head__title {
+  font-size: clamp(var(--step-3), 5.5vw, var(--step-6));
+  color: var(--indigo);
+}
+
+.section-head__lede {
+  max-width: 52ch;
+  color: var(--ink-2);
+  font-size: var(--step-1);
+}
+
+@media (min-width: 900px) {
+  .section-head {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-xl);
+    align-items: end;
+  }
+}
+
+.hairline {
+  height: var(--hairline);
+  width: 100%;
+  background: var(--line);
+  border: 0;
+}
+
+[data-field="indigo"] .hairline {
+  background: var(--line-on-indigo);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   Motion system — six behaviours, all gated on JS presence
+   ========================================================================== */
+
+html.js .reveal {
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out),
+    clip-path var(--dur-slow) var(--ease-out);
+}
+
+/* 1. Editorial headline reveal — line masks, staggered by line */
+.reveal--lines .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+html.js .reveal--lines .line > span {
+  display: block;
+  transform: translateY(108%);
+  transition: transform 760ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+html.js .reveal--lines.is-in .line > span {
+  transform: translateY(0);
+}
+
+/* 2. Thin rule draw — teal or green line drawing from the left */
+.reveal--rule {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 640ms var(--ease-out) 120ms;
+}
+
+.reveal--rule.is-in {
+  transform: scaleX(1);
+}
+
+/* 3. Image crop reveal — inset frame resolving to full bleed, once only */
+.reveal--crop {
+  clip-path: inset(5% 5% 5% 5%);
+  transition:
+    clip-path 780ms var(--ease-out),
+    opacity 520ms var(--ease-out);
+}
+
+.reveal--crop.is-in {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 4. Chapter number transition — oversized numerals shifting into place */
+.reveal--chapter {
+  transform: translateY(0.14em);
+  transition:
+    transform 720ms var(--ease-out),
+    opacity 720ms var(--ease-out);
+}
+
+.reveal--chapter.is-in {
+  transform: translateY(0);
+}
+
+/* 6. Delegate recognition — categories resolving in a clean sequence */
+html.js .reveal--step > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 460ms var(--ease-out),
+    transform 460ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+
+html.js .reveal--step.is-in > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.js .reveal--fade {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+html.js .reveal--fade.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Anything focusable inside a reveal becomes visible the moment focus lands,
+   so a keyboard user can never reach a control that is still animating in. */
+html.js .reveal:focus-within {
+  opacity: 1;
+  transform: none;
+  clip-path: none;
+}
+
+/* Route line: drawn only when motion is allowed and JS is present. */
+.route__path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+html.js .route__path {
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1300ms var(--ease-out) 180ms;
+}
+
+html.js .route.is-in .route__path {
+  stroke-dashoffset: 0;
+}
+
+html.js .route__dot {
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+}
+
+html.js .route.is-in .route__dot {
+  opacity: 1;
+}
+
+html.js .route.is-in .route__dot:nth-of-type(1) { transition-delay: 340ms; }
+html.js .route.is-in .route__dot:nth-of-type(2) { transition-delay: 520ms; }
+html.js .route.is-in .route__dot:nth-of-type(3) { transition-delay: 700ms; }
+html.js .route.is-in .route__dot:nth-of-type(4) { transition-delay: 880ms; }
+html.js .route.is-in .route__dot:nth-of-type(5) { transition-delay: 1060ms; }
+html.js .route.is-in .route__dot:nth-of-type(6) { transition-delay: 1240ms; }
+
+/* 5. OBT route line — drawn with stroke-dashoffset in the OBT section */
+
+/* --- Never hide essential content behind animation ----------------------- */
+html:not(.js) .reveal,
+html:not(.js) .reveal * {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal *,
+  .reveal::before,
+  .reveal::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}

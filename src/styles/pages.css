@@ -1,0 +1,523 @@
+/* ==========================================================================
+   LeaCon 2.0 — page sheets
+   About / Team / Event / Shop / Register / Not found
+   ========================================================================== */
+
+/* Shared: page-sheet rhythm. Each sheet alternates its surface so the
+   six routes read as chapters of one printed edition. */
+.sheet--raised {
+  background: var(--paper-raised);
+}
+
+.sheet--sunk {
+  background: var(--paper-sunk);
+}
+
+/* --------------------------------------------------------------- About ---
+   Prose on a 68ch measure, section label living in the margin like a
+   running head on a printed page.
+--------------------------------------------------------------------------- */
+
+.about-body {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 60em) {
+  .about-body {
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: var(--space-4xl);
+    align-items: start;
+  }
+}
+
+.about-body__label {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-top: var(--space-3xs);
+}
+
+@media (min-width: 60em) {
+  .about-body__label {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-l));
+  }
+}
+
+.about-body__label::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--line-strong);
+  margin-top: var(--space-s);
+}
+
+.about-prose > * + * {
+  margin-top: var(--space-l);
+}
+
+.about-prose p {
+  font-size: var(--step-0);
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+
+.about-prose h2 {
+  font-size: clamp(var(--step-3), 4vw, var(--step-4));
+  color: var(--indigo);
+  margin-top: var(--space-2xl);
+  max-width: 22ch;
+}
+
+.about-prose h2:first-child {
+  margin-top: 0;
+}
+
+.about-rule {
+  height: 3px;
+  background: var(--green);
+  transform-origin: left center;
+  margin-top: var(--space-xl);
+}
+
+.about-note {
+  margin-top: var(--space-2xl);
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-l);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-l);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.about-note p {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  max-width: 58ch;
+}
+
+/* ---------------------------------------------------------------- Team ---
+   Roster as a list on hairlines — members first, never a card wall.
+--------------------------------------------------------------------------- */
+
+.roster {
+  list-style: none;
+  border-top: 1px solid var(--line-strong);
+  margin-top: var(--space-xl);
+}
+
+.roster__item {
+  display: grid;
+  gap: var(--space-3xs) var(--space-l);
+  grid-template-columns: minmax(0, 1fr);
+  padding: var(--space-l) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 44em) {
+  .roster__item {
+    grid-template-columns: 3rem minmax(0, 1.3fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
+    align-items: baseline;
+  }
+}
+
+.roster__index {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--teal-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.roster__ident {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  min-width: 0;
+}
+
+.roster__portrait {
+  flex: none;
+  width: 3rem;
+  height: 3.75rem;
+  object-fit: cover;
+  border-radius: var(--radius);
+  background: var(--paper-sunk);
+}
+
+.roster__name {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.roster__role {
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-ink);
+}
+
+.roster__empty {
+  list-style: none;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line);
+  margin-top: var(--space-xl);
+  padding: var(--space-2xl) 0;
+}
+
+.roster__empty h2 {
+  font-size: clamp(var(--step-3), 4vw, var(--step-5));
+  color: var(--indigo);
+}
+
+.roster__empty p {
+  margin-top: var(--space-s);
+  font-size: var(--step-1);
+  color: var(--ink-2);
+  max-width: 52ch;
+}
+
+/* ---------------------------------------------------------------- Event ---
+   Schedule as a specification list: term / detail on hairlines.
+--------------------------------------------------------------------------- */
+
+.schedule {
+  list-style: none;
+  border-top: 1px solid var(--line-strong);
+  margin-top: var(--space-xl);
+}
+
+.schedule__row {
+  display: grid;
+  gap: var(--space-3xs) var(--space-l);
+  padding: var(--space-l) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 44em) {
+  .schedule__row {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+
+.schedule__term {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.schedule__detail {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.schedule__detail--pending {
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-size: var(--step-0);
+  color: var(--ink-3);
+}
+
+.event-note {
+  margin-top: var(--space-xl);
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  max-width: 64ch;
+}
+
+/* ---------------------------------------------------------------- Shop ---
+   Catalogue in its "coming soon" state: a stated empty state on paper,
+   then an index-card outline of how products will be listed.
+--------------------------------------------------------------------------- */
+
+.catalogue {
+  margin-top: 0;
+}
+
+.catalogue__state {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-xl);
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.catalogue__state h2 {
+  font-size: clamp(var(--step-3), 4vw, var(--step-5));
+  color: var(--indigo);
+}
+
+.catalogue__state p {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+
+.catalogue__outline {
+  list-style: none;
+  display: grid;
+  gap: var(--hairline);
+  background: var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-top: var(--hairline);
+}
+
+@media (min-width: 44em) {
+  .catalogue__outline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.catalogue__column {
+  background: var(--paper-raised);
+  padding: var(--space-l);
+}
+
+.catalogue__column dt {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-ink);
+}
+
+.catalogue__column dd {
+  margin: var(--space-3xs) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.catalogue__column dd span {
+  display: block;
+  margin-top: var(--space-3xs);
+  font-family: var(--font-text);
+  font-size: var(--step--1);
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+/* Product list placeholder while the catalogue is empty. */
+.product-index {
+  list-style: none;
+  display: grid;
+  gap: var(--hairline);
+  background: var(--line);
+  border-top: var(--hairline);
+  margin-top: var(--hairline);
+}
+
+.product-index__item {
+  background: var(--paper-raised);
+  padding: var(--space-l);
+  display: grid;
+  gap: var(--space-3xs) var(--space-l);
+}
+
+@media (min-width: 52em) {
+  .product-index__item {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+
+.product-index__name {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.product-index__meta {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+
+/* ------------------------------------------------------------ Register ---
+   One honest, form-free path: what happens at registration and where the
+   link will live. Until then, the CTA states its own absence.
+--------------------------------------------------------------------------- */
+
+.register-sheet {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 64em) {
+  .register-sheet {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: var(--space-4xl);
+    align-items: start;
+  }
+}
+
+.register-path {
+  list-style: none;
+  border-top: 1px solid var(--line-strong);
+  counter-reset: register-step;
+  margin-top: var(--space-xl);
+}
+
+.register-path__item {
+  counter-increment: register-step;
+  display: grid;
+  gap: var(--space-3xs) var(--space-m);
+  padding: var(--space-l) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 40em) {
+  .register-path__item {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: var(--space-l);
+  }
+}
+
+.register-path__item::before {
+  content: counter(register-step, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 700;
+  color: var(--teal-ink);
+  line-height: 1.3;
+}
+
+.register-path__item h2 {
+  font-size: var(--step-2);
+  color: var(--indigo);
+  line-height: 1.15;
+}
+
+.register-path__item p {
+  margin-top: var(--space-3xs);
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  max-width: 56ch;
+}
+
+/* The action panel: bordered, flat, no card tricks. */
+.register-action {
+  border: 1px solid var(--line-strong);
+  border-top: 4px solid var(--indigo);
+  background: var(--paper-raised);
+  padding: var(--space-xl) var(--space-l);
+  display: grid;
+  gap: var(--space-l);
+  margin-top: var(--space-xl);
+}
+
+.register-action__kicker {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.register-action__title {
+  font-size: clamp(var(--step-3), 4vw, var(--step-4));
+  color: var(--indigo);
+  line-height: 1.05;
+}
+
+.register-action p {
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+.register-action__cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  align-items: flex-start;
+}
+
+.register-action__hint {
+  font-size: var(--step--1);
+  font-style: italic;
+  color: var(--ink-3);
+}
+
+.register-facts {
+  list-style: none;
+  border-top: 1px solid var(--line);
+  margin-top: var(--space-xl);
+}
+
+.register-facts li {
+  border-bottom: 1px solid var(--line);
+  padding: var(--space-s) 0;
+  display: flex;
+  gap: var(--space-3xs) var(--space-l);
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.register-facts .schedule__detail {
+  font-size: var(--step-1);
+}
+
+/* ------------------------------------------------------------- 404 sheet --- */
+
+.notfound {
+  display: grid;
+  gap: var(--space-l);
+  justify-items: start;
+  padding-block: var(--space-2xl);
+}
+
+.notfound__code {
+  font-family: var(--font-display);
+  font-size: clamp(var(--step-6), 16vw, var(--step-8));
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--indigo);
+}
+
+.notfound__title {
+  font-size: clamp(var(--step-4), 7vw, var(--step-6));
+  color: var(--indigo);
+}
+
+.notfound__body {
+  font-size: var(--step-1);
+  color: var(--ink-2);
+  max-width: 52ch;
+}
+
+.notfound__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+/* ----------------------------------------------------- Shop closing plate --- */
+
+.shop-plate-row .reveal {
+  max-width: 64rem;
+}

@@ -1,0 +1,4 @@
+/* LeaCon 2.0 — single-page-app fallback for hosts that support it.
+   Netlify / Cloudflare Pages read this file automatically.
+   For other hosts, configure a rewrite of all paths to /index.html. */
+/*    /index.html   200

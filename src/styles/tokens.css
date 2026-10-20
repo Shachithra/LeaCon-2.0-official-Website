@@ -1,0 +1,84 @@
+/* ==========================================================================
+   LeaCon 2.0 — design tokens
+   One type ratio (1.250 major third). One space scale. One radius.
+   Three durations, two easings. Nothing used by a component may be
+   declared outside this block.
+   ========================================================================== */
+
+:root {
+  /* --- TYPE: families -----------------------------------------------------
+     Lemon Milk and AndYou are licensed faces and are not in this repository.
+     Drop their .woff2 files into public/fonts/ (see src/styles/licensed-fonts.css)
+     and uncomment the import in src/main.tsx. Until then "Archivo Variable"
+     is the display fallback and Raleway carries text and accent.            */
+  --font-display: "Lemon Milk", "Archivo Variable", "Raleway", sans-serif;
+  --font-text: "Raleway", "Helvetica Neue", Arial, sans-serif;
+  --font-accent: "AndYou", "Raleway", "Helvetica Neue", sans-serif;
+
+  /* --- TYPE: one 1.250 major-third ratio ---------------------------------- */
+  --step--1: 0.8rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5625rem;
+  --step-3: 1.9531rem;
+  --step-4: 2.4414rem;
+  --step-5: 3.0518rem;
+  --step-6: 3.8147rem;
+  --step-7: 4.7684rem;
+  --step-8: 5.9605rem;
+  --step-9: 7.4506rem;
+
+  /* --- SPACE: base 0.5rem, no value in between ---------------------------- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+  --space-4xl: 10.5rem;
+
+  /* --- COLOR: brand field ------------------------------------------------- */
+  --indigo: #2e286b; /* core identity: dark fields, headings, footer */
+  --indigo-deep: #211c50; /* pressed / hover state of indigo */
+  --teal: #2097a7; /* interaction: links, rules, selected states */
+  --teal-lift: #7fd8e4; /* teal readable on indigo (focus ring) */
+  --teal-ink: #14707e; /* teal at body-text contrast on paper (5.3:1) */
+  --green: #5ba46b; /* growth: progress, CTA detail, positive marks */
+  --green-ink: #387048; /* green at body-text contrast on paper (5.4:1) */
+
+  /* --- COLOR: surfaces and ink -------------------------------------------- */
+  --paper: #f8f6f2; /* page */
+  --paper-raised: #ffffff; /* raised surface */
+  --paper-sunk: #efebe3; /* recessed field, image plates */
+  --ink: #1a1830; /* primary text on paper (14:1) */
+  --ink-2: #4a4763; /* secondary text on paper (8.2:1) */
+  --ink-3: #635f7a; /* meta text on paper (5.6:1) and on paper-sunk (5.1:1) */
+  --line: #d9d5cc; /* hairline rules on paper */
+  --line-strong: #b9b3a6;
+  --on-indigo: #ffffff;
+  --on-indigo-2: #c9c6e0; /* secondary text on indigo (7.7:1) */
+  --on-indigo-3: #9d99c2; /* meta text on indigo (4.7:1) */
+  --line-on-indigo: rgba(255, 255, 255, 0.2);
+
+  /* --- FORM ---------------------------------------------------------------- */
+  --radius: 2px; /* the only radius in the build */
+  --hairline: 1px;
+  --shadow: none; /* no component in this build casts a shadow */
+
+  /* --- MOTION: three durations, two easings ------------------------------- */
+  --dur-fast: 140ms;
+  --dur: 260ms;
+  --dur-slow: 620ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- LAYOUT ------------------------------------------------------------- */
+  --maxw: 84rem;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+  --measure: 66ch;
+  --header-h: 4.5rem;
+  --focus: var(--teal);
+}

@@ -1,0 +1,587 @@
+[
+  {
+    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "h1": [
+      "Leadership isn'ta title. It\u2019s whatyou do next."
+    ],
+    "overflow": false,
+    "scrollW": 360,
+    "innerW": 360,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "glimpse__item"
+    ],
+    "focusable": 35,
+    "small": [],
+    "route": "/",
+    "viewport": "360",
+    "consoleErrors": []
+  },
+  {
+    "title": "About Us \u2014 LeaCon 2.0",
+    "h1": [
+      "A leadership experience, not a lecture."
+    ],
+    "overflow": false,
+    "scrollW": 360,
+    "innerW": 360,
+    "wide": [],
+    "focusable": 25,
+    "small": [],
+    "route": "/about",
+    "viewport": "360",
+    "consoleErrors": []
+  },
+  {
+    "title": "Team \u2014 LeaCon 2.0",
+    "h1": [
+      "The people running the room."
+    ],
+    "overflow": false,
+    "scrollW": 360,
+    "innerW": 360,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/team",
+    "viewport": "360",
+    "consoleErrors": []
+  },
+  {
+    "title": "Event \u2014 LeaCon 2.0",
+    "h1": [
+      "What happens, and what it asks of you."
+    ],
+    "overflow": false,
+    "scrollW": 360,
+    "innerW": 360,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "glimpse__item"
+    ],
+    "focusable": 29,
+    "small": [],
+    "route": "/event",
+    "viewport": "360",
+    "consoleErrors": []
+  },
+  {
+    "title": "Shop \u2014 LeaCon 2.0",
+    "h1": [
+      "The event catalogue."
+    ],
+    "overflow": false,
+    "scrollW": 360,
+    "innerW": 360,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/shop",
+    "viewport": "360",
+    "consoleErrors": []
+  },
+  {
+    "title": "Register Now \u2014 LeaCon 2.0",
+    "h1": [
+      "One link. That is the whole process."
+    ],
+    "overflow": false,
+    "scrollW": 360,
+    "innerW": 360,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/register",
+    "viewport": "360",
+    "consoleErrors": []
+  },
+  {
+    "title": "Page not found \u2014 LeaCon 2.0",
+    "h1": [
+      "This page isn\u2019t part of the edition."
+    ],
+    "overflow": false,
+    "scrollW": 360,
+    "innerW": 360,
+    "wide": [],
+    "focusable": 27,
+    "small": [],
+    "route": "/missing-page",
+    "viewport": "360",
+    "consoleErrors": []
+  },
+  {
+    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "h1": [
+      "Leadership isn'ta title. It\u2019s whatyou do next."
+    ],
+    "overflow": false,
+    "scrollW": 390,
+    "innerW": 390,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "glimpse__item"
+    ],
+    "focusable": 35,
+    "small": [],
+    "route": "/",
+    "viewport": "390",
+    "consoleErrors": []
+  },
+  {
+    "title": "About Us \u2014 LeaCon 2.0",
+    "h1": [
+      "A leadership experience, not a lecture."
+    ],
+    "overflow": false,
+    "scrollW": 390,
+    "innerW": 390,
+    "wide": [],
+    "focusable": 25,
+    "small": [],
+    "route": "/about",
+    "viewport": "390",
+    "consoleErrors": []
+  },
+  {
+    "title": "Team \u2014 LeaCon 2.0",
+    "h1": [
+      "The people running the room."
+    ],
+    "overflow": false,
+    "scrollW": 390,
+    "innerW": 390,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/team",
+    "viewport": "390",
+    "consoleErrors": []
+  },
+  {
+    "title": "Event \u2014 LeaCon 2.0",
+    "h1": [
+      "What happens, and what it asks of you."
+    ],
+    "overflow": false,
+    "scrollW": 390,
+    "innerW": 390,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "glimpse__item"
+    ],
+    "focusable": 29,
+    "small": [],
+    "route": "/event",
+    "viewport": "390",
+    "consoleErrors": []
+  },
+  {
+    "title": "Shop \u2014 LeaCon 2.0",
+    "h1": [
+      "The event catalogue."
+    ],
+    "overflow": false,
+    "scrollW": 390,
+    "innerW": 390,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/shop",
+    "viewport": "390",
+    "consoleErrors": []
+  },
+  {
+    "title": "Register Now \u2014 LeaCon 2.0",
+    "h1": [
+      "One link. That is the whole process."
+    ],
+    "overflow": false,
+    "scrollW": 390,
+    "innerW": 390,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/register",
+    "viewport": "390",
+    "consoleErrors": []
+  },
+  {
+    "title": "Page not found \u2014 LeaCon 2.0",
+    "h1": [
+      "This page isn\u2019t part of the edition."
+    ],
+    "overflow": false,
+    "scrollW": 390,
+    "innerW": 390,
+    "wide": [],
+    "focusable": 27,
+    "small": [],
+    "route": "/missing-page",
+    "viewport": "390",
+    "consoleErrors": []
+  },
+  {
+    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "h1": [
+      "Leadership isn'ta title. It\u2019s whatyou do next."
+    ],
+    "overflow": false,
+    "scrollW": 768,
+    "innerW": 768,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "frame__caption"
+    ],
+    "focusable": 35,
+    "small": [],
+    "route": "/",
+    "viewport": "768",
+    "consoleErrors": []
+  },
+  {
+    "title": "About Us \u2014 LeaCon 2.0",
+    "h1": [
+      "A leadership experience, not a lecture."
+    ],
+    "overflow": false,
+    "scrollW": 768,
+    "innerW": 768,
+    "wide": [],
+    "focusable": 25,
+    "small": [],
+    "route": "/about",
+    "viewport": "768",
+    "consoleErrors": []
+  },
+  {
+    "title": "Team \u2014 LeaCon 2.0",
+    "h1": [
+      "The people running the room."
+    ],
+    "overflow": false,
+    "scrollW": 768,
+    "innerW": 768,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/team",
+    "viewport": "768",
+    "consoleErrors": []
+  },
+  {
+    "title": "Event \u2014 LeaCon 2.0",
+    "h1": [
+      "What happens, and what it asks of you."
+    ],
+    "overflow": false,
+    "scrollW": 768,
+    "innerW": 768,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "frame__caption"
+    ],
+    "focusable": 29,
+    "small": [],
+    "route": "/event",
+    "viewport": "768",
+    "consoleErrors": []
+  },
+  {
+    "title": "Shop \u2014 LeaCon 2.0",
+    "h1": [
+      "The event catalogue."
+    ],
+    "overflow": false,
+    "scrollW": 768,
+    "innerW": 768,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/shop",
+    "viewport": "768",
+    "consoleErrors": []
+  },
+  {
+    "title": "Register Now \u2014 LeaCon 2.0",
+    "h1": [
+      "One link. That is the whole process."
+    ],
+    "overflow": false,
+    "scrollW": 768,
+    "innerW": 768,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/register",
+    "viewport": "768",
+    "consoleErrors": []
+  },
+  {
+    "title": "Page not found \u2014 LeaCon 2.0",
+    "h1": [
+      "This page isn\u2019t part of the edition."
+    ],
+    "overflow": false,
+    "scrollW": 768,
+    "innerW": 768,
+    "wide": [],
+    "focusable": 27,
+    "small": [],
+    "route": "/missing-page",
+    "viewport": "768",
+    "consoleErrors": []
+  },
+  {
+    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "h1": [
+      "Leadership isn'ta title. It\u2019s whatyou do next."
+    ],
+    "overflow": false,
+    "scrollW": 1024,
+    "innerW": 1024,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "glimpse__item"
+    ],
+    "focusable": 35,
+    "small": [],
+    "route": "/",
+    "viewport": "1024",
+    "consoleErrors": []
+  },
+  {
+    "title": "About Us \u2014 LeaCon 2.0",
+    "h1": [
+      "A leadership experience, not a lecture."
+    ],
+    "overflow": false,
+    "scrollW": 1024,
+    "innerW": 1024,
+    "wide": [],
+    "focusable": 25,
+    "small": [],
+    "route": "/about",
+    "viewport": "1024",
+    "consoleErrors": []
+  },
+  {
+    "title": "Team \u2014 LeaCon 2.0",
+    "h1": [
+      "The people running the room."
+    ],
+    "overflow": false,
+    "scrollW": 1024,
+    "innerW": 1024,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/team",
+    "viewport": "1024",
+    "consoleErrors": []
+  },
+  {
+    "title": "Event \u2014 LeaCon 2.0",
+    "h1": [
+      "What happens, and what it asks of you."
+    ],
+    "overflow": false,
+    "scrollW": 1024,
+    "innerW": 1024,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "glimpse__item"
+    ],
+    "focusable": 29,
+    "small": [],
+    "route": "/event",
+    "viewport": "1024",
+    "consoleErrors": []
+  },
+  {
+    "title": "Shop \u2014 LeaCon 2.0",
+    "h1": [
+      "The event catalogue."
+    ],
+    "overflow": false,
+    "scrollW": 1024,
+    "innerW": 1024,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/shop",
+    "viewport": "1024",
+    "consoleErrors": []
+  },
+  {
+    "title": "Register Now \u2014 LeaCon 2.0",
+    "h1": [
+      "One link. That is the whole process."
+    ],
+    "overflow": false,
+    "scrollW": 1024,
+    "innerW": 1024,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/register",
+    "viewport": "1024",
+    "consoleErrors": []
+  },
+  {
+    "title": "Page not found \u2014 LeaCon 2.0",
+    "h1": [
+      "This page isn\u2019t part of the edition."
+    ],
+    "overflow": false,
+    "scrollW": 1024,
+    "innerW": 1024,
+    "wide": [],
+    "focusable": 27,
+    "small": [],
+    "route": "/missing-page",
+    "viewport": "1024",
+    "consoleErrors": []
+  },
+  {
+    "title": "LeaCon 2.0 \u2014 Leadership isn't a title. It's what you do next.",
+    "h1": [
+      "Leadership isn'ta title. It\u2019s whatyou do next."
+    ],
+    "overflow": false,
+    "scrollW": 1440,
+    "innerW": 1440,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "glimpse__item"
+    ],
+    "focusable": 35,
+    "small": [],
+    "route": "/",
+    "viewport": "1440",
+    "consoleErrors": []
+  },
+  {
+    "title": "About Us \u2014 LeaCon 2.0",
+    "h1": [
+      "A leadership experience, not a lecture."
+    ],
+    "overflow": false,
+    "scrollW": 1440,
+    "innerW": 1440,
+    "wide": [],
+    "focusable": 25,
+    "small": [],
+    "route": "/about",
+    "viewport": "1440",
+    "consoleErrors": []
+  },
+  {
+    "title": "Team \u2014 LeaCon 2.0",
+    "h1": [
+      "The people running the room."
+    ],
+    "overflow": false,
+    "scrollW": 1440,
+    "innerW": 1440,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/team",
+    "viewport": "1440",
+    "consoleErrors": []
+  },
+  {
+    "title": "Event \u2014 LeaCon 2.0",
+    "h1": [
+      "What happens, and what it asks of you."
+    ],
+    "overflow": false,
+    "scrollW": 1440,
+    "innerW": 1440,
+    "wide": [
+      "glimpse__track",
+      "glimpse__item",
+      "frame frame--outlined",
+      "frame__plate",
+      "glimpse__item"
+    ],
+    "focusable": 29,
+    "small": [],
+    "route": "/event",
+    "viewport": "1440",
+    "consoleErrors": []
+  },
+  {
+    "title": "Shop \u2014 LeaCon 2.0",
+    "h1": [
+      "The event catalogue."
+    ],
+    "overflow": false,
+    "scrollW": 1440,
+    "innerW": 1440,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/shop",
+    "viewport": "1440",
+    "consoleErrors": []
+  },
+  {
+    "title": "Register Now \u2014 LeaCon 2.0",
+    "h1": [
+      "One link. That is the whole process."
+    ],
+    "overflow": false,
+    "scrollW": 1440,
+    "innerW": 1440,
+    "wide": [],
+    "focusable": 24,
+    "small": [],
+    "route": "/register",
+    "viewport": "1440",
+    "consoleErrors": []
+  },
+  {
+    "title": "Page not found \u2014 LeaCon 2.0",
+    "h1": [
+      "This page isn\u2019t part of the edition."
+    ],
+    "overflow": false,
+    "scrollW": 1440,
+    "innerW": 1440,
+    "wide": [],
+    "focusable": 27,
+    "small": [],
+    "route": "/missing-page",
+    "viewport": "1440",
+    "consoleErrors": []
+  }
+]

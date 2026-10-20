@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# LeaCon 2.0 — static site. No application, login or private routes exist.

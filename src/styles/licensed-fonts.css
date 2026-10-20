@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Licensed brand faces — LeaCon 2.0
+   --------------------------------------------------------------------------
+   Lemon Milk (display) and AndYou (accent) are licensed fonts and are NOT
+   distributed with this repository. Do not add files you have no licence for.
+
+   1. Create            public/fonts/
+   2. Place the files   public/fonts/lemon-milk/LemonMilk-Bold.woff2
+                        public/fonts/andyou/AndYou-Regular.woff2
+                        (adjust the file names below if yours differ)
+   3. Uncomment the import in src/main.tsx
+
+   font-display: swap keeps text visible while each face loads. The stacks in
+   tokens.css already fall back to Archivo Variable and Raleway, so the site
+   renders correctly before, during and after the swap.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Lemon Milk";
+  src:
+    url("/fonts/lemon-milk/LemonMilk-Bold.woff2") format("woff2"),
+    url("/fonts/lemon-milk/LemonMilk-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lemon Milk";
+  src:
+    url("/fonts/lemon-milk/LemonMilk-Regular.woff2") format("woff2"),
+    url("/fonts/lemon-milk/LemonMilk-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AndYou";
+  src:
+    url("/fonts/andyou/AndYou-Regular.woff2") format("woff2"),
+    url("/fonts/andyou/AndYou-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
