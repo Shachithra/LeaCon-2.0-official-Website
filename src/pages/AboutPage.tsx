@@ -1,235 +1,283 @@
-import { usePageMeta } from '../hooks/usePageMeta'
-import { PageHead } from '../components/PageHead'
-import { Reveal } from '../components/Reveal'
-import { Frame } from '../components/Frame'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { chapters } from '../data/chapters'
+import { usePageMeta } from '../hooks/usePageMeta'
+import { MaskedHeading } from '../components/MaskedHeading'
+import { AccentBlock } from '../components/AccentBlock'
+import { HandNote } from '../components/HandNote'
+import { gsap, useMotionEffect } from '../motion/MotionProvider'
 import { assets, site } from '../config/site'
+import { programme } from '../data/programme'
+import { notes } from '../data/notes'
 
 /**
- * Three editorial themes for the purpose spread. These are page structure,
- * not published event pillars — replace the wording if the organisers publish
- * their own.
+ * About Us — a long-form feature, asymmetric on desktop and a single column
+ * on mobile. Photography appears only where a photograph exists; the three
+ * purpose words (M17 accent blocks) and the journey line carry the page.
  */
-const themes = [
+
+const purpose = [
   {
-    index: '01',
-    title: 'Discover',
-    body: 'Find out how you actually work when the plan changes: what you notice, what you decide, and what you do when the room splits.',
+    word: 'Learning',
+    tone: 'solid',
+    line: 'Find out how you actually work when the plan changes: what you notice, what you decide, and what you do when the room splits.',
   },
   {
-    index: '02',
-    title: 'Connect',
-    body: 'Spend the event with delegates working through the same problems, from teams you would not otherwise meet.',
+    word: 'Connection',
+    tone: 'outlined',
+    line: 'Spend the event with delegates working through the same problems, from teams you would not otherwise meet.',
   },
   {
-    index: '03',
-    title: 'Lead',
-    body: 'Take something specific back to your own team. The practice does not stop when the event does.',
+    word: 'Leadership',
+    tone: 'forest',
+    line: 'Take something specific back to your own team. The practice does not stop when the event does.',
   },
 ]
 
 export function AboutPage() {
   usePageMeta(
     `About Us — ${site.fullName}`,
-    'What LeaCon 2.0 is: a youth leadership experience built from four parts — leadership sessions, outbound training, global exchange exploration and delegate recognition.',
+    `What ${site.fullName} is: a youth leadership experience built from four parts — leadership sessions, outbound training, global exchange exploration and delegate recognition.`,
   )
+
+  const journeyRef = useRef<HTMLDivElement | null>(null)
+
+  /* The journey line draws itself left to right, once. */
+  useMotionEffect(
+    () => {
+      const root = journeyRef.current
+      const path = root?.querySelector<SVGPathElement>('.journey2__path')
+      if (!path) return
+      const length = path.getTotalLength()
+      gsap.set(path, { strokeDasharray: length, strokeDashoffset: length })
+      gsap.to(path, {
+        strokeDashoffset: 0,
+        duration: 1,
+        ease: 'power4.inOut',
+        scrollTrigger: { trigger: root, start: 'top 75%', once: true },
+      })
+    },
+    [],
+    journeyRef,
+  )
+
+  const feature = assets.feature.src
+  const moment = assets.moment.src
 
   return (
     <>
-      <PageHead
-        eyebrow="About Us"
-        title="More than an event. A leadership experience."
-        lede="LeaCon 2.0 is built for delegates who would rather do the work than hear about it. Four parts carry the event, and each one asks something different of the people in the room."
-      />
-
-      {/* ---------------- Opening photograph ---------------- */}
-      <section className="about-cover">
-        <div className="container">
-          <Reveal variant="crop">
-            <Frame
-              src={assets.feature.src}
-              alt={assets.feature.alt}
-              plate={site.edition}
-              tone="forest"
-              ratio="16 / 7"
-              priority
-              decorative={!assets.feature.src}
+      {/* ---------------- 1. Opening ---------------- */}
+      <section className="section about-open" data-theme="paper" aria-labelledby="about-title">
+        <div className="wrap grid about-open__grid">
+          <div className="about-open__head">
+            <p className="label">About</p>
+            <MaskedHeading
+              as="h1"
+              id="about-title"
+              className="display display--page about-open__title"
+              when="now"
+              lines={['Why we come', 'together.']}
             />
-          </Reveal>
-          <p className="about-cover__label">{site.editionLabel}</p>
+          </div>
+
+          {feature ? (
+            <figure className="about-open__photo">
+              <img
+                src={feature}
+                alt={assets.feature.alt}
+                width={1200}
+                height={1600}
+                loading="eager"
+                decoding="async"
+              />
+            </figure>
+          ) : null}
+
+          <div className="about-open__intro">
+            <p className="lede">
+              LeaCon 2.0 is a leadership experience, not a programme to sit through. It exists
+              because the way people lead is shaped by the room they are in — who they meet, what
+              they are asked to do, and what happens when the plan changes.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* ---------------- The story ---------------- */}
-      <section className="section" aria-labelledby="about-heading">
-        <div className="container about-body">
-          <p className="about-body__label" aria-hidden="true">
-            The edition
-          </p>
-
-          <div className="about-prose">
-            <h2 id="about-heading">What LeaCon is</h2>
+      {/* ---------------- 2. The story ---------------- */}
+      <section className="section about-story" data-theme="paper" aria-labelledby="story-title">
+        <div className="wrap grid about-story__grid">
+          <article className="about-story__article prose">
+            <p className="label">The story</p>
+            <h2 id="story-title" className="display display--section">
+              What LeaCon is
+            </h2>
 
             <p>
-              {site.fullName} is a leadership experience. The event runs on participation:
-              delegates respond, challenge and shape the room instead of watching it from the
-              back.
+              {site.fullName} runs on participation. Delegates respond, challenge and shape the
+              room instead of watching it from the back. The programme only puts them in the same
+              room; the work in front of them is theirs.
             </p>
 
             <p>
-              Four parts carry the event: leadership sessions, outbound training, global
-              exchange, and recognition for the delegates who take part most. They are run as
-              one experience rather than four separate items on a programme.
+              Four parts carry the event: {programme[0].title.toLowerCase()},{' '}
+              {programme[1].title.toLowerCase()}, {programme[2].title.toLowerCase()}, and{' '}
+              {programme[3].title.toLowerCase()}. They are run as one experience rather than four
+              separate items on a programme.
             </p>
 
-            <h2>The four parts</h2>
+            <h3 className="about-story__sub">Who it is for</h3>
+            <p>
+              It is built for delegates who would rather do the work than hear about it — people
+              who will take something specific back to the team they already work with.
+            </p>
 
-            <ul className="schedule" role="list">
-              {chapters.map((chapter) => (
-                <li className="schedule__row" key={chapter.id}>
-                  <span className="schedule__term verbatim">
-                    <span aria-hidden="true">{chapter.index}</span> {chapter.meta}
-                  </span>
-                  <span className="schedule__detail">{chapter.title}</span>
-                </li>
-              ))}
-            </ul>
-
-            <h2>Recognition that follows taking part</h2>
-
+            <h3 className="about-story__sub">Recognition that follows taking part</h3>
             <p>
               {site.fullName} pays attention to how delegates take part. The Most Engaging
-              Delegate award recognises that contribution directly. Categories and judging
-              criteria are published on the Event page once they are confirmed.
+              Delegate recognition is built on that contribution. Categories and judging
+              criteria are published once they are confirmed.
             </p>
 
-            <Reveal variant="rule" className="about-rule" />
+            <p className="about-story__honest">
+              Dates, the venue and the schedule are confirmed by the organisers and published on
+              the Event page. Nothing on this site is estimated.
+            </p>
 
-            <div className="about-note">
-              <p>
-                Dates, the venue and logistics are confirmed by the organisers and published on
-                the Event page. Nothing on this site is estimated.
-              </p>
-              <Link className="btn btn--secondary" to="/event">
-                See the event
-              </Link>
-            </div>
-          </div>
+            <Link className="link link--static" to="/event">
+              See the event
+            </Link>
+          </article>
+
+          <aside className="about-story__margin">
+            {moment ? (
+              <figure className="about-story__small">
+                <img
+                  src={moment}
+                  alt={assets.moment.alt}
+                  width={800}
+                  height={600}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            ) : null}
+            <p className="about-story__margin-note">
+              Every part of this page is written from what the organisers have confirmed. The
+              parts that are still open say so.
+            </p>
+          </aside>
         </div>
       </section>
 
-      {/* ---------------- The purpose: three themes ---------------- */}
-      <section className="section sheet--sunk" aria-labelledby="purpose-heading">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow eyebrow--green">The purpose</p>
-              <h2 className="section-head__title" id="purpose-heading">
-                Why the room exists
-              </h2>
-            </div>
-            <p className="section-head__lede">
-              Three reasons people show up. Each one asks something different of the people who
-              do.
-            </p>
-          </div>
+      {/* ---------------- 3. The purpose ---------------- */}
+      <section className="section purpose" data-theme="paper" aria-labelledby="purpose-title">
+        <div className="wrap">
+          <p className="label">The purpose</p>
+          <h2 className="sr-only" id="purpose-title">
+            The purpose
+          </h2>
 
-          <ul className="themes" role="list">
-            {themes.map((theme, index) => (
-              <li
-                className={`theme${index === 0 ? ' theme--feature' : ' theme--minor'}`}
-                key={theme.title}
-              >
-                <span className="theme__index" aria-hidden="true">
-                  {theme.index}
-                </span>
-                <h3 className="theme__title">{theme.title}</h3>
-                <p className="theme__body">{theme.body}</p>
+          <ul className="purpose__list" role="list">
+            {purpose.map((theme) => (
+              <li className={`purpose__row purpose__row--${theme.tone}`} key={theme.word}>
+                <MaskedHeading
+                  as="p"
+                  className={`display display--page purpose__word${
+                    theme.tone === 'outlined' ? ' outlined' : ''
+                  }`}
+                  lines={[
+                    <>
+                      {theme.word} <AccentBlock side="right" />
+                    </>,
+                  ]}
+                />
+                <p className="purpose__line">{theme.line}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* ---------------- Split: statement against photography ---------------- */}
-      <section className="section meaning" data-field="forest" aria-labelledby="meaning-heading">
-        <div className="container meaning__grid">
-          <div className="meaning__text">
-            <p className="eyebrow">What makes it meaningful</p>
-            <h2 className="meaning__title" id="meaning-heading">
-              The room does the work.
-            </h2>
-            <p className="meaning__body">
-              Learning happens between people: in the sessions, on the outbound task, and in how
-              a team recovers when the plan changes halfway through it. Delegates are the ones
-              doing that — the programme only puts them in the same room.
-            </p>
-          </div>
-
-          <Reveal variant="crop" className="meaning__media">
-            <Frame
-              src={assets.moment.src}
-              alt={assets.moment.alt}
-              plate={site.edition}
-              tone="green"
-              ratio="4 / 5"
-              decorative={!assets.moment.src}
+      {/* ---------------- 4. The human element ---------------- */}
+      <section className="section human" data-theme="paper" aria-labelledby="human-title">
+        <div className="wrap grid human__grid">
+          <div className="human__text">
+            <p className="label">The human element</p>
+            <MaskedHeading
+              as="h2"
+              id="human-title"
+              className="display display--section"
+              lines={['It is the people, not the schedule.']}
             />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ---------------- The journey ---------------- */}
-      <section className="section journey" aria-labelledby="journey-heading">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow eyebrow--green">The journey</p>
-              <h2 className="section-head__title" id="journey-heading">
-                From 1.0 to 2.0
-              </h2>
-            </div>
-            <p className="section-head__lede">
-              LeaCon 1.0 was the first edition. LeaCon 2.0 takes the same delegates further,
-              with more of the event built around what happens in the room.
+            <p className="prose">
+              Sessions, outbound tasks and late decisions are only half of it. The other half is
+              the conversations between them: who you end up working with, what you disagree about,
+              and what you carry back afterwards.
             </p>
           </div>
-
-          <ol className="journey__line" role="list">
-            <li className="journey__stop">
-              <Frame plate="1.0" tone="outlined" ratio="4 / 3" caption="LeaCon 1.0" />
-            </li>
-            <li className="journey__arrow" aria-hidden="true">
-              <span />
-            </li>
-            <li className="journey__stop journey__stop--now">
-              <Frame plate={site.edition} tone="forest" ratio="4 / 3" caption="LeaCon 2.0" />
-            </li>
-          </ol>
         </div>
       </section>
 
-      {/* ---------------- Closing statement ---------------- */}
-      <section className="section section--xl about-close" data-field="forest">
-        <div className="container">
-          <h2 className="about-close__title">
-            Two editions.
-            <br />
-            One direction.
-          </h2>
+      {/* ---------------- 5. The journey ---------------- */}
+      <section className="section journey2" data-theme="forest" ref={journeyRef}>
+        <div className="wrap">
+          <p className="label">The journey</p>
+          <MaskedHeading
+            as="h2"
+            className="display display--section journey2__title"
+            lines={['Two editions.']}
+          />
 
-          <div className="about-close__action">
+          <div className="journey2__rail">
+            <svg
+              className="journey2__line"
+              viewBox="0 0 1000 4"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path className="journey2__path" d="M0 2 H1000" />
+            </svg>
+
+            <ol className="journey2__nodes" role="list">
+              <li className="journey2__node">
+                <span className="display journey2__num">1.0</span>
+                <p>LeaCon 1.0 was the first edition. The photographs from it live in the archive.</p>
+                <HandNote note={notes.journey} mark="arrow" point="right" />
+              </li>
+              <li className="journey2__node">
+                <span className="display journey2__num">2.0</span>
+                <p>
+                  LeaCon 2.0 takes the same delegates further, with more of the event built around
+                  what happens in the room.
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- 6. Closing ---------------- */}
+      <section className="section about-close" data-theme="paper">
+        <div className="wrap">
+          <MaskedHeading
+            as="h2"
+            className="display display--page about-close__title"
+            lines={['Two editions.', 'One direction.']}
+          />
+          <div className="about-close__actions">
             <p>
-              Dates, venue and the programme live on the Event page, and the registration route
-              sits on the Register page. Both are published as they are confirmed.
+              The programme and the practical details live on the Event page; the registration
+              route sits on the Register page. Both are published as they are confirmed.
             </p>
-            <div className="btn-row">
-              <Link className="btn btn--onForest" to="/event">
+            <div className="about-close__links">
+              <Link className="btn" to="/event">
                 See the event
+                <span className="btn__arrow" aria-hidden="true">
+                  →
+                </span>
               </Link>
-              <Link className="btn btn--ghostForest" to="/register">
-                Register Now
+              <Link className="link link--static" to="/register">
+                Register now
               </Link>
             </div>
           </div>

@@ -1,949 +1,1102 @@
 /* ==========================================================================
-   LeaCon 2.0 — page sheets
-   About / Team / Event / Shop / Register / Not found
+   Inner pages — About, Team, Event, Register, 404.
+   Also holds the chapter index, info lists, FAQ, recognition, partners.
    ========================================================================== */
 
-/* Shared: page-sheet rhythm. Each sheet alternates its surface so the
-   six routes read as chapters of one printed edition. */
-.sheet--raised {
-  background: var(--paper-raised);
-}
-
-.sheet--sunk {
-  background: var(--paper-sunk);
-}
-
-/* --------------------------------------------------------------- About ---
-   Prose on a 68ch measure, section label living in the margin like a
-   running head on a printed page.
---------------------------------------------------------------------------- */
-
-.about-body {
-  display: grid;
-  gap: var(--space-2xl);
-}
-
-@media (min-width: 60em) {
-  .about-body {
-    grid-template-columns: 12rem minmax(0, 1fr);
-    gap: var(--space-4xl);
-    align-items: start;
-  }
-}
-
-.about-body__label {
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  padding-top: var(--space-3xs);
-}
-
-@media (min-width: 60em) {
-  .about-body__label {
-    position: sticky;
-    top: calc(var(--header-h) + var(--space-l));
-  }
-}
-
-.about-body__label::after {
-  content: '';
-  display: block;
-  width: 2.5rem;
-  height: 1px;
-  background: var(--line-strong);
-  margin-top: var(--space-s);
-}
-
-.about-prose > * + * {
-  margin-top: var(--space-l);
-}
-
-.about-prose p {
-  font-size: var(--step-0);
-  color: var(--ink-2);
-  max-width: 68ch;
-}
-
-.about-prose h2 {
-  font-size: clamp(var(--step-3), 4vw, var(--step-4));
-  color: var(--forest);
-  margin-top: var(--space-2xl);
-  max-width: 22ch;
-}
-
-.about-prose h2:first-child {
-  margin-top: 0;
-}
-
-.about-rule {
-  height: 3px;
-  background: var(--green);
-  transform-origin: left center;
-  margin-top: var(--space-xl);
-}
-
-.about-note {
-  margin-top: var(--space-2xl);
-  border-top: 1px solid var(--line);
-  padding-top: var(--space-l);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-s) var(--space-l);
-  align-items: baseline;
-  justify-content: space-between;
-}
-
-.about-note p {
-  font-size: var(--step--1);
-  color: var(--ink-3);
-  max-width: 58ch;
-}
-
-/* Opening photograph: full measure under the page head, with the edition
-   label running beneath it like a caption line on a printed page. */
-.about-cover {
-  padding-block: var(--space-l) 0;
-}
-
-.about-cover__label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-s);
-  margin-top: var(--space-s);
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.about-cover__label::before {
-  content: "";
-  flex: none;
-  width: 2.5rem;
-  height: var(--hairline);
-  background: var(--green);
-}
-
-/* ------------------------------------------------------- The purpose -------
-   Not three equal cards: one theme runs large down the left of the spread,
-   two run smaller on the right, divided by hairlines.
---------------------------------------------------------------------------- */
-
-.themes {
-  list-style: none;
-  display: grid;
-  gap: var(--space-xl);
-  margin-top: var(--space-2xl);
-  padding-top: var(--space-xl);
-  border-top: var(--hairline) solid var(--line-strong);
-}
-
-.theme {
-  display: grid;
-  align-content: start;
-  gap: var(--space-3xs);
-}
-
-.theme--minor {
-  border-top: var(--hairline) solid var(--line);
-  padding-top: var(--space-m);
-}
-
-.theme__index {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(3.25rem, 12vw, 6.5rem);
-  line-height: 0.76;
-  letter-spacing: -0.05em;
-  color: var(--forest);
-  opacity: 0.16;
-}
-
-@supports (-webkit-text-stroke: 1px currentColor) {
-  .theme__index {
-    color: transparent;
-    opacity: 1;
-    -webkit-text-stroke: 1.5px var(--forest);
-  }
-}
-
-.theme__title {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(var(--step-3), 4vw, var(--step-5));
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--forest);
-  margin-top: var(--space-3xs);
-}
-
-.theme__body {
-  margin-top: var(--space-2xs);
-  max-width: 42ch;
-  font-size: var(--step-0);
-  line-height: 1.6;
-  color: var(--ink-2);
-}
-
-/* ------------------------------------------------------ Split statement --- */
-.meaning {
-  background: var(--forest);
-  border-top-color: var(--line-on-forest);
-}
-
-.meaning__grid {
-  display: grid;
-  gap: var(--space-xl);
-}
-
-.meaning__title {
-  margin-top: var(--space-m);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(var(--step-4), 6vw, var(--step-7));
-  line-height: 0.98;
-  letter-spacing: -0.035em;
-  color: #fff;
-}
-
-.meaning__body {
-  margin-top: var(--space-l);
-  max-width: 46ch;
-  font-size: var(--step-1);
-  line-height: 1.6;
-  color: var(--on-forest-2);
-}
-
-.meaning__media .frame {
-  width: 100%;
-}
-
-/* ------------------------------------------------------------- Journey ---
-   1.0 and 2.0 as two plates on one line. No dates are implied by the order.
---------------------------------------------------------------------------- */
-
-.journey__line {
-  list-style: none;
-  margin-top: var(--space-2xl);
-  display: grid;
-  gap: var(--space-m);
-  align-items: center;
-}
-
-.journey__stop .frame {
-  width: 100%;
-}
-
-.journey__arrow {
-  display: flex;
-  align-items: center;
-}
-
-.journey__arrow span {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: var(--hairline);
-  background: var(--line-strong);
-}
-
-.journey__arrow span::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 9px;
-  height: 9px;
-  border-top: 1.5px solid var(--green);
-  border-right: 1.5px solid var(--green);
-  transform: translateY(-50%) rotate(45deg);
-}
-
-/* --------------------------------------------------------- Closing line --- */
-.about-close {
-  background: var(--forest);
-  border-top-color: var(--line-on-forest);
-}
-
-.about-close__title {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(var(--step-5), 9vw, var(--step-8));
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  color: #fff;
-}
-
-.about-close__action {
-  margin-top: var(--space-xl);
-  display: grid;
-  gap: var(--space-l);
-  justify-items: start;
-}
-
-.about-close__action p {
-  max-width: 50ch;
-  font-size: var(--step-1);
-  line-height: 1.6;
-  color: var(--on-forest-2);
-}
-
-@media (min-width: 64em) {
-  .themes {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    column-gap: var(--space-4xl);
-    row-gap: var(--space-2xl);
-  }
-
-  .theme--feature {
-    grid-row: span 2;
-    border-right: var(--hairline) solid var(--line);
-    padding-right: var(--space-2xl);
-  }
-
-  .theme--feature .theme__title {
-    font-size: clamp(var(--step-5), 5vw, var(--step-6));
-  }
-
-  .theme--minor .theme__index {
-    font-size: clamp(2.5rem, 4vw, 3.75rem);
-  }
-
-  .meaning__grid {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-    column-gap: var(--space-4xl);
-    align-items: center;
-  }
-
-  .meaning__media {
-    justify-self: end;
-    max-width: 30rem;
-    width: 100%;
-  }
-
-  .journey__line {
-    grid-template-columns: minmax(0, 1fr) minmax(4rem, 9rem) minmax(0, 1fr);
-    gap: var(--space-l);
-  }
-
-  .about-close .container {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    column-gap: var(--space-3xl);
-    align-items: end;
-  }
-
-  .about-close__action {
-    margin-top: 0;
-  }
-}
-
-/* --------------------------------------------------------------- Roster ---
-   The team sheet opens on a statement set against the group photograph, and
-   closes on a typographic line rather than a second photograph.
---------------------------------------------------------------------------- */
-
-.team-intro__grid {
-  display: grid;
-  gap: var(--space-xl);
-}
-
-.team-intro__title {
-  margin-top: var(--space-s);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(var(--step-4), 5vw, var(--step-6));
-  line-height: 1;
-  letter-spacing: -0.035em;
-  color: var(--forest);
-}
-
-.team-intro__body {
-  margin-top: var(--space-m);
-  max-width: 46ch;
-  font-size: var(--step-1);
-  line-height: 1.6;
-  color: var(--ink-2);
-}
-
-.team-intro__media .frame {
-  width: 100%;
-}
-
-.collective__phrase {
-  color: var(--forest);
-}
-
-.collective__statement {
-  margin-top: var(--space-s);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(var(--step-4), 8vw, var(--step-7));
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  color: var(--forest);
-  max-width: 16ch;
-}
-
-.collective__body {
-  margin-top: var(--space-l);
-  max-width: 54ch;
-  font-size: var(--step-1);
-  line-height: 1.6;
-  color: var(--ink-2);
-}
-
-@media (min-width: 64em) {
-  .team-intro__grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: var(--space-4xl);
-    align-items: center;
-  }
-}
-
-/* ---------------------------------------------------------------- Team ---
-   Roster as a list on hairlines — members first, never a card wall.
---------------------------------------------------------------------------- */
-
-.roster {
-  list-style: none;
-  border-top: 1px solid var(--line-strong);
-  margin-top: var(--space-xl);
-}
-
-.roster__item {
-  display: grid;
-  gap: var(--space-3xs) var(--space-l);
-  grid-template-columns: minmax(0, 1fr);
-  padding: var(--space-l) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-@media (min-width: 44em) {
-  .roster__item {
-    grid-template-columns: 3rem minmax(0, 1.3fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
-    align-items: baseline;
-  }
-}
-
-.roster__index {
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 700;
-  color: var(--green-ink);
-  font-variant-numeric: tabular-nums;
-}
-
-.roster__ident {
-  display: flex;
-  align-items: center;
-  gap: var(--space-s);
-  min-width: 0;
-}
-
-.roster__portrait {
-  flex: none;
-  width: 3rem;
-  height: 3.75rem;
-  object-fit: cover;
-  border-radius: var(--radius);
-  background: var(--paper-sunk);
-}
-
-.roster__name {
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  overflow-wrap: anywhere;
-}
-
-.roster__role {
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--green-ink);
-}
-
-.roster__empty {
-  list-style: none;
-  border-top: 1px solid var(--line-strong);
-  border-bottom: 1px solid var(--line);
-  margin-top: var(--space-xl);
-  padding: var(--space-2xl) 0;
-}
-
-.roster__empty h2 {
-  font-size: clamp(var(--step-3), 4vw, var(--step-5));
-  color: var(--forest);
-}
-
-.roster__empty p {
-  margin-top: var(--space-s);
-  font-size: var(--step-1);
-  color: var(--ink-2);
-  max-width: 52ch;
-}
-
-/* ---------------------------------------------------------------- Event ---
-   Schedule as a specification list: term / detail on hairlines.
---------------------------------------------------------------------------- */
-
-.schedule {
-  list-style: none;
-  border-top: 1px solid var(--line-strong);
-  margin-top: var(--space-xl);
-}
-
-.schedule__row {
-  display: grid;
-  gap: var(--space-3xs) var(--space-l);
-  padding: var(--space-l) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-@media (min-width: 44em) {
-  .schedule__row {
-    grid-template-columns: 14rem minmax(0, 1fr);
-    align-items: baseline;
-  }
-}
-
-.schedule__term {
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.schedule__detail {
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
-
-.schedule__detail--pending {
-  font-family: var(--font-text);
-  font-weight: 400;
-  font-size: var(--step-0);
-  color: var(--ink-3);
-}
-
-.event-note {
-  margin-top: var(--space-xl);
-  font-size: var(--step--1);
-  color: var(--ink-3);
-  max-width: 64ch;
-}
-
-/* ---------------------------------------------------------------- Shop ---
-   Catalogue in its "coming soon" state: a stated empty state on paper,
-   then an index-card outline of how products will be listed.
---------------------------------------------------------------------------- */
-
-/* Full-bleed opening band: no container, no gutter, corner to corner. */
-.shop-cover .frame {
-  border-radius: 0;
-}
-
-.catalogue {
-  margin-top: 0;
-}
-
-.catalogue__state {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-s) var(--space-xl);
-  align-items: baseline;
-  justify-content: space-between;
-  padding: var(--space-xl) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.catalogue__state h2 {
-  font-size: clamp(var(--step-3), 4vw, var(--step-5));
-  color: var(--forest);
-}
-
-.catalogue__state p {
-  font-size: var(--step--1);
-  color: var(--ink-3);
-}
-
-.catalogue__outline {
-  list-style: none;
-  display: grid;
-  gap: var(--hairline);
-  background: var(--line);
-  border-bottom: 1px solid var(--line);
-  margin-top: var(--hairline);
-}
-
-@media (min-width: 44em) {
-  .catalogue__outline {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.catalogue__column {
-  background: var(--paper-raised);
-  padding: var(--space-l);
-}
-
-.catalogue__column dt {
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--green-ink);
-}
-
-.catalogue__column dd {
-  margin: var(--space-3xs) 0 0;
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.catalogue__column dd span {
-  display: block;
-  margin-top: var(--space-3xs);
-  font-family: var(--font-text);
-  font-size: var(--step--1);
-  font-weight: 400;
-  color: var(--ink-3);
-}
-
-/* Product list placeholder while the catalogue is empty. */
-.product-index {
-  list-style: none;
-  display: grid;
-  gap: var(--hairline);
-  background: var(--line);
-  border-top: var(--hairline);
-  margin-top: var(--hairline);
-}
-
-.product-index__item {
-  background: var(--paper-raised);
-  padding: var(--space-l);
-  display: grid;
-  gap: var(--space-3xs) var(--space-l);
-}
-
-@media (min-width: 52em) {
-  .product-index__item {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
-    align-items: baseline;
-  }
-}
-
-.product-index__name {
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.product-index__meta {
-  font-size: var(--step--1);
-  color: var(--ink-3);
-}
-
-/* ------------------------------------------------------------ Register ---
-   One honest, form-free path: what happens at registration and where the
-   link will live. Until then, the CTA states its own absence.
---------------------------------------------------------------------------- */
-
-.register-sheet {
-  display: grid;
-  gap: var(--space-2xl);
-}
-
-@media (min-width: 64em) {
-  .register-sheet {
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    gap: var(--space-4xl);
-    align-items: start;
-  }
-}
-
-.register-path {
-  list-style: none;
-  border-top: 1px solid var(--line-strong);
-  counter-reset: register-step;
-  margin-top: var(--space-xl);
-}
-
-.register-path__item {
-  counter-increment: register-step;
-  display: grid;
-  gap: var(--space-3xs) var(--space-m);
-  padding: var(--space-l) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-@media (min-width: 40em) {
-  .register-path__item {
-    grid-template-columns: 3rem minmax(0, 1fr);
-    gap: var(--space-l);
-  }
-}
-
-.register-path__item::before {
-  content: counter(register-step, decimal-leading-zero);
-  font-family: var(--font-display);
-  font-size: var(--step-0);
-  font-weight: 700;
-  color: var(--green-ink);
-  line-height: 1.3;
-}
-
-.register-path__item h2 {
-  font-size: var(--step-2);
-  color: var(--forest);
-  line-height: 1.15;
-}
-
-.register-path__item p {
-  margin-top: var(--space-3xs);
-  font-size: var(--step--1);
-  color: var(--ink-3);
-  max-width: 56ch;
-}
-
-/* The action panel: bordered, flat, no card tricks. */
-.register-action {
-  border: 1px solid var(--line-strong);
-  border-top: 4px solid var(--forest);
-  background: var(--paper-raised);
-  padding: var(--space-xl) var(--space-l);
-  display: grid;
-  gap: var(--space-l);
-  margin-top: var(--space-xl);
-}
-
-.register-action__kicker {
-  font-family: var(--font-display);
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.register-action__title {
-  font-size: clamp(var(--step-3), 4vw, var(--step-4));
-  color: var(--forest);
-  line-height: 1.05;
-}
-
-.register-action p {
-  font-size: var(--step--1);
-  color: var(--ink-2);
-}
-
-.register-action__cta {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-s);
-  align-items: flex-start;
-}
-
-.register-action__hint {
-  font-size: var(--step--1);
-  font-style: italic;
-  color: var(--ink-3);
-}
-
-.register-facts {
-  list-style: none;
-  border-top: 1px solid var(--line);
-  margin-top: var(--space-xl);
-}
-
-.register-facts li {
-  border-bottom: 1px solid var(--line);
-  padding: var(--space-s) 0;
-  display: flex;
-  gap: var(--space-3xs) var(--space-l);
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-}
-
-.register-facts .schedule__detail {
-  font-size: var(--step-1);
-}
-
-/* ------------------------------------------------------------- Questions ---
-   An accordion of answers that are already true: native buttons, one panel
-   open at a time, no motion that could strand an answer half-rendered.
---------------------------------------------------------------------------- */
-
-.faq-sheet {
-  display: grid;
-  gap: var(--space-2xl);
-}
-
-@media (min-width: 64em) {
-  .faq-sheet {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    column-gap: var(--space-4xl);
-    align-items: start;
-  }
-}
-
-.faq-sheet__title {
-  font-size: clamp(var(--step-3), 4vw, var(--step-5));
-  color: var(--forest);
-  max-width: 12ch;
-}
-
-.faq-sheet__body {
-  margin-top: var(--space-m);
-  max-width: 40ch;
-  color: var(--ink-2);
-}
+/* --------------------------------------------------------------------------
+   About — opening
+   -------------------------------------------------------------------------- */
 
-.faq-sheet__support {
-  margin-top: var(--space-xl);
-  padding-top: var(--space-m);
-  border-top: var(--hairline) solid var(--line);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-s) var(--space-l);
-  align-items: center;
+.about-open {
+  padding-top: clamp(120px, 16vh, 180px);
 }
 
-.faq__list {
-  list-style: none;
-  border-top: var(--hairline) solid var(--line-strong);
+.about-open__grid {
+  align-items: end;
+  row-gap: var(--sp-6);
 }
 
-.faq__item {
-  border-bottom: var(--hairline) solid var(--line);
+.about-open__head {
+  grid-column: 1 / span 7;
 }
 
-.faq__heading {
+.about-open__photo {
+  grid-column: 9 / span 4;
   margin: 0;
 }
 
-.faq__trigger {
+.about-open__photo img {
   width: 100%;
-  min-height: 44px;
+  border: var(--border) solid var(--ink);
+}
+
+.about-open__intro {
+  grid-column: 1 / span 7;
+}
+
+/* --- the story ------------------------------------------------------------ */
+
+.about-story__grid {
+  align-items: start;
+  row-gap: var(--sp-7);
+}
+
+.about-story__article {
+  grid-column: 2 / span 7;
+}
+
+.about-story__article h2 {
+  margin: var(--sp-3) 0 var(--sp-5);
+}
+
+.about-story__sub {
+  margin-top: var(--sp-6);
+  margin-bottom: var(--sp-3);
+  font-size: 1.25rem;
+}
+
+.about-story__honest {
+  margin-top: var(--sp-6);
+  padding-left: var(--sp-4);
+  border-left: var(--border) solid var(--green);
+  font-weight: 600;
+}
+
+.about-story__article .link {
+  margin-top: var(--sp-6);
+}
+
+.about-story__margin {
+  grid-column: 10 / span 3;
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.about-story__small {
+  margin: 0;
+}
+
+.about-story__small img {
+  width: 100%;
+  border: var(--border) solid var(--ink);
+}
+
+.about-story__margin-note {
+  font-family: var(--font-hand);
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.3;
+  transform: rotate(-1.6deg);
+  color: var(--green);
+}
+
+/* --- the purpose (M17 accent blocks) -------------------------------------- */
+
+.purpose__list {
+  display: grid;
+  gap: var(--sp-7);
+  list-style: none;
+  margin-top: var(--sp-6);
+}
+
+.purpose__row {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--col-gap);
+  align-items: baseline;
+  padding-bottom: var(--sp-6);
+  border-bottom: var(--border) solid var(--ink);
+}
+
+.purpose__word {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.purpose__line {
+  max-width: 44ch;
+}
+
+/* --- the human element ---------------------------------------------------- */
+
+.human__text {
+  grid-column: 1 / span 8;
+}
+
+.human__text h2 {
+  margin-bottom: var(--sp-5);
+  max-width: 20ch;
+}
+
+/* --- the journey (forest) -------------------------------------------------- */
+
+.journey2__title {
+  margin: var(--sp-3) 0 var(--sp-7);
+  max-width: 18ch;
+}
+
+.journey2__rail {
+  position: relative;
+  padding-top: var(--sp-6);
+}
+
+.journey2__line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  overflow: visible;
+}
+
+.journey2__path {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 4;
+}
+
+.journey2__nodes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--col-gap);
+  list-style: none;
+}
+
+.journey2__node {
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: start;
+  padding-top: var(--sp-5);
+}
+
+.journey2__num {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--on-forest);
+}
+
+.journey2__node p {
+  max-width: 40ch;
+  color: var(--on-forest-dim);
+}
+
+/* --- about closing --------------------------------------------------------- */
+
+.about-close__title {
+  max-width: 14ch;
+}
+
+.about-close__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-6);
+  align-items: end;
+  margin-top: var(--sp-7);
+  max-width: 900px;
+}
+
+.about-close__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-5);
+}
+
+/* --------------------------------------------------------------------------
+   Team
+   -------------------------------------------------------------------------- */
+
+.team-open {
+  padding-top: clamp(120px, 16vh, 180px);
+}
+
+.team-open__stage {
+  position: relative;
+}
+
+.team-open__head {
+  max-width: 900px;
+}
+
+.team-open__title {
+  margin: var(--sp-3) 0 var(--sp-5);
+  max-width: 14ch;
+}
+
+.team-open__intro {
+  max-width: 46ch;
+}
+
+.team-open__photo img {
+  width: 100%;
+  border: var(--border) solid var(--ink);
+  margin-top: var(--sp-6);
+}
+
+/* Duplicate headline clipped to the photograph (colour flip) */
+.team-open__flip {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: var(--paper);
+}
+
+.team-empty__inner {
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: start;
+  max-width: 640px;
+}
+
+.team-empty__body {
+  max-width: 46ch;
+}
+
+.team-empty__inner .btn {
+  margin-top: var(--sp-3);
+}
+
+/* --- leadership and committee grids ---------------------------------------- */
+
+.team-lead {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-7);
+  margin-top: var(--sp-6);
+}
+
+.team-lead__b {
+  margin-top: var(--sp-8);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-6);
+  margin-top: var(--sp-6);
+}
+
+/* Deliberately irregular, like frames pinned to a board */
+.team-grid__cell--2,
+.team-grid__cell--5 {
+  margin-top: var(--sp-7);
+}
+
+.team-grid__cell--4 {
+  margin-top: calc(var(--sp-7) * -1);
+}
+
+.team-profile {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+.team-profile__frame {
+  position: relative;
+  overflow: hidden;
+  border: var(--border) solid var(--ink);
+  background: var(--plate-paper);
+}
+
+.team-profile__portrait {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.team-profile__plate {
+  aspect-ratio: 4 / 5;
+  border: 0;
+}
+
+.team-profile__bio {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: var(--sp-4);
+  background: var(--scrim);
+  color: var(--paper);
+  font-size: 14px;
+  line-height: 1.5;
+  transform: translateY(100%);
+  transition: transform var(--d-base) var(--ease-out);
+}
+
+.team-profile__frame:hover .team-profile__bio,
+.team-profile__frame:focus-within .team-profile__bio {
+  transform: translateY(0);
+}
+
+/* Touch and small screens: the bio is simply always there */
+@media (hover: none), (max-width: 767px) {
+  .team-profile__bio {
+    position: static;
+    transform: none;
+    background: none;
+    color: var(--ink);
+    padding: var(--sp-3) 0 0;
+  }
+}
+
+.team-profile__name {
+  font-size: 1.35rem;
+}
+
+.team-profile__role {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+/* --- the collective (forest) ------------------------------------------------ */
+
+.team-collective__title {
+  max-width: 14ch;
+}
+
+/* --- team closing ------------------------------------------------------------ */
+
+.team-close__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.team-close__line {
+  max-width: 46ch;
+}
+
+.team-close__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-5);
+}
+
+/* --------------------------------------------------------------------------
+   Event — opening (forest)
+   -------------------------------------------------------------------------- */
+
+.event-open {
+  padding-top: clamp(120px, 16vh, 180px);
+  padding-bottom: clamp(56px, 6vw, 112px);
+}
+
+.event-open__top {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: var(--col-gap);
+  align-items: end;
+}
+
+.event-open__title {
+  font-size: var(--fs-page);
+  line-height: 0.98;
+}
+
+.event-open__rail {
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: start;
+}
+
+.event-open__desc {
+  color: var(--on-forest-dim);
+}
+
+.event-open__strip {
+  margin: var(--sp-7) 0 0;
+}
+
+.event-open__strip img {
+  width: 100%;
+  border: var(--border) solid var(--line-on-forest);
+}
+
+.event-note {
+  margin-top: var(--sp-5);
+  font-size: 14px;
+  color: var(--grey);
+  max-width: 56ch;
+}
+
+[data-theme="forest"] .event-note {
+  color: var(--on-forest-dim);
+}
+
+/* --- overview --------------------------------------------------------------- */
+
+.event-overview__list {
+  margin-top: var(--sp-6);
+}
+
+/* --- programme --------------------------------------------------------------- */
+
+.programme__head {
+  max-width: 720px;
+}
+
+.programme__head h2 {
+  margin-top: var(--sp-3);
+}
+
+.programme__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  gap: var(--col-gap);
+  align-items: start;
+  margin-top: var(--sp-7);
+}
+
+.programme__blocks {
+  display: grid;
+  gap: var(--sp-8);
+  min-width: 0;
+}
+
+.block {
+  padding-top: var(--sp-5);
+  border-top: var(--border) solid var(--ink);
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+.block__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-4);
+}
+
+/* M18: outlined number that fills when the block enters */
+.block__num {
+  position: relative;
+  flex: none;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1;
+}
+
+.block__num-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--green);
+  text-stroke: 2px var(--green);
+}
+
+.block__num-fill {
+  position: absolute;
+  inset: 0;
+  color: var(--green);
+  clip-path: inset(100% 0 0 0);
+}
+
+.block__title {
+  margin-top: var(--sp-2);
+  max-width: 20ch;
+}
+
+/* M12: the oGX word runs larger than the rest */
+.block__title--big {
+  font-size: clamp(2.2rem, 5.4vw, 5rem);
+}
+
+.block__body {
+  max-width: var(--measure);
+}
+
+.block__media {
+  margin: var(--sp-5) 0 0;
+  overflow: hidden;
+  border: var(--border) solid var(--ink);
+}
+
+.block__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- recognition (M13 rules) -------------------------------------------------- */
+
+.recognition {
+  display: grid;
+  gap: var(--sp-4);
+  margin: var(--sp-5) 0 0;
+}
+
+.recognition__row {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding-bottom: var(--sp-3);
+}
+
+.recognition__term {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.recognition__rule {
+  display: none;
+}
+
+.recognition__detail {
+  margin: 0;
+  max-width: 46ch;
+}
+
+/* --- the chapter index (M7) ---------------------------------------------------- */
+
+.chapter-index {
+  position: sticky;
+  top: calc(var(--header-h-compact) + 24px);
+}
+
+.chapter-index__label {
+  margin-bottom: var(--sp-4);
+}
+
+.chapter-index__rail {
+  position: relative;
+  border-left: var(--border) solid var(--line);
+  padding-left: var(--sp-4);
+}
+
+.chapter-index__list {
+  display: grid;
+  gap: var(--sp-3);
+  list-style: none;
+}
+
+.chapter-index__item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding: 6px 0;
+  color: var(--grey);
+  font-size: 14px;
+  text-decoration: none;
+  transition: color var(--d-base) var(--ease-out);
+}
+
+.chapter-index__item:hover,
+.chapter-index__item.is-active {
+  color: var(--ink);
+}
+
+.chapter-index__no {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--green);
+}
+
+.chapter-index__name {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+/* The active marker: a solid green bar on the rail (paper on forest) */
+.chapter-index__marker {
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 4px;
+  background: var(--green);
+  transition: transform var(--d-base) var(--ease-inout);
+}
+
+/* --- archive (forest) ------------------------------------------------------------ */
+
+.archive__head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--col-gap);
+  align-items: end;
+  margin-bottom: var(--sp-7);
+}
+
+.archive__intro {
+  color: var(--on-forest-dim);
+  max-width: 40ch;
+}
+
+/* M11: irregular contact sheet */
+.sheet {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--sp-5);
+}
+
+.sheet__cell {
+  min-width: 0;
+}
+
+.sheet__cell--lead {
+  grid-column: span 12 / span 12;
+}
+
+.sheet__cell--lead .frame__media {
+  aspect-ratio: 16 / 9;
+}
+
+/* --- practical information ------------------------------------------------------- */
+
+.practical__intro {
+  grid-column: 1 / span 5;
+}
+
+.practical__intro h2 {
+  margin: var(--sp-3) 0 var(--sp-4);
+  max-width: 14ch;
+}
+
+.practical__note {
+  color: var(--grey);
+  max-width: 40ch;
+}
+
+.practical__list {
+  grid-column: 7 / span 6;
+}
+
+/* --- event closing (forest) -------------------------------------------------------- */
+
+.event-cta__title {
+  max-width: 15ch;
+}
+
+.event-cta__action {
+  margin-top: var(--sp-6);
+}
+
+/* --------------------------------------------------------------------------
+   Shared: info lists, FAQ, register CTA, partners, clock
+   -------------------------------------------------------------------------- */
+
+.info-list {
+  display: grid;
+  gap: var(--sp-5);
+  margin: 0;
+}
+
+.info-list--1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.info-list--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.info-list--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.info-list__row {
+  padding-top: var(--sp-3);
+  border-top: var(--border) solid var(--line-strong);
+}
+
+.info-list__value {
+  margin: var(--sp-2) 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.info-list__value a {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* --- FAQ accordion (M13) --------------------------------------------------------- */
+
+.faq {
+  border-top: var(--border) solid var(--ink);
+}
+
+.faq__item {
+  border-bottom: var(--border) solid var(--ink);
+}
+
+.faq__question {
+  margin: 0;
+  font-size: inherit;
+  font-family: inherit;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.faq__trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-l);
-  padding: var(--space-m) 0;
-  text-align: left;
-  font-family: var(--font-display);
-  font-size: var(--step-1);
+  gap: var(--sp-4);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--sp-4) 0;
+  border: 0;
+  background: none;
+  color: inherit;
   font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--forest);
-  transition: color var(--dur-fast) var(--ease);
-}
-
-.faq__trigger:hover {
-  color: var(--green);
+  font-size: 1.05rem;
+  text-align: left;
+  cursor: pointer;
 }
 
 .faq__sign {
   flex: none;
-  width: 2rem;
-  height: 2rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: var(--hairline) solid var(--line-strong);
-  border-radius: var(--radius);
+  font-size: 1.4rem;
+  font-weight: 500;
   color: var(--green);
-  transition:
-    background-color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease),
-    color var(--dur) var(--ease);
-}
-
-.faq__sign svg {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-}
-
-.faq__sign-v {
-  transition: opacity var(--dur-fast) var(--ease);
-}
-
-.faq__trigger[aria-expanded='true'] .faq__sign {
-  background: var(--forest);
-  border-color: var(--forest);
-  color: #fff;
-}
-
-.faq__trigger[aria-expanded='true'] .faq__sign-v {
-  opacity: 0;
 }
 
 .faq__panel {
-  padding-bottom: var(--space-m);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--d-base) var(--ease-inout);
+}
+
+.faq__panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.faq__panel-inner {
+  overflow: hidden;
 }
 
 .faq__answer {
+  padding-bottom: var(--sp-5);
   max-width: 62ch;
-  color: var(--ink-2);
+  color: var(--ink);
 }
 
-/* ------------------------------------------------------------- 404 sheet --- */
+/* --- register CTA ---------------------------------------------------------------- */
+
+.register-cta {
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: start;
+}
+
+.register-cta__pending {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.register-cta__hint {
+  font-size: 14px;
+  color: var(--grey);
+  max-width: 40ch;
+}
+
+[data-theme="forest"] .register-cta__hint,
+[data-theme="forest"] .register-cta__pending {
+  color: var(--on-forest-dim);
+}
+
+/* --- partners --------------------------------------------------------------------- */
+
+.partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-6);
+  list-style: none;
+  margin-top: var(--sp-4);
+}
+
+.partners__item a {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+}
+
+.partners__logo {
+  max-height: 56px;
+  width: auto;
+}
+
+.partners__name {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Register
+   -------------------------------------------------------------------------- */
+
+.register-open {
+  padding-top: clamp(120px, 16vh, 180px);
+  padding-bottom: clamp(56px, 6vw, 112px);
+}
+
+.register-open__grid {
+  align-items: start;
+  row-gap: var(--sp-7);
+}
+
+.register-open__main {
+  grid-column: 1 / span 7;
+}
+
+.register-open__title {
+  margin: var(--sp-3) 0 var(--sp-5);
+  max-width: 14ch;
+}
+
+.register-open__lede {
+  max-width: 46ch;
+  margin-bottom: var(--sp-6);
+  color: var(--on-forest-dim);
+}
+
+.register-open__rail {
+  grid-column: 9 / span 4;
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: start;
+  padding: var(--sp-5);
+  border: var(--border) solid var(--line-on-forest);
+}
+
+.register-open__list {
+  display: grid;
+  gap: var(--sp-4);
+  margin: 0;
+}
+
+.register-open__list dd {
+  margin: var(--sp-1) 0 0;
+  font-weight: 600;
+}
+
+/* --- questions --------------------------------------------------------------------- */
+
+.register-questions__intro {
+  grid-column: 1 / span 5;
+}
+
+.register-questions__intro h2 {
+  margin: var(--sp-3) 0 var(--sp-4);
+  max-width: 14ch;
+}
+
+.register-questions__note {
+  color: var(--grey);
+  max-width: 40ch;
+}
+
+.register-questions__body {
+  grid-column: 7 / span 6;
+}
+
+.register-contact {
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: start;
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-5);
+  border-top: var(--border) solid var(--ink);
+}
+
+.register-contact__hint {
+  font-size: 14px;
+  color: var(--grey);
+}
+
+.register-close__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+}
+
+/* --------------------------------------------------------------------------
+   404
+   -------------------------------------------------------------------------- */
 
 .notfound {
-  display: grid;
-  gap: var(--space-l);
-  justify-items: start;
-  padding-block: var(--space-2xl);
-}
-
-.notfound__code {
-  font-family: var(--font-display);
-  font-size: clamp(var(--step-6), 16vw, var(--step-8));
-  font-weight: 800;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 2px var(--forest);
+  padding-top: clamp(140px, 20vh, 220px);
+  min-height: 70vh;
 }
 
 .notfound__title {
-  font-size: clamp(var(--step-4), 7vw, var(--step-6));
-  color: var(--forest);
+  margin: var(--sp-3) 0 var(--sp-5);
+  max-width: 16ch;
 }
 
 .notfound__body {
-  font-size: var(--step-1);
-  color: var(--ink-2);
-  max-width: 52ch;
+  max-width: 46ch;
 }
 
 .notfound__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-s);
+  align-items: center;
+  gap: var(--sp-5);
+  margin-top: var(--sp-6);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .about-open__head,
+  .about-open__intro,
+  .about-story__article,
+  .about-story__margin,
+  .human__text,
+  .register-open__main,
+  .register-open__rail,
+  .register-questions__intro,
+  .register-questions__body,
+  .practical__intro,
+  .practical__list {
+    grid-column: 1 / -1;
+  }
+
+  .about-open__photo {
+    grid-column: 1 / span 6;
+  }
+
+  .purpose__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-3);
+  }
+
+  .programme__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chapter-index {
+    position: static;
+  }
+
+  .chapter-index__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+  }
+
+  .chapter-index__rail {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .chapter-index__marker {
+    display: none;
+  }
+
+  .chapter-index__item.is-active {
+    padding-left: var(--sp-3);
+    border-left: 4px solid var(--green);
+  }
+
+  .event-open__top,
+  .archive__head,
+  .about-close__actions,
+  .team-close__inner {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .team-lead {
+    gap: var(--sp-6);
+  }
+
+  .team-lead__b {
+    margin-top: var(--sp-6);
+  }
+}
+
+@media (max-width: 767px) {
+  .about-open,
+  .team-open,
+  .event-open,
+  .register-open {
+    padding-top: calc(var(--header-h) + 40px);
+  }
+
+  .team-lead,
+  .team-grid,
+  .journey2__nodes,
+  .info-list--2,
+  .info-list--4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .team-lead__b,
+  .team-grid__cell--2,
+  .team-grid__cell--4,
+  .team-grid__cell--5 {
+    margin-top: 0;
+  }
+
+  .recognition__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-2);
+  }
+
+  .sheet {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .sheet__cell--lead {
+    grid-column: span 6 / span 6;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion / paused motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__panel,
+  .team-profile__bio,
+  .chapter-index__item,
+  .chapter-index__marker {
+    transition: none;
+  }
+
+  .team-profile__bio {
+    position: static;
+    transform: none;
+    background: none;
+    color: var(--ink);
+    padding: var(--sp-3) 0 0;
+  }
+}
+
+:root[data-motion="paused"] .faq__panel,
+:root[data-motion="paused"] .team-profile__bio,
+:root[data-motion="paused"] .chapter-index__item,
+:root[data-motion="paused"] .chapter-index__marker {
+  transition: none;
+}
+
+:root[data-motion="paused"] .team-profile__bio {
+  position: static;
+  transform: none;
+  background: none;
+  color: var(--ink);
+  padding: var(--sp-3) 0 0;
 }

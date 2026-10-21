@@ -1,129 +1,203 @@
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { usePageMeta } from '../hooks/usePageMeta'
-import { PageHead } from '../components/PageHead'
-import { Reveal } from '../components/Reveal'
-import { Frame } from '../components/Frame'
-import { team } from '../data/team'
+import { MaskedHeading } from '../components/MaskedHeading'
+import { AccentBlock } from '../components/AccentBlock'
+import { TeamProfile } from '../components/TeamProfile'
 import { assets, site } from '../config/site'
+import { team } from '../data/team'
+import { strings } from '../data/strings'
 
+/**
+ * Team — the people.
+ *
+ * The headline sits over the top edge of the group photograph and the letters
+ * flip to paper where they cross it (same mechanism as the Home hero). With no
+ * confirmed roster the page shows the headline, the honest line and a route to
+ * register: no fictional people, no stand-in portraits.
+ */
 export function TeamPage() {
   usePageMeta(
     `Team — ${site.fullName}`,
-    `The people behind ${site.fullName}. Confirmed names, roles and portraits are published here as soon as the organiser approves them.`,
+    `The people behind ${site.fullName}. Team details are published here once they are confirmed by the organisers.`,
   )
+
+  const groupPhoto = assets.collective.src
+  const leaders = team.filter((member) => member.leadership)
+  const committee = team.filter((member) => !member.leadership)
+
+  /* Where the photograph starts, so the duplicate headline clips to it. */
+  const stageRef = useRef<HTMLDivElement | null>(null)
+  const photoRef = useRef<HTMLDivElement | null>(null)
+  const [flipTop, setFlipTop] = useState(0)
+
+  useEffect(() => {
+    if (!groupPhoto) return
+    const measure = () => {
+      const stage = stageRef.current
+      const photo = photoRef.current
+      if (!stage || !photo) return
+      const top = photo.getBoundingClientRect().top - stage.getBoundingClientRect().top
+      setFlipTop(Math.max(0, Math.round(top)))
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    const timer = window.setTimeout(measure, 400) /* after fonts settle */
+    return () => {
+      window.removeEventListener('resize', measure)
+      window.clearTimeout(timer)
+    }
+  }, [groupPhoto])
+
+  const headlineLines = ['The people', 'behind the', 'movement.']
 
   return (
     <>
-      <PageHead
-        eyebrow="Team"
-        title="The people running the room."
-        lede="Confirmed names, roles and portraits only. Every profile on this page is published once the organiser approves it."
-      />
-
-      {/* ---------------- Introduction against the group photograph ---------------- */}
-      <section className="section team-intro" aria-labelledby="collective-intro">
-        <div className="container team-intro__grid">
-          <div className="team-intro__text">
-            <p className="eyebrow eyebrow--green">The collective</p>
-            <h2 className="team-intro__title" id="collective-intro">
-              An edition is a group effort.
-            </h2>
-            <p className="team-intro__body">
-              Sessions, formats, timing and the room itself are carried by a team rather than a
-              single name. The people who do that work are published here — as a roster of
-              confirmed roles, not as profiles written in advance.
-            </p>
-          </div>
-
-          <Reveal variant="crop" className="team-intro__media">
-            <Frame
-              src={assets.collective.src}
-              alt={assets.collective.alt}
-              plate={site.edition}
-              tone="outlined"
-              ratio="4 / 3"
-              priority
-              decorative={!assets.collective.src}
-            />
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section" aria-labelledby="team-heading">
-        <div className="container">
-          {team.length === 0 ? (
-            <div className="roster__empty">
-              <p className="eyebrow eyebrow--green">Roster</p>
-              <h2 id="team-heading">Meet the team soon.</h2>
-              <p>
-                The {site.fullName} team page is populated from a local data file, so names and
-                portraits appear here the moment they are confirmed — and nothing else ever
-                does.
+      {/* ---------------- 1. Opening ---------------- */}
+      <section className="team-open" data-theme="paper" aria-labelledby="team-title">
+        <div className="wrap">
+          <div className="team-open__stage" ref={stageRef}>
+            <div className="team-open__head">
+              <p className="label">The people</p>
+              <MaskedHeading
+                as="h1"
+                id="team-title"
+                className="display display--page team-open__title"
+                when="now"
+                lines={headlineLines}
+              />
+              <p className="team-open__intro">
+                LeaCon 2.0 is run by a team that plans the sessions, holds the outbound tasks and
+                keeps the room moving.
               </p>
             </div>
-          ) : (
-            <>
-              <div className="section-head">
-                <div>
-                  <p className="eyebrow eyebrow--green">Roster</p>
-                  <h2 className="section-head__title" id="team-heading">
-                    Confirmed team
-                  </h2>
-                </div>
-                <p className="section-head__lede">
-                  Names, roles and portraits as approved by the organisers.
-                </p>
+
+            {groupPhoto ? (
+              <div className="team-open__photo" ref={photoRef}>
+                <img
+                  src={groupPhoto}
+                  alt={assets.collective.alt}
+                  width={2100}
+                  height={900}
+                  fetchPriority="high"
+                  decoding="async"
+                />
               </div>
+            ) : null}
 
-              <Reveal variant="fade">
-                <ul className="roster" role="list">
-                  {team.map((member, index) => (
-                    <li className="roster__item" key={member.id}>
-                      <span className="roster__index" aria-hidden="true">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-
-                      <span className="roster__ident">
-                        {member.portrait.src ? (
-                          <img
-                            className="roster__portrait"
-                            src={member.portrait.src}
-                            alt={member.portrait.alt}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        ) : null}
-                        <span className="roster__name">{member.name}</span>
-                      </span>
-
-                      <span className="roster__role">{member.role}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </>
-          )}
-
-          <div className="about-note">
-            <p>
-              Portraits belong in public/images/team/. No biography, testimonial or profile is
-              written for anyone on this site.
-            </p>
+            {groupPhoto ? (
+              <div
+                className="team-open__flip"
+                aria-hidden="true"
+                style={{ clipPath: `inset(${flipTop}px 0 0 0)` }}
+              >
+                <div className="team-open__flip-copy">
+                  <p className="label">The people</p>
+                  <MaskedHeading
+                    as="p"
+                    className="display display--page team-open__title"
+                    when="now"
+                    lines={headlineLines}
+                  />
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
 
-      {/* ---------------- Full-width typographic close ---------------- */}
-      <section className="section section--xl collective" aria-labelledby="collective-title">
-        <div className="container collective__inner">
-          <p className="accent-phrase collective__phrase">The team</p>
-          <h2 className="collective__statement" id="collective-title">
-            No one runs an edition alone.
-          </h2>
-          <p className="collective__body">
-            The roster above fills in as the organisers confirm each person. Until a name is
-            approved it stays off the page, so this section carries the statement instead of
-            invented ones.
+      {team.length === 0 ? (
+        /* ---------------- Empty state ---------------- */
+        <section className="section team-empty" data-theme="paper">
+          <div className="wrap team-empty__inner">
+            <p className="pending">{strings.teamPending}</p>
+            <p className="team-empty__body">{strings.teamPendingLong}</p>
+            <Link className="btn" to="/register">
+              Register now
+              <span className="btn__arrow" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </div>
+        </section>
+      ) : (
+        <>
+          {/* ---------------- 2. Leadership ---------------- */}
+          {leaders.length > 0 ? (
+            <section className="section team-block" data-theme="paper" aria-labelledby="leaders-title">
+              <div className="wrap">
+                <p className="label">Leadership</p>
+                <h2 className="sr-only" id="leaders-title">
+                  Leadership
+                </h2>
+                <div className="team-lead">
+                  {leaders.map((member, index) => (
+                    <TeamProfile
+                      key={member.id}
+                      member={member}
+                      size="lead"
+                      className={index % 2 === 1 ? 'team-lead__b' : 'team-lead__a'}
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
+          ) : null}
+
+          {/* ---------------- 3. Committee ---------------- */}
+          {committee.length > 0 ? (
+            <section className="section team-block team-committee" data-theme="paper" aria-labelledby="committee-title">
+              <div className="wrap">
+                <p className="label">Organising committee</p>
+                <h2 className="sr-only" id="committee-title">
+                  Organising committee
+                </h2>
+                <div className="team-grid">
+                  {committee.map((member, index) => (
+                    <TeamProfile
+                      key={member.id}
+                      member={member}
+                      className={`team-grid__cell team-grid__cell--${(index % 5) + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
+          ) : null}
+
+          {/* ---------------- 5. The collective ---------------- */}
+          <section className="section team-collective" data-theme="forest">
+            <div className="wrap">
+              <MaskedHeading
+                as="h2"
+                className="display display--page team-collective__title"
+                when="view"
+                lines={[
+                  <>We did this <AccentBlock side="left" /> together.</>,
+                ]}
+              />
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* ---------------- 6. Closing ---------------- */}
+      <section className="section team-close" data-theme="paper">
+        <div className="wrap team-close__inner">
+          <p className="team-close__line">
+            The programme, the practical details and the registration route are one page each.
           </p>
+          <div className="team-close__links">
+            <Link className="link link--static" to="/event">
+              See the event
+            </Link>
+            <Link className="btn" to="/register">
+              Register now
+              <span className="btn__arrow" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
     </>

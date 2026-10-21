@@ -3,11 +3,13 @@
  *
  * Every fact that has not been confirmed by the organisers lives here as an
  * editable placeholder. Leave a value `null` and the site hides the field or
- * shows a plain coming-soon state. Never replace `null` with a guessed value.
+ * shows a plain coming-soon state. Never replace `null` with a guessed value:
+ * a guessed date, venue, fee, deadline, speaker, partner or email is a bug,
+ * not a placeholder.
  */
 
 export type SiteConfig = {
-  /** Official registration URL. `null` renders the disabled "coming soon" state. */
+  /** Official registration URL. `null` renders the "coming soon" state. */
   registrationUrl: string | null
   /** Organiser contact address, shown only when supplied. */
   contactEmail: string | null
@@ -26,12 +28,11 @@ export const site = {
   edition: '2.0',
   fullName: 'LeaCon 2.0',
   wordmark: 'LeaCon',
-  /** Small edition label used on the cover. */
-  editionLabel: 'The Leadership Edition',
+  /** Small edition label used above the hero photograph (blueprint 7.1). */
+  editionTag: 'EDITION 02',
   /**
-   * Neutral descriptor standing in for the official theme. When the
-   * organisers publish the LeaCon 2.0 theme or slogan, replace this string —
-   * no slogan is invented anywhere in this build.
+   * Neutral descriptor standing in for the official theme. No slogan is
+   * invented anywhere in this build.
    */
   tagline: 'A youth leadership experience.',
   description:
@@ -42,46 +43,41 @@ export const site = {
  * Photography that sits outside the data files.
  *
  * Every `src` is null until an approved file exists, so the site renders the
- * designed plate instead of requesting anything. Drop the photograph into the
- * folder named on each comment and set `src` — the layout already reserves the
- * ratio, so nothing shifts when it loads.
+ * designed state instead of requesting anything — no stock, no generated
+ * people, no filler. Drop the photograph into the folder named on each
+ * comment and set the `src`; the layout already reserves the ratio.
  */
 export const assets = {
-  /** Home cover. public/images/brand/cover.jpg — portrait, 1200×1500 or larger. */
-  cover: {
+  /** Home hero. public/images/hero.jpg — portrait or near-portrait, 2400px+. */
+  hero: {
     src: null as string | null,
-    alt: 'Delegates of LeaCon 2.0 together at the event',
+    alt: 'A LeaCon delegate mid-conversation with their group',
   },
-  /** About page opening. public/images/brand/feature.jpg — landscape, 1600×700 or larger. */
+  /** About opening. public/images/feature.jpg — portrait 3:4, 1600px+. */
   feature: {
     src: null as string | null,
-    alt: 'Delegates of LeaCon 2.0 in session',
+    alt: 'Delegates of LeaCon working through a session',
   },
-  /** About split-screen. public/images/brand/moment.jpg — portrait, 1200×1500 or larger. */
+  /** About story. public/images/moment.jpg — landscape or portrait. */
   moment: {
     src: null as string | null,
-    alt: 'A LeaCon 2.0 delegate working through a task with their team',
+    alt: 'A LeaCon delegate working through a task with their team',
   },
-  /** Team page group photograph. public/images/team/group.jpg — landscape. */
+  /** Team page group photograph. public/images/team/group.jpg — 21:9 wide. */
   collective: {
     src: null as string | null,
     alt: 'The LeaCon 2.0 organising team together',
-  },
-  /** Shop opening image. public/images/products/hero.jpg — landscape. */
-  merchandise: {
-    src: null as string | null,
-    alt: 'Official LeaCon 2.0 merchandise',
   },
 } as const
 
 export type NavItem = { label: string; to: string }
 
+/** The five pages. There is no shop, no cart and no product data. */
 export const navItems: NavItem[] = [
   { label: 'Home', to: '/' },
   { label: 'About Us', to: '/about' },
   { label: 'Team', to: '/team' },
   { label: 'Event', to: '/event' },
-  { label: 'Shop', to: '/shop' },
 ]
 
 export const registerItem: NavItem = { label: 'Register Now', to: '/register' }

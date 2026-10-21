@@ -46,17 +46,17 @@ def main() -> int:
 
         page.goto(BASE + "/", wait_until="networkidle")
         page.wait_for_timeout(300)
-        page.get_by_role("link", name="Explore the Experience").click()
+        page.get_by_role("link", name="See the event").first.click()
         page.wait_for_timeout(800)
         print(
-            "after in-page hash click -> scrollY:", page.evaluate("window.scrollY"),
-            "active:", describe(page),
+            "after SPA link to /event -> scrollY:", page.evaluate("window.scrollY"),
+            "active:", describe(page), "hash:", page.evaluate("location.hash"),
         )
 
-        # direct load of an in-page anchor URL
-        page.goto(BASE + "/#obt", wait_until="networkidle")
+        # direct load of an in-page anchor URL (programme block on Event)
+        page.goto(BASE + "/event#ogx", wait_until="networkidle")
         page.wait_for_timeout(600)
-        print("direct /#obt load scrollY:", page.evaluate("window.scrollY"))
+        print("direct /event#ogx load scrollY:", page.evaluate("window.scrollY"))
 
         browser.close()
     return 0

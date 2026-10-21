@@ -1,21 +1,124 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { usePageMeta } from '../hooks/usePageMeta'
-import { PageHead } from '../components/PageHead'
-import { Chapter, type ChapterVariant } from '../components/Chapter'
-import { Glimpse } from '../components/Glimpse'
-import { chapters } from '../data/chapters'
-import { partners } from '../data/partners'
+import { MaskedHeading } from '../components/MaskedHeading'
+import { AccentBlock } from '../components/AccentBlock'
+import { HandNote } from '../components/HandNote'
+import { ChapterIndex } from '../components/ChapterIndex'
+import { ContactSheet } from '../components/ContactSheet'
+import { InfoList, PartnerList, RegisterCta, type InfoRow } from '../components/Content'
+import { gsap, useMotionEffect } from '../motion/MotionProvider'
 import { site, siteConfig } from '../config/site'
+import { programme, recognition, type ProgrammeBlock as Block } from '../data/programme'
+import { leaconOneGallery } from '../data/gallery'
+import { partners } from '../data/partners'
+import { notes } from '../data/notes'
+import { strings } from '../data/strings'
 
-const variants: ChapterVariant[] = ['a', 'b', 'c', 'd']
+/**
+ * Event — the conference experience: editorial on the left of every decision,
+ * practical on the right. A sticky chapter index keeps track of where you are
+ * in the programme; the LeaCon 1.0 contact sheet and the partner row appear
+ * only when their photographs and logos exist.
+ */
 
-/** Logistics are only shown when the organiser supplies them. */
-const logistics: { term: string; value: string | null; pending: string }[] = [
-  { term: 'Date', value: null, pending: 'To be announced' },
-  { term: 'Venue', value: null, pending: 'To be announced' },
-  { term: 'Schedule', value: null, pending: 'Schedule to be announced' },
-  { term: 'Registration', value: siteConfig.registrationUrl, pending: 'Registration link coming soon' },
+const overview: InfoRow[] = [
+  { term: 'Date', value: null, pending: strings.detailsPending },
+  { term: 'Venue', value: null, pending: strings.detailsPending },
+  { term: 'Audience', value: null, pending: strings.detailsPending },
+  { term: 'Registration', value: siteConfig.registrationUrl, pending: strings.registrationPending },
 ]
+
+const practical: InfoRow[] = [
+  { term: 'Venue', value: null, pending: strings.detailsPending },
+  { term: 'Schedule', value: null, pending: strings.schedulePending },
+  { term: 'Requirements', value: null, omit: true },
+  { term: 'Fees', value: null, pending: strings.detailsPending },
+  {
+    term: 'Contact',
+    value: siteConfig.contactEmail,
+    pending: strings.contactPending,
+    render: (value) => (
+      <a href={`mailto:${value}`}>{value}</a>
+    ),
+  },
+]
+
+const indexItems = [...programme.map((block) => ({ id: block.id, nav: block.nav })), { id: recognition.id, nav: recognition.nav }]
+
+/** One programme block, with the outlined number that fills on entry (M18). */
+function ProgrammeBlock({ block }: { block: Block }) {
+  const ref = useRef<HTMLElement | null>(null)
+  const isOgx = block.id === 'ogx'
+
+  useMotionEffect(
+    () => {
+      const root = ref.current
+      if (!root) return
+      const fill = root.querySelector<HTMLElement>('.block__num-fill')
+      if (fill) {
+        gsap.fromTo(
+          fill,
+          { clipPath: 'inset(0 0 100% 0)' },
+          {
+            clipPath: 'inset(0 0 0% 0)',
+            duration: 0.5,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: root, start: 'top 60%', once: true },
+          },
+        )
+      }
+      const media = root.querySelector<HTMLElement>('.block__media')
+      if (media) {
+        gsap.from(media, {
+          clipPath: 'inset(0 0 100% 0)',
+          duration: 0.7,
+          ease: 'power4.inOut',
+          scrollTrigger: { trigger: media, start: 'top 85%', once: true },
+        })
+      }
+    },
+    [block.id],
+    ref,
+  )
+
+  return (
+    <article
+      className={`block${isOgx ? ' block--ogx' : ''}`}
+      id={block.id}
+      ref={ref}
+      aria-labelledby={`${block.id}-title`}
+    >
+      <div className="block__head">
+        <span className="block__num display" aria-hidden="true">
+          <span className="block__num-outline">{block.index}</span>
+          <span className="block__num-fill">{block.index}</span>
+        </span>
+        <div>
+          <p className="label">{block.nav}</p>
+          <MaskedHeading
+            as="h3"
+            id={`${block.id}-title`}
+            className={`display display--section block__title${isOgx ? ' block__title--big' : ''}`}
+            lines={isOgx ? ['Global exchange'] : [block.title]}
+          />
+        </div>
+      </div>
+
+      <div className="block__body prose">
+        {block.body.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </div>
+
+      {block.image.src ? (
+        <figure className="block__media" style={{ aspectRatio: block.image.ratio }}>
+          <img src={block.image.src} alt={block.image.alt} loading="lazy" decoding="async" />
+        </figure>
+      ) : null}
+    </article>
+  )
+}
 
 export function EventPage() {
   usePageMeta(
@@ -23,202 +126,237 @@ export function EventPage() {
     `${site.fullName}: leadership sessions, outbound training, global exchange exploration, delegate engagement and the Most Engaging Delegate recognition.`,
   )
 
+  const hasArchive = leaconOneGallery.length > 0
+  const openingPhoto = hasArchive ? leaconOneGallery[0] : null
+
   return (
     <>
-      <PageHead
-        eyebrow="Event"
-        title="What happens, and what it asks of you."
-        lede="One experience in four parts. This page carries only what the organisers have confirmed; everything else states its own status."
-      />
+      {/* ---------------- 1. Opening ---------------- */}
+      <section className="event-open" data-theme="forest" aria-labelledby="event-title">
+        <div className="wrap">
+          <div className="event-open__top">
+            <MaskedHeading
+              as="h1"
+              id="event-title"
+              className="display event-open__title"
+              when="now"
+              lines={[site.fullName]}
+            />
 
-      {/* ---------------- Overview + logistics ---------------- */}
-      <section className="section sheet--sunk" aria-labelledby="logistics-heading">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow eyebrow--green">Overview</p>
-              <h2 className="section-head__title" id="logistics-heading">
-                The parts, and the practical details
-              </h2>
-            </div>
-            <p className="section-head__lede">
-              Delegates take part in four linked parts: sessions, outbound training, global
-              exchange exploration, and the engagement that recognition is built on.
-            </p>
-          </div>
-
-          <ul className="schedule" role="list">
-            {logistics.map((row) => (
-              <li className="schedule__row" key={row.term}>
-                <span className="schedule__term">{row.term}</span>
-                {row.value ? (
-                  <span className="schedule__detail">
-                    <a href={row.value} rel="noreferrer noopener" target="_blank">
-                      Open the official registration
-                    </a>
-                  </span>
-                ) : (
-                  <span className="schedule__detail schedule__detail--pending">
-                    {row.pending}
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-
-          <p className="event-note">
-            No date, venue, time, agenda, price, deadline, speaker or eligibility detail is
-            published on this site until it is confirmed by the organisers.
-          </p>
-        </div>
-      </section>
-
-      {/* ---------------- The four parts ---------------- */}
-      <section className="section chapters" aria-labelledby="parts-heading">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow eyebrow--green">The experience</p>
-              <h2 className="section-head__title" id="parts-heading">
-                Leadership Sessions to Delegate Engagement
-              </h2>
-            </div>
-            <p className="section-head__lede">
-              Run as one experience. Each part asks something different of the people in the
-              room.
-            </p>
-          </div>
-        </div>
-
-        <div>
-          {chapters.map((chapter, index) => (
-            <Chapter key={chapter.id} data={chapter} variant={variants[index]} />
-          ))}
-        </div>
-      </section>
-
-      {/* ---------------- Recognition ---------------- */}
-      <section className="section" aria-labelledby="recognition-heading">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow eyebrow--green">Recognition</p>
-              <h2 className="section-head__title" id="recognition-heading">
-                Most Engaging Delegate
-              </h2>
-            </div>
-            <p className="section-head__lede">
-              {site.fullName} pays attention to how delegates take part, and the award
-              recognises that contribution directly.
-            </p>
-          </div>
-
-          <ul className="schedule" role="list">
-            <li className="schedule__row">
-              <span className="schedule__term">Award</span>
-              <span className="schedule__detail">Most Engaging Delegate</span>
-            </li>
-            <li className="schedule__row">
-              <span className="schedule__term">Open to</span>
-              <span className="schedule__detail">All {site.fullName} delegates</span>
-            </li>
-            <li className="schedule__row">
-              <span className="schedule__term">Categories</span>
-              <span className="schedule__detail schedule__detail--pending">
-                To be announced
-              </span>
-            </li>
-          </ul>
-
-          <p className="event-note">
-            Categories and judging criteria are published here once they are confirmed.
-          </p>
-        </div>
-      </section>
-
-      {/* ---------------- LeaCon 1.0 glimpse ---------------- */}
-      <section className="section sheet--raised" aria-labelledby="glimpse-heading">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow eyebrow--green">LeaCon 1.0</p>
-              <h2 className="section-head__title" id="glimpse-heading">
-                A first chapter. A bigger next step.
-              </h2>
-            </div>
-            <p className="section-head__lede">
-              LeaCon 1.0 was the first edition. LeaCon 2.0 takes the same delegates further,
-              with more of the event built around what happens in the room.
-            </p>
-          </div>
-
-          <Glimpse />
-        </div>
-      </section>
-
-      {/* ---------------- Supporters ---------------- */}
-      <section className="section" aria-labelledby="supporters-heading">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow eyebrow--green">Supporters</p>
-              <h2 className="section-head__title" id="supporters-heading">
-                Partners and supporters
-              </h2>
-            </div>
-
-            {partners.length === 0 ? (
-              <p className="section-head__lede">
-                Partner announcements coming soon. Only confirmed partners and approved logos
-                are published here.
+            <div className="event-open__rail">
+              <p className="event-open__desc">
+                One experience in four parts: sessions, outbound tasks, global exchange, and the
+                engagement that recognition is built on.
               </p>
-            ) : (
-              <p className="section-head__lede">
-                Confirmed partners of {site.fullName}.
-              </p>
-            )}
+              <Link className="btn btn--paper" to="/register">
+                Register now
+                <span className="btn__arrow" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+              <HandNote note={notes.eventInfo} mark="underline" />
+            </div>
           </div>
 
-          {partners.length > 0 ? (
-            <ul className="partners__list" role="list">
-              {partners.map((partner) => (
-                <li key={partner.id}>
-                  {partner.logo.src ? (
-                    <img
-                      className="partners__logo"
-                      src={partner.logo.src}
-                      alt={partner.name}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <span className="partners__name">{partner.name}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
+          {openingPhoto ? (
+            <figure
+              className="event-open__strip"
+              style={{ aspectRatio: `${openingPhoto.width} / ${openingPhoto.height}` }}
+            >
+              <img
+                src={openingPhoto.src}
+                alt={openingPhoto.alt}
+                width={openingPhoto.width}
+                height={openingPhoto.height}
+                fetchPriority="high"
+                decoding="async"
+              />
+            </figure>
           ) : null}
         </div>
       </section>
 
-      {/* ---------------- CTA ---------------- */}
-      <section className="section section--compact final-cta" data-field="forest">
-        <div className="container final-cta__grid">
-          <div>
-            <p className="eyebrow">Registration</p>
-            <h2 className="final-cta__title">Take part in {site.fullName}</h2>
+      {/* ---------------- 2. Overview ---------------- */}
+      <section className="section section--tight event-overview" data-theme="paper" aria-labelledby="overview-title">
+        <div className="wrap">
+          <p className="label">Overview</p>
+          <h2 className="display display--section" id="overview-title">
+            The practical details
+          </h2>
+          <InfoList rows={overview} columns={4} className="event-overview__list" />
+          <p className="event-note">
+            No date, venue, time, agenda, fee, deadline or speaker detail is published here until
+            the organisers confirm it.
+          </p>
+        </div>
+      </section>
+
+      {/* ---------------- 3. Programme experiences ---------------- */}
+      <section className="section programme" data-theme="paper" aria-labelledby="programme-title">
+        <div className="wrap">
+          <div className="programme__head">
+            <p className="label">Programme</p>
+            <MaskedHeading
+              as="h2"
+              id="programme-title"
+              className="display display--section"
+              lines={['What happens, and where you are in it.']}
+            />
           </div>
-          <div className="final-cta__action">
-            <p>
-              Registration runs through one official link, carried on the Register page as soon
-              as it is live.
-            </p>
-            <Link className="btn btn--onForest" to="/register">
-              Register Now
-            </Link>
+
+          <div className="programme__layout">
+            <ChapterIndex items={indexItems} label="Index" />
+
+            <div className="programme__blocks">
+              {programme.map((block) => (
+                <ProgrammeBlock block={block} key={block.id} />
+              ))}
+
+              {/* Recognition */}
+              <article
+                className="block block--recognition"
+                id={recognition.id}
+                aria-labelledby={`${recognition.id}-title`}
+              >
+                <Recognition />
+              </article>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ---------------- 4. LeaCon 1.0 archive ---------------- */}
+      {hasArchive ? (
+        <section className="section archive" data-theme="forest" id="archive" aria-labelledby="archive-title">
+          <div className="wrap">
+            <div className="archive__head">
+              <div>
+                <p className="label">LeaCon 1.0</p>
+                <MaskedHeading
+                  as="h2"
+                  id="archive-title"
+                  className="display display--section"
+                  lines={['The contact sheet.']}
+                />
+              </div>
+              <p className="archive__intro">
+                Every frame from the first edition, labelled in order. Open one to look at it
+                properly.
+              </p>
+            </div>
+            <ContactSheet items={leaconOneGallery} />
+          </div>
+        </section>
+      ) : null}
+
+      {/* ---------------- 5. Partners ---------------- */}
+      {partners.length > 0 ? (
+        <section className="section section--tight partners-section" data-theme="paper" aria-labelledby="partners-title">
+          <div className="wrap">
+            <p className="label" id="partners-title">
+              Supported by
+            </p>
+            <PartnerList />
+          </div>
+        </section>
+      ) : null}
+
+      {/* ---------------- 6. Practical information ---------------- */}
+      <section className="section section--tight practical" data-theme="paper" aria-labelledby="practical-title">
+        <div className="wrap grid">
+          <div className="practical__intro">
+            <p className="label">Practical information</p>
+            <h2 className="display display--section" id="practical-title">
+              Before you come.
+            </h2>
+            <p className="practical__note">
+              Only confirmed details are published. Where something is not final, the row says so.
+            </p>
+          </div>
+          <div className="practical__list">
+            <InfoList rows={practical} />
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- 7. Registration CTA ---------------- */}
+      <section className="section event-cta" data-theme="forest" aria-labelledby="event-cta-title">
+        <div className="wrap">
+          <MaskedHeading
+            as="h2"
+            id="event-cta-title"
+            className="display display--page event-cta__title"
+            when="view"
+            lines={[
+              <>Register for <AccentBlock side="right" /> at</>,
+              <>{site.fullName}.</>,
+            ]}
+          />
+          <RegisterCta className="event-cta__action" />
+        </div>
+      </section>
     </>
+  )
+}
+
+/** Recognition rows, with rules that draw in once (scaleX). */
+function Recognition() {
+  const ref = useRef<HTMLDivElement | null>(null)
+
+  useMotionEffect(
+    () => {
+      const root = ref.current
+      if (!root) return
+      const rows = Array.from(root.querySelectorAll<HTMLElement>('.recognition__row'))
+      rows.forEach((row) => {
+        gsap.from(row.querySelector('.recognition__rule'), {
+          scaleX: 0,
+          duration: 0.5,
+          ease: 'power3.out',
+          transformOrigin: 'left center',
+          scrollTrigger: { trigger: row, start: 'top 88%', once: true },
+        })
+      })
+    },
+    [],
+    ref,
+  )
+
+  return (
+    <div ref={ref}>
+      <div className="block__head">
+        <span className="block__num display" aria-hidden="true">
+          <span className="block__num-outline">{recognition.index}</span>
+          <span className="block__num-fill">{recognition.index}</span>
+        </span>
+        <div>
+          <p className="label">
+            {recognition.proposed ? 'Proposed recognition' : 'Recognition'}
+          </p>
+          <MaskedHeading
+            as="h3"
+            id={`${recognition.id}-title`}
+            className="display display--section block__title"
+            lines={[recognition.title]}
+          />
+        </div>
+      </div>
+
+      <div className="block__body prose">
+        <p>{recognition.intro}</p>
+      </div>
+
+      <dl className="recognition">
+        {recognition.rows.map((row) => (
+          <div className="recognition__row" key={row.term}>
+            <dt className="recognition__term">{row.term}</dt>
+            <span className="recognition__rule" aria-hidden="true" />
+            <dd className="recognition__detail">{row.detail}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p className="event-note">{recognition.pending}</p>
+    </div>
   )
 }

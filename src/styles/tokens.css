@@ -1,94 +1,95 @@
 /* ==========================================================================
-   LeaCon 2.0 — design tokens
-   One type ratio (1.250 major third). One space scale. One radius.
-   Three durations, two easings. Nothing used by a component may be
-   declared outside this block.
+   LeaCon 2.0 — design tokens (concept: FRAMES, blueprint v3.1 Part 3)
 
-   Palette — "The Leadership Edition":
-   #166534 primary green · #123B2A deep forest · #F6F2E9 warm paper.
-   White, charcoal and muted grey support them; no other hue appears.
+   Three surfaces only: paper 60%, forest 30%, green 8%.
+   Exact values are the contract: #166534 / #123B2A / #F6F2E9.
+   Radius 0. Borders 2px. No shadows except the focus ring.
+   No gradient anywhere except the text scrim over photographs.
    ========================================================================== */
 
 :root {
-  /* --- TYPE: families -----------------------------------------------------
-     Lemon Milk and AndYou are licensed faces and are not in this repository.
-     Drop their .woff2 files into public/fonts/ (see src/styles/licensed-fonts.css)
-     and uncomment the import in src/main.tsx. Until then "Archivo Variable"
-     is the display fallback and Raleway carries text and accent.            */
-  --font-display: "Lemon Milk", "Archivo Variable", "Raleway", sans-serif;
+  /* --- COLOUR ------------------------------------------------------------ */
+  --green: #166534; /* links, markers, buttons, accent blocks, wireframe */
+  --forest: #123b2a; /* dramatic sections, footer, entry, lightbox */
+  --paper: #f6f2e9; /* main page surface */
+  --white: #ffffff;
+  --ink: #171a17; /* body text on paper */
+  --grey: #5b635c; /* secondary text on paper only — 5.5:1 */
+
+  /* Derived roles (kept apart so no component invents its own alpha) */
+  --on-forest: var(--paper);
+  --on-forest-dim: rgba(246, 242, 233, 0.72);
+  --line: rgba(23, 26, 23, 0.18); /* 2px rules on paper */
+  --line-strong: rgba(23, 26, 23, 0.42);
+  --line-on-forest: rgba(246, 242, 233, 0.28);
+  --scrim: linear-gradient(
+    to top,
+    rgba(18, 59, 42, 0.82) 0%,
+    rgba(18, 59, 42, 0.55) 42%,
+    rgba(18, 59, 42, 0) 100%
+  );
+  --plate-paper: #efe9dc; /* recessed plate on paper (no photo yet) */
+  --plate-forest: #0e3123; /* recessed plate on forest (no photo yet) */
+
+  /* --- TYPE -------------------------------------------------------------- */
+  /* Lemon Milk and AndYou are licensed and are NOT in this repository.
+     Drop the woff2 files into public/fonts/ (see licensed-fonts.css).
+     Until then Archivo Variable — the recorded interim display fallback of
+     this build — carries display type, with Arial Black behind it.         */
+  --font-display: "Lemon Milk", "Archivo Variable", "Arial Black", sans-serif;
   --font-text: "Raleway", "Helvetica Neue", Arial, sans-serif;
-  --font-accent: "AndYou", "Raleway", "Helvetica Neue", sans-serif;
+  --font-hand: "AndYou", "Segoe Script", cursive;
 
-  /* --- TYPE: one 1.250 major-third ratio ---------------------------------- */
-  --step--1: 0.8rem;
-  --step-0: 1rem;
-  --step-1: 1.25rem;
-  --step-2: 1.5625rem;
-  --step-3: 1.9531rem;
-  --step-4: 2.4414rem;
-  --step-5: 3.0518rem;
-  --step-6: 3.8147rem;
-  --step-7: 4.7684rem;
-  --step-8: 5.9605rem;
-  --step-9: 7.4506rem;
+  /* Display sizes, sized by the longest word (Part 3) */
+  --fs-hero: clamp(3.5rem, 6.4vw, 7rem);
+  --fs-hero-mobile: clamp(1.9rem, 8.2vw, 2.8rem);
+  --fs-page: clamp(2.8rem, 5.2vw, 5.5rem);
+  --fs-statement: clamp(1.6rem, 3.2vw, 3.2rem);
+  --fs-pillar: clamp(2.2rem, 4.4vw, 4.5rem);
+  --fs-section: clamp(1.7rem, 2.6vw, 2.6rem);
+  --fs-label: 0.75rem; /* 12px section labels */
+  --fs-body: 1.0625rem; /* 17px */
+  --fs-body-m: 1rem; /* 16px */
 
-  /* --- SPACE: base 0.5rem, no value in between ---------------------------- */
-  --space-3xs: 0.25rem;
-  --space-2xs: 0.5rem;
-  --space-xs: 0.75rem;
-  --space-s: 1rem;
-  --space-m: 1.5rem;
-  --space-l: 2rem;
-  --space-xl: 3rem;
-  --space-2xl: 4.5rem;
-  --space-3xl: 7rem;
-  --space-4xl: 10.5rem;
+  /* --- SPACE ------------------------------------------------------------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 72px;
+  --sp-9: 112px;
+  --sp-10: 168px;
 
-  /* --- COLOR: the three foundations --------------------------------------- */
-  --forest: #123b2a; /* deep forest: dark fields, footer, high-impact panels */
-  --forest-deep: #0c2a1e; /* pressed / hover state of forest */
-  --green: #166534; /* primary: links, rules, indicators, key type */
-  --paper: #f6f2e9; /* warm paper: page, editorial surfaces, negative space */
+  /* --- FORM -------------------------------------------------------------- */
+  --radius: 0; /* the only radius in the build */
+  --border: 2px;
+  --shadow: none;
 
-  /* --- COLOR: ramp around the foundations --------------------------------- */
-  --green-lift: #79c59a; /* green readable on forest — 6.1:1, focus rings */
-  --green-ink: #166534; /* green at body-text contrast on paper — 6.4:1.
-                          Kept apart from --green so lightening --green for
-                          a large fill can never break text contrast.       */
-  --paper-raised: #ffffff; /* clean content sections, image borders */
-  --paper-sunk: #ece6d6; /* recessed field, image plates */
-  --ink: #14170f; /* primary text on paper — 15:1 */
-  --ink-2: #45483c; /* secondary text on paper — 8.4:1 */
-  --ink-3: #62665a; /* meta text on paper — 5.3:1, on paper-sunk — 4.7:1 */
-  --line: #ded7c7; /* hairline rules on paper */
-  --line-strong: #b7af9c;
-  --on-forest: #ffffff;
-  --on-forest-2: #b9ccc0; /* secondary text on forest — 7.4:1 */
-  --on-forest-3: #8fa79a; /* meta text on forest — 4.8:1 */
-  --line-on-forest: rgba(255, 255, 255, 0.2);
-
-  /* --- COLOR: derived, so no component invents its own alpha ------------- */
-  --ink-ghost: rgba(20, 23, 15, 0.13); /* plate numerals on paper */
-  --ink-veil: rgba(20, 23, 15, 0.4); /* frame corner marks */
-  --forest-veil: rgba(18, 59, 42, 0.6); /* menu backdrop */
-  --forest-shade: rgba(12, 42, 30, 0.93); /* lightbox backdrop */
-
-  /* --- FORM ---------------------------------------------------------------- */
-  --radius: 2px; /* the only radius in the build */
-  --hairline: 1px;
-  --shadow: none; /* no component in this build casts a shadow */
-
-  /* --- MOTION: three durations, two easings ------------------------------- */
-  --dur-fast: 140ms;
-  --dur: 260ms;
-  --dur-slow: 620ms;
-  --ease: cubic-bezier(0.2, 0, 0, 1);
+  /* --- MOTION ------------------------------------------------------------ */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
+  --d-fast: 0.18s;
+  --d-base: 0.45s;
+  --d-slow: 0.9s;
+  --d-feature: 1.1s;
 
-  /* --- LAYOUT ------------------------------------------------------------- */
-  --maxw: 84rem;
-  --gutter: clamp(1.25rem, 5vw, 4.5rem);
-  --measure: 66ch;
-  --header-h: 4.5rem;
-  --focus: var(--green);
+  /* --- LAYOUT ------------------------------------------------------------ */
+  --gutter: clamp(20px, 4vw, 64px);
+  --col-gap: 24px;
+  --maxw: 1600px;
+  --header-h: 80px;
+  --header-h-compact: 64px;
+  --measure: 62ch;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --col-gap: 16px;
+    --header-h: 64px;
+    --header-h-compact: 56px;
+    --fs-body: var(--fs-body-m);
+  }
 }

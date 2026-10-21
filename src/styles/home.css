@@ -1,727 +1,637 @@
 /* ==========================================================================
-   LeaCon 2.0 — Home
+   Home — hero, the idea, the spread, the memory, the people, the closing.
+
+   Photo-dependent blocks (hero photograph, LeaCon 1.0 roll) never render a
+   stand-in: with no photograph in the data the section either hides itself
+   (memory) or its media slot simply does not exist (hero).
    ========================================================================== */
 
-/* --- Cover: oversized type left, tall photograph right, edition label
-      straddling the seam between them. ------------------------------------ */
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
 .hero {
   position: relative;
-  border-bottom: var(--hairline) solid var(--line);
+  padding-top: clamp(120px, 16vh, 180px);
+  padding-bottom: clamp(56px, 6vw, 112px);
+  overflow: hidden;
 }
 
 .hero__inner {
   position: relative;
   display: grid;
-  gap: var(--space-m);
-  padding-block: var(--space-xl) var(--space-2xl);
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--col-gap);
+  align-items: end;
 }
 
-.hero__top {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.hero__rule {
-  width: 4rem;
-  height: 3px;
-  background: var(--green);
-  transform-origin: left center;
-  margin-bottom: var(--space-s);
-}
-
-.hero__title {
-  font-size: clamp(var(--step-5), 15vw, var(--step-9));
-  color: var(--forest);
-  line-height: 0.86;
-  letter-spacing: -0.045em;
-  text-transform: uppercase;
+.hero__copy {
+  grid-column: 1 / -1;
 }
 
 .hero__edition {
-  color: var(--green);
+  margin-bottom: var(--sp-4);
 }
 
-.hero__lower {
-  margin-top: var(--space-m);
+.hero__title {
+  max-width: 12ch;
 }
 
-.hero__action {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-l);
-  align-items: flex-start;
-}
-
-.hero__lede {
-  font-size: clamp(var(--step-1), 1.6vw, var(--step-2));
-  line-height: 1.45;
-  color: var(--ink-2);
-  max-width: 34ch;
-}
-
-.hero__figure {
-  position: relative;
-  margin: 0;
-}
-
-/* Small editorial label. Static on small screens, straddling the boundary
-   between headline and photograph once the two sit side by side. */
-.hero__label {
-  display: inline-block;
-  margin-top: var(--space-s);
-  padding: var(--space-2xs) var(--space-s);
-  background: var(--paper);
-  border-block: var(--hairline) solid var(--line-strong);
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--forest);
-}
-
-.hero__caption {
-  margin-top: var(--space-s);
-  max-width: 20ch;
-}
-
-/* --- One-statement introduction ------------------------------------------ */
-.intro {
-  background: var(--paper-raised);
-  border-bottom: var(--hairline) solid var(--line);
-}
-
-.intro__grid {
+.hero__support {
   display: grid;
-  gap: var(--space-xl);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-6);
+  align-items: end;
+  margin-top: var(--sp-6);
+  max-width: 900px;
 }
 
-.intro__phrase {
-  max-width: 18ch;
-}
-
-.intro__statement {
-  font-size: clamp(var(--step-2), 3.2vw, var(--step-5));
-  line-height: 1.12;
-  color: var(--forest);
-}
-
-.intro__rule {
-  height: 3px;
-  background: var(--green);
-  transform-origin: left center;
-  margin-block: var(--space-l) var(--space-m);
-}
-
-.intro__body {
-  font-size: var(--step-1);
-  color: var(--ink-2);
-}
-
-/* --- Experience chapters -------------------------------------------------- */
-.chapters {
-  padding-block: var(--space-3xl) var(--space-xl);
-}
-
-.chapter {
-  border-top: var(--hairline) solid var(--line);
-  padding-block: var(--space-2xl);
-}
-
-.chapter__grid {
-  display: grid;
-  gap: var(--space-l);
-  align-items: start;
-}
-
-.chapter__index {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(var(--step-6), 9vw, var(--step-9));
-  line-height: 0.76;
-  letter-spacing: -0.05em;
-  color: var(--forest);
-  opacity: 0.16;
-}
-
-@supports (-webkit-text-stroke: 1px currentColor) {
-  .chapter__index {
-    color: transparent;
-    opacity: 1;
-    -webkit-text-stroke: 1.5px var(--forest);
-  }
-}
-
-.chapter__head {
-  margin-bottom: var(--space-m);
-}
-
-.chapter__title {
-  font-size: clamp(var(--step-2), 3vw, var(--step-4));
-  color: var(--forest);
-}
-
-.chapter__body {
-  max-width: 58ch;
-}
-
-.chapter__body p + p {
-  margin-top: var(--space-s);
-}
-
-.chapter__media .frame {
-  width: 100%;
-}
-
-.chapter--field {
-  background: var(--forest);
-  border-top-color: var(--line-on-forest);
-  padding-block: var(--space-3xl);
-}
-
-.chapter--field .chapter__title {
-  color: #fff;
-}
-
-.chapter--field .chapter__body {
-  color: var(--on-forest-2);
-}
-
-.chapter--field .eyebrow {
-  color: var(--green-lift);
-}
-
-.chapter--field .chapter__index {
-  color: rgba(255, 255, 255, 0.22);
-}
-
-@supports (-webkit-text-stroke: 1px currentColor) {
-  .chapter--field .chapter__index {
-    color: transparent;
-    -webkit-text-stroke-color: var(--green-lift);
-  }
-}
-
-/* --- OBT route line ------------------------------------------------------- */
-.route {
-  margin-top: var(--space-l);
-  max-width: 34rem;
-}
-
-.route__svg {
-  width: 100%;
-  height: auto;
-  color: var(--green);
-  overflow: visible;
-}
-
-.chapter--field .route__svg {
-  color: var(--green-lift);
-}
-
-.route__path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.route__dot {
-  fill: currentColor;
-}
-
-/* --- Recognition ---------------------------------------------------------- */
-.recognition {
-  background: var(--forest);
-}
-
-.recognition__grid {
-  display: grid;
-  gap: var(--space-xl);
-}
-
-.recognition__title {
-  font-size: clamp(var(--step-4), 6vw, var(--step-7));
-  color: #fff;
-}
-
-.recognition__body {
-  margin-top: var(--space-m);
-  max-width: 44ch;
-  font-size: var(--step-1);
-  color: var(--on-forest-2);
-}
-
-.recognition__list {
-  border-top: var(--hairline) solid var(--line-on-forest);
-}
-
-.recognition__row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
-  gap: var(--space-s);
-  align-items: baseline;
-  padding-block: var(--space-m);
-  border-bottom: var(--hairline) solid var(--line-on-forest);
-}
-
-.recognition__label {
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--green-lift);
-}
-
-.recognition__value {
-  font-size: var(--step-1);
-  font-weight: 600;
-  color: #fff;
-}
-
-.recognition__note {
-  margin-top: var(--space-m);
-  font-size: var(--step--1);
-  color: var(--on-forest-3);
-}
-
-/* --- LeaCon 1.0 glimpse --------------------------------------------------- */
-.glimpse {
-  background: var(--paper-sunk);
-}
-
-.glimpse__scroller {
-  margin-inline: calc(-1 * var(--gutter));
-  padding-inline: var(--gutter);
-  padding-block: var(--space-2xs) var(--space-m);
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) transparent;
-  overscroll-behavior-x: contain;
-}
-
-.glimpse__scroller:focus-visible {
-  outline-offset: -3px;
-}
-
-.glimpse__track {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--space-m);
-  width: max-content;
-  list-style: none;
-}
-
-.glimpse__item {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-}
-
-.glimpse__item .frame {
-  height: clamp(15rem, 44vw, 24rem);
-}
-
-.glimpse__open {
-  position: absolute;
-  top: 36px;
-  right: 10px;
-  z-index: 4;
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.94);
-  color: var(--forest);
-  border-radius: var(--radius);
-  transition: background-color var(--dur-fast) var(--ease);
-}
-
-.glimpse__open:hover {
-  background: var(--green-lift);
-}
-
-.glimpse__open svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-}
-
-/* --- Lightbox ------------------------------------------------------------- */
-.lightbox {
-  padding: 0;
-  border: 0;
-  width: min(94vw, 58rem);
-  max-width: none;
-  background: var(--forest);
-  color: #fff;
-  border-radius: var(--radius);
-}
-
-.lightbox[open] {
-  display: flex;
-  flex-direction: column;
-}
-
-.lightbox::backdrop {
-  background: var(--forest-shade);
-}
-
-.lightbox__bar {
-  display: flex;
-  justify-content: flex-end;
-  padding: var(--space-s);
-}
-
-.lightbox__close,
-.lightbox__step {
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: var(--hairline) solid var(--line-on-forest);
-  border-radius: var(--radius);
-  color: #fff;
-  transition:
-    background-color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease);
-}
-
-.lightbox__close:hover,
-.lightbox__step:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--green-lift);
-}
-
-.lightbox__step:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.lightbox__close svg,
-.lightbox__step svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-}
-
-.lightbox__stage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38vh;
-  padding-inline: var(--space-s);
-}
-
-.lightbox__stage img {
-  max-width: 100%;
-  max-height: 62vh;
-  width: auto;
-  height: auto;
-}
-
-.lightbox__empty {
-  display: block;
-  width: min(70vw, 22rem);
-  aspect-ratio: 4 / 3;
-  border: var(--hairline) dashed var(--line-on-forest);
-}
-
-.lightbox__foot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-m);
-  padding: var(--space-m) var(--space-s) var(--space-l);
-}
-
-.lightbox__count {
-  min-width: 8ch;
-  text-align: center;
-  color: var(--on-forest-2);
-}
-
-/* --- The people behind it ------------------------------------------------- */
-.people__grid {
-  display: grid;
-  gap: var(--space-xl);
-}
-
-.people__body {
-  margin-block: var(--space-m) var(--space-l);
-  max-width: 44ch;
-  font-size: var(--step-1);
-  color: var(--ink-2);
-}
-
-.people__strip {
-  list-style: none;
-  display: grid;
-  gap: var(--space-s);
-  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-}
-
-.people__member {
-  display: grid;
-  gap: var(--space-3xs);
-  align-content: start;
-}
-
-.people__name {
-  margin-top: var(--space-2xs);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--step-1);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.people__role {
-  font-size: var(--step--1);
-  color: var(--ink-3);
-}
-
-/* --- Partners ------------------------------------------------------------- */
-.partners {
-  background: var(--paper-raised);
-  border-block: var(--hairline) solid var(--line);
-}
-
-.partners__frame {
-  display: grid;
-  gap: var(--space-l);
-}
-
-.partners__state {
-  font-size: var(--step-2);
-  font-weight: 600;
-  color: var(--forest);
-}
-
-.partners__hint {
-  margin-top: var(--space-2xs);
-}
-
-.partners__list {
+.hero__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2xl);
-  list-style: none;
+  gap: var(--sp-5);
 }
 
-.partners__logo {
-  max-height: 3.5rem;
-  width: auto;
-  height: auto;
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-5);
+  align-items: center;
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-4);
+  border-top: var(--border) solid var(--line-strong);
 }
 
-.partners__name {
-  font-size: var(--step-1);
+.hero__scroll {
+  margin-left: auto;
+  font-size: 12px;
   font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* The photograph and its hand note: only exist when a photograph exists */
+.hero__media {
+  grid-column: 2 / 3;
+  align-self: stretch;
+  display: grid;
+  gap: var(--sp-4);
+  align-content: start;
+}
+
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  max-height: 70vh;
+  object-fit: cover;
+  border: var(--border) solid var(--ink);
+}
+
+.hero__note {
+  justify-self: start;
+}
+
+/* M2 colour flip: a duplicate of the headline in paper, clipped to the
+   photograph so letters flip where they cross it. */
+.hero__flip {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  clip-path: inset(var(--flip-top, 100%) 0 0 0);
+}
+
+.hero__flip-copy {
+  padding-inline: var(--gutter);
+  max-width: var(--maxw);
+  margin-inline: auto;
+  color: var(--paper);
+}
+
+.hero__flip .mask__inner {
+  /* Same box as the original so lines land exactly on the photograph */
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Section 2 — the idea
+   -------------------------------------------------------------------------- */
+
+.idea__grid {
+  align-items: end;
+  row-gap: var(--sp-6);
+}
+
+.idea__main {
+  grid-column: 1 / span 8;
+}
+
+.idea__statement {
+  margin-top: var(--sp-4);
+  max-width: 26ch;
+}
+
+.idea__side {
+  grid-column: 9 / span 4;
+  max-width: 42ch;
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   Section 3 — what happens at LeaCon (editorial spread)
+   -------------------------------------------------------------------------- */
+
+.spread__head {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--col-gap);
+  align-items: end;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+
+.spread__lead {
+  padding-bottom: var(--sp-7);
+  border-bottom: var(--border) solid var(--ink);
+}
+
+.spread__meta {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: var(--sp-3);
+}
+
+.spread__title {
+  margin-bottom: var(--sp-4);
+  max-width: 18ch;
+}
+
+.spread__line {
+  max-width: 52ch;
+  margin-bottom: var(--sp-4);
+}
+
+.spread__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: var(--sp-8);
+  padding-top: var(--sp-8);
+}
+
+/* Varied editorial spread: three different shapes, not three equal cards */
+.spread__item--offset {
+  grid-column: 1 / span 5;
+  margin-top: var(--sp-8);
+}
+
+.spread__item--type {
+  grid-column: 6 / span 3;
+}
+
+.spread__item--pair {
+  grid-column: 9 / span 4;
+  margin-top: calc(var(--sp-8) * 2);
+}
+
+.spread__big {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--green);
+  margin-bottom: var(--sp-4);
+}
+
+/* --------------------------------------------------------------------------
+   Section 4 — LeaCon 1.0, the memory (forest)
+   -------------------------------------------------------------------------- */
+
+.memory__head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--col-gap);
+  align-items: end;
+  margin-bottom: var(--sp-7);
+}
+
+.memory__intro {
+  max-width: 40ch;
+  color: var(--on-forest-dim);
+}
+
+.memory__strip {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.memory__foot {
+  margin-top: var(--sp-6);
+}
+
+/* --------------------------------------------------------------------------
+   Section 5 — the people behind it
+   -------------------------------------------------------------------------- */
+
+.people__grid {
+  row-gap: var(--sp-6);
+}
+
+.people__text {
+  grid-column: 1 / span 6;
+}
+
+.people__body {
+  margin-top: var(--sp-4);
+  max-width: 46ch;
+}
+
+.people__text .pending {
+  margin-top: var(--sp-4);
+}
+
+.people__text .link {
+  margin-top: var(--sp-5);
+}
+
+/* --------------------------------------------------------------------------
+   Section 6 — the closing (forest)
+   -------------------------------------------------------------------------- */
+
+.closing__title {
+  max-width: 16ch;
+}
+
+.closing__action {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-6);
+  align-items: end;
+  margin-top: var(--sp-7);
+  max-width: 900px;
+}
+
+/* --------------------------------------------------------------------------
+   M4 — the frame strip (LeaCon 1.0 roll)
+   -------------------------------------------------------------------------- */
+
+.strip {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+.strip__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-5);
+}
+
+.strip__counter {
+  margin-left: auto;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1;
+}
+
+.strip__track {
+  display: flex;
+  gap: var(--sp-4);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  padding-bottom: var(--sp-3);
+  cursor: grab;
+}
+
+.strip__track:active {
+  cursor: grabbing;
+}
+
+.strip__track:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+[data-theme="forest"] .strip__track:focus-visible {
+  outline-color: var(--paper);
+}
+
+/* Motion on: the frame nearest the centre sits forward, the rest sit back */
+.strip__cell {
+  flex: none;
+  width: clamp(220px, 26vw, 380px);
+  scroll-snap-align: center;
+}
+
+.strip__cell[data-motion-focus="on"] {
+  opacity: 0.6;
+  transform: scale(0.94);
+  transition:
+    opacity 0.45s var(--ease-out),
+    transform 0.45s var(--ease-out);
+}
+
+.strip__cell[data-motion-focus="on"].is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.strip__controls {
+  display: flex;
+  gap: var(--sp-3);
+  justify-content: flex-end;
+}
+
+.strip__btn {
+  min-width: 52px;
+  min-height: 44px;
+  border: var(--border) solid currentColor;
+  background: none;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.strip__btn:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}
+
+[data-theme="forest"] .strip__btn:hover {
+  background: var(--paper);
+  border-color: var(--paper);
   color: var(--forest);
-  text-decoration: none;
 }
 
-a.partners__name:hover {
-  color: var(--green-ink);
-  text-decoration: underline;
+/* --------------------------------------------------------------------------
+   The frame itself (M10)
+   -------------------------------------------------------------------------- */
+
+.frame {
+  margin: 0;
 }
 
-/* --- Final registration CTA ----------------------------------------------- */
-.final-cta {
+.frame__hit {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  text-align: inherit;
+}
+
+.frame__media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: var(--border) solid var(--ink);
   background: var(--forest);
 }
 
-.final-cta__grid {
+[data-theme="forest"] .frame__media {
+  border-color: var(--line-on-forest);
+}
+
+.frame__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--d-slow) var(--ease-out);
+}
+
+.frame__hit:hover .frame__img,
+.frame__hit:focus-visible .frame__img {
+  transform: scale(1.04);
+}
+
+/* The green label tab, top left, like a contact-sheet sticker */
+.frame__tab {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  padding: 4px 10px;
+  background: var(--green);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.frame__caption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  margin-top: var(--sp-3);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.frame__caption-line {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.frame__caption-note {
+  color: var(--grey);
+}
+
+[data-theme="forest"] .frame__caption-line {
+  color: var(--on-forest);
+}
+
+[data-theme="forest"] .frame__caption-note {
+  color: var(--on-forest-dim);
+}
+
+/* --------------------------------------------------------------------------
+   M5 — the lightbox (frame-open)
+   -------------------------------------------------------------------------- */
+
+.lightbox {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: var(--sp-6) var(--gutter);
+  border: 0;
+  background: var(--forest);
+  color: var(--paper);
+  overflow: hidden;
+}
+
+.lightbox::backdrop {
+  background: rgba(18, 59, 42, 0.92);
+}
+
+.lightbox__figure {
   display: grid;
-  gap: var(--space-xl);
+  place-items: center;
+  gap: var(--sp-4);
+  margin: 0;
+  height: 100%;
 }
 
-.final-cta__title {
-  font-size: clamp(var(--step-4), 6.5vw, var(--step-7));
-  color: #fff;
+.lightbox__img {
+  max-width: min(1200px, 100%);
+  max-height: 72vh;
+  width: auto;
+  object-fit: contain;
 }
 
-.final-cta__action p {
-  color: var(--on-forest-2);
-  max-width: 38ch;
-  margin-bottom: var(--space-m);
-  font-size: var(--step-1);
+.lightbox__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  align-items: baseline;
+  justify-content: center;
+  text-align: center;
 }
 
-/* ==========================================================================
-   Breakpoints
-   ========================================================================== */
-
-@media (min-width: 700px) {
-  .recognition__row {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  }
+.lightbox__caption {
+  color: var(--on-forest-dim);
+  font-size: 14px;
 }
 
-@media (min-width: 960px) {
-  /* The cover: type column left, photograph spanning the right edge. */
+.lightbox__controls {
+  position: fixed;
+  left: 50%;
+  bottom: var(--sp-5);
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.lightbox__btn {
+  min-height: 44px;
+  padding: 0 16px;
+  border: var(--border) solid var(--paper);
+  background: none;
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.lightbox__btn:hover {
+  background: var(--paper);
+  color: var(--forest);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1023px) {
   .hero__inner {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    grid-template-areas:
-      'top figure'
-      'title figure'
-      'lower figure';
-    column-gap: var(--space-3xl);
-    row-gap: var(--space-l);
-    align-items: start;
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .hero__top {
-    grid-area: top;
+  .hero__media {
+    grid-column: 1 / -1;
   }
 
-  .hero__titleReveal {
-    grid-area: title;
+  .hero__flip {
+    display: none;
   }
 
-  .hero__lower {
-    grid-area: lower;
+  .idea__main,
+  .idea__side,
+  .people__text {
+    grid-column: 1 / -1;
+  }
+
+  .spread__item--offset {
+    grid-column: 1 / span 6;
     margin-top: 0;
   }
 
-  .hero__figure {
-    grid-area: figure;
-    align-self: stretch;
+  .spread__item--type {
+    grid-column: 7 / span 6;
   }
 
-  /* The label crosses the boundary between headline and photograph. */
-  .hero__label {
-    position: absolute;
-    top: 38%;
-    left: 0;
-    z-index: 3;
+  .spread__item--pair {
+    grid-column: 1 / span 8;
     margin-top: 0;
-    transform: translateX(-50%);
   }
 
-  .intro__grid {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    column-gap: var(--space-3xl);
+  .strip__cell {
+    width: clamp(220px, 42vw, 340px);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding-top: calc(var(--header-h) + 48px);
+  }
+
+  .hero__support,
+  .closing__action {
+    grid-template-columns: minmax(0, 1fr);
     align-items: start;
   }
 
-  .people__grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: var(--space-3xl);
-    align-items: center;
-  }
-
-  .recognition__grid {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-    column-gap: var(--space-3xl);
+  .spread__head,
+  .memory__head {
+    grid-template-columns: minmax(0, 1fr);
     align-items: start;
   }
 
-  .partners__frame {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    column-gap: var(--space-3xl);
-    align-items: center;
+  .spread__grid {
+    row-gap: var(--sp-7);
   }
 
-  .final-cta__grid {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    column-gap: var(--space-3xl);
-    align-items: end;
+  .spread__item--offset,
+  .spread__item--type,
+  .spread__item--pair {
+    grid-column: 1 / -1;
   }
 
-  /* Four distinct rhythms so the chapters never read as one repeated row. */
-  .chapter--a .chapter__grid {
-    grid-template-areas:
-      'index index'
-      'text media';
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: var(--space-xl);
+  .strip__cell {
+    width: 74vw;
   }
 
-  .chapter--a .chapter__index {
-    grid-area: index;
-    margin-bottom: var(--space-s);
-  }
-  .chapter--a .chapter__text {
-    grid-area: text;
-  }
-  .chapter--a .chapter__media {
-    grid-area: media;
-    align-self: center;
+  .lightbox {
+    padding: var(--sp-5) var(--sp-4);
   }
 
-  .chapter--b .chapter__grid {
-    grid-template-areas:
-      'media index'
-      'media text';
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-    column-gap: var(--space-2xl);
+  .lightbox__img {
+    max-height: 60vh;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion / paused motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .frame__img {
+    transition: none;
   }
 
-  .chapter--b .chapter__media {
-    grid-area: media;
-    align-self: center;
+  .strip__cell[data-motion-focus="on"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
-  .chapter--b .chapter__index {
-    grid-area: index;
-    justify-self: end;
-    text-align: right;
-    margin-bottom: var(--space-s);
-  }
-  .chapter--b .chapter__text {
-    grid-area: text;
-  }
+}
 
-  .chapter--c .chapter__grid {
-    grid-template-areas:
-      'index text'
-      'blank media';
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    column-gap: var(--space-xl);
-    row-gap: var(--space-l);
-  }
+:root[data-motion="paused"] .frame__img {
+  transition: none;
+}
 
-  .chapter--c .chapter__index {
-    grid-area: index;
-    justify-self: end;
-  }
-  .chapter--c .chapter__text {
-    grid-area: text;
-  }
-  .chapter--c .chapter__media {
-    grid-area: media;
-  }
-
-  .chapter--d .chapter__grid {
-    grid-template-areas:
-      'media media'
-      'index text';
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    column-gap: var(--space-xl);
-    row-gap: var(--space-m);
-  }
-
-  .chapter--d .chapter__media {
-    grid-area: media;
-    margin-bottom: var(--space-s);
-  }
-  .chapter--d .chapter__index {
-    grid-area: index;
-    justify-self: end;
-  }
-  .chapter--d .chapter__text {
-    grid-area: text;
-  }
+:root[data-motion="paused"] .strip__cell[data-motion-focus="on"] {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }

@@ -1,78 +1,66 @@
-import { useState, type CSSProperties, type ReactNode } from 'react'
-
-export type FrameTone = 'forest' | 'green' | 'outlined'
-
-type Props = {
-  /** Leave null until the file exists in public/. Nothing is requested otherwise. */
-  src?: string | null
-  alt?: string
-  plate?: string
-  tone?: FrameTone
-  /** CSS aspect-ratio, reserves space so nothing shifts when a photo loads. */
-  ratio?: string
-  caption?: string
-  priority?: boolean
-  className?: string
-  style?: CSSProperties
-  /** True when the frame carries no information for assistive technology. */
-  decorative?: boolean
-  children?: ReactNode
-  onLoad?: () => void
-}
+import { useRef } from 'react'
+import type { GalleryFrame } from '../data/gallery'
 
 /**
- * An image frame that is complete without its photograph.
+ * Frame — the recurring object of the site: a photograph with a true frame
+ * number, a green label tab and a caption.
  *
- * The plate is a designed graphic, so a missing file reads as intentional
- * artwork rather than a broken slot. Supplying `src` layers the photograph on
- * top at the same aspect ratio; a failed load falls back to the plate without
- * leaving a broken-image icon or a console error.
+ * Hover and keyboard focus both scale the image inside its mask (M10); the
+ * caption under the frame is always visible, so nothing is hover-only.
  */
-export function Frame({
-  src,
-  alt = '',
-  plate,
-  tone = 'outlined',
-  ratio = '4 / 3',
-  caption,
-  priority = false,
-  className = '',
-  style,
-  decorative = true,
-  children,
-  onLoad,
-}: Props) {
-  const [loaded, setLoaded] = useState(false)
-  const [failed, setFailed] = useState(false)
+type Props = {
+  frame: GalleryFrame
+  index: number
+  total: number
+  onOpen: (index: number, source: HTMLImageElement) => void
+  className?: string
+  /** Shows the frame straight away (used for the lead frame of a sheet). */
+  eager?: boolean
+}
 
-  const toneClass = tone === 'outlined' ? 'frame--outlined' : `frame--${tone}`
-  const showImage = Boolean(src) && !failed
+export function Frame({ frame, index, total, onOpen, className, eager = false }: Props) {
+  const imageRef = useRef<HTMLImageElement | null>(null)
+
+  const number = String(index + 1).padStart(2, '0')
+  const of = String(total).padStart(2, '0')
 
   return (
-    <div
-      className={`frame ${toneClass}${className ? ` ${className}` : ''}`.trim()}
-      style={{ aspectRatio: ratio, ...style }}
-      aria-hidden={decorative ? true : undefined}
+    <figure
+      className={`frame${className ? ` ${className}` : ''}`}
+      style={{ aspectRatio: `${frame.width} / ${frame.height}` }}
     >
-      {plate ? <span className="frame__plate">{plate}</span> : null}
+      <button
+        type="button"
+        className="frame__hit"
+        onClick={() => {
+          if (imageRef.current) onOpen(index, imageRef.current)
+        }}
+        aria-label={`Open frame ${number} of ${of} — ${frame.alt}`}
+      >
+        <span className="frame__media">
+          <img
+            ref={imageRef}
+            className="frame__img"
+            src={frame.src}
+            alt={frame.alt}
+            width={frame.width}
+            height={frame.height}
+            loading={eager ? 'eager' : 'lazy'}
+            decoding="async"
+            style={frame.objectPosition ? { objectPosition: frame.objectPosition } : undefined}
+          />
+          <span className="frame__tab" aria-hidden="true">
+            Frame
+          </span>
+        </span>
+      </button>
 
-      {showImage ? (
-        <img
-          className={`frame__img${loaded ? ' is-loaded' : ''}`}
-          src={src as string}
-          alt={decorative ? '' : alt}
-          loading={priority ? 'eager' : 'lazy'}
-          decoding="async"
-          onLoad={() => {
-            setLoaded(true)
-            onLoad?.()
-          }}
-          onError={() => setFailed(true)}
-        />
-      ) : null}
-
-      {caption ? <span className="frame__caption">{caption}</span> : null}
-      {children}
-    </div>
+      <figcaption className="frame__caption">
+        <span className="frame__caption-line">
+          Frame {number} / {of} — LeaCon 1.0
+        </span>
+        {frame.caption ? <span className="frame__caption-note">{frame.caption}</span> : null}
+      </figcaption>
+    </figure>
   )
 }

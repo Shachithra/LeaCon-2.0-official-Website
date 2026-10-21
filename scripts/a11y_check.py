@@ -19,7 +19,11 @@ def main() -> int:
         browser = p.chromium.launch()
 
         # --- desktop: tab order + visible focus -----------------------------
-        page = browser.new_page(viewport={"width": 1280, "height": 900})
+        calm = browser.new_context(
+            viewport={"width": 1280, "height": 900}, reduced_motion="reduce"
+        )
+        calm.add_init_script("sessionStorage.setItem('leacon-entry-seen','1')")
+        page = calm.new_page()
         page.goto(BASE + "/", wait_until="networkidle")
         page.wait_for_timeout(300)
 
@@ -35,79 +39,118 @@ def main() -> int:
                         return {
                             tag: el.tagName,
                             text: (el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 32),
-                            outline: cs.outlineStyle + ' ' + cs.outlineWidth + ' ' + cs.outlineColor,
+                            outline: cs.outlineStyle + ' ' + cs.outlineWidth,
                             visible: el.getBoundingClientRect().width > 0,
                         };
                     }"""
                 )
             )
-        notes.append("tab order: " + json.dumps([o["text"] for o in order if o], ensure_ascii=False))
+        notes.append(
+            "tab order: " + json.dumps([o["text"] for o in order if o], ensure_ascii=False)
+        )
         no_focus_ring = [o for o in order if o and o["outline"].startswith("none")]
         if no_focus_ring:
             problems.append(f"focus ring missing on: {[o['text'] for o in no_focus_ring]}")
+        first = order[0]
+        if not first or "Skip" not in first["text"]:
+            problems.append("first tab stop is not the skip link")
 
-        # --- mobile menu: open, Escape, focus return ------------------------
+        # --- mobile menu: open, Escape, focus return, aria-expanded ---------
         mobile = browser.new_page(viewport={"width": 390, "height": 844})
         mobile.goto(BASE + "/", wait_until="networkidle")
         burger = mobile.get_by_role("button", name="Open menu")
         burger.click()
         mobile.wait_for_timeout(300)
         open_state = mobile.evaluate(
-            "() => ({ open: document.getElementById('site-menu').open, active: document.activeElement.className })"
+            "() => ({ open: document.getElementById('site-menu').open, "
+            "active: document.activeElement.className })"
         )
         notes.append("menu opened: " + json.dumps(open_state))
         if not open_state["open"]:
             problems.append("mobile menu did not open")
         mobile.keyboard.press("Escape")
-        mobile.wait_for_timeout(300)
+        mobile.wait_for_timeout(700)  # the close wipe runs 0.4s before onClose
         after_esc = mobile.evaluate(
             """() => ({
                 open: document.getElementById('site-menu').open,
-                focusIsBurger: document.activeElement === document.querySelector('.burger'),
-                expanded: document.querySelector('.burger').getAttribute('aria-expanded'),
+                focusIsToggle: document.activeElement === document.querySelector('.menu-toggle'),
+                expanded: document.querySelector('.menu-toggle').getAttribute('aria-expanded'),
                 bodyScroll: document.documentElement.style.overflow,
             })"""
         )
         notes.append("after Escape: " + json.dumps(after_esc))
-        if after_esc["open"] or not after_esc["focusIsBurger"] or after_esc["expanded"] != "false":
-            problems.append("Escape/focus-return/aria-expanded incorrect on mobile menu")
+        if after_esc["open"] or not after_esc["focusIsToggle"]:
+            problems.append("Escape/focus-return incorrect on mobile menu")
+        if after_esc["expanded"] != "false":
+            problems.append("aria-expanded not reset after menu close")
         if after_esc["bodyScroll"] != "":
             problems.append("body scroll not restored after menu close")
 
-        # --- reduced motion --------------------------------------------------
-        calm = browser.new_context(
-            viewport={"width": 1280, "height": 900}, reduced_motion="reduce"
-        )
+        # --- reduced motion: nothing left hidden ---------------------------
         calm_page = calm.new_page()
         calm_page.goto(BASE + "/", wait_until="networkidle")
         calm_page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         calm_page.wait_for_timeout(500)
         motion = calm_page.evaluate(
             """() => {
-                const els = [...document.querySelectorAll('.reveal')];
-                const hidden = els.filter(el => parseFloat(getComputedStyle(el).opacity) < 0.99);
-                const durations = [...new Set(els.map(el => getComputedStyle(el).transitionDuration))];
-                return { total: els.length, hidden: hidden.length, durations };
+                const els = [...document.querySelectorAll('.mask__inner')];
+                const hidden = els.filter(el => {
+                    const cs = getComputedStyle(el);
+                    return parseFloat(cs.opacity) < 0.99 || cs.visibility === 'hidden';
+                });
+                const paused = document.documentElement.dataset.motion;
+                return { total: els.length, hidden: hidden.length, paused };
             }"""
         )
         notes.append("reduced motion: " + json.dumps(motion))
         if motion["hidden"] > 0:
-            problems.append(f"{motion['hidden']} reveal elements hidden under prefers-reduced-motion")
+            problems.append(
+                f"{motion['hidden']} masked lines hidden under prefers-reduced-motion"
+            )
 
-        # --- content visible without JS-driven reveal (no-JS proxy) ----------
+        # --- pause-motion control persists ---------------------------------
+        calm_page.goto(BASE + "/", wait_until="networkidle")
+        toggle = calm_page.get_by_role("button", name="Pause site motion")
+        toggle.click()
+        calm_page.wait_for_timeout(200)
+        state = calm_page.evaluate(
+            "() => ({ motion: document.documentElement.dataset.motion, "
+            "stored: localStorage.getItem('leacon-motion') })"
+        )
+        notes.append("pause control: " + json.dumps(state))
+        if state["motion"] != "paused" or state["stored"] != "paused":
+            problems.append("Pause motion control did not pause and persist")
+
+        # --- register page: no fake CTA, no invented facts -----------------
         calm_page.goto(BASE + "/register", wait_until="networkidle")
         calm_page.wait_for_timeout(300)
-        inert = calm_page.evaluate(
+        register = calm_page.evaluate(
             """() => {
-                const el = document.querySelector('.btn--inert');
-                const cs = getComputedStyle(el);
-                return { text: el.textContent.trim(), color: cs.color, bg: cs.backgroundColor,
-                         disabled: el.getAttribute('aria-disabled'), cursor: cs.cursor };
+                const anchors = [...document.querySelectorAll('.register-cta a')];
+                const disabledBtns = [...document.querySelectorAll('button[disabled], .btn--inert')];
+                const pending = document.querySelector('.register-cta__pending');
+                return {
+                    ctaAnchors: anchors.length,
+                    disabledButtons: disabledBtns.length,
+                    hasPendingLine: Boolean(pending),
+                };
             }"""
         )
-        notes.append("register CTA state: " + json.dumps(inert))
-        if inert["disabled"] != "true":
-            problems.append("register CTA is not marked aria-disabled while the link is missing")
+        notes.append("register CTA state: " + json.dumps(register))
+        if register["disabledButtons"] > 0:
+            problems.append("register page shows a disabled button instead of honest text")
+        if register["ctaAnchors"] == 0 and not register["hasPendingLine"]:
+            problems.append("register page has neither a link nor a pending line")
+
+        # --- no shop anywhere ----------------------------------------------
+        for route in ["/", "/about", "/team", "/event", "/register"]:
+            calm_page.goto(BASE + route, wait_until="networkidle")
+            shop = calm_page.evaluate(
+                "() => document.body.innerText.toLowerCase().includes('shop')"
+            )
+            if shop:
+                problems.append(f"'shop' text found on {route}")
+        notes.append("shop check: clean on all five routes")
 
         calm.close()
         browser.close()

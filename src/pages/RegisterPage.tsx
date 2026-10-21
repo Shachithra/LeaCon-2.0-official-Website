@@ -1,21 +1,30 @@
+import { Link } from 'react-router-dom'
 import { usePageMeta } from '../hooks/usePageMeta'
-import { PageHead } from '../components/PageHead'
-import { Faq, type FaqItem } from '../components/Faq'
+import { MaskedHeading } from '../components/MaskedHeading'
+import { HandNote } from '../components/HandNote'
+import { ClockText, CopyEmail } from '../components/Details'
+import { FaqAccordion, RegisterCta, type InfoRow } from '../components/Content'
 import { site, siteConfig } from '../config/site'
+import { buildFaq } from '../data/faq'
+import { notes } from '../data/notes'
+import { strings } from '../data/strings'
 
-const path = [
-  {
-    title: 'Read the experience',
-    body: 'The Event page carries the four parts, the recognition and every confirmed logistics detail.',
-  },
-  {
-    title: 'Wait for the official link',
-    body: 'Registration is handled through one official link, published here as soon as the organisers confirm it.',
-  },
-  {
-    title: 'Register once, directly',
-    body: 'The link opens the organiser’s own registration. This site never collects personal details.',
-  },
+/**
+ * Register Now — one clear action, quieter than every other page.
+ *
+ * Forest first: the statement, three lines of explanation, the details the
+ * organisers have confirmed (and nothing else), one button. Then paper: the
+ * questions with verified answers, and the contact route with the Sri Lanka
+ * clock. No local form, no data collected, no fake success state.
+ */
+
+/** Confirmed rows only — an unconfirmed row is left out entirely. */
+const details: InfoRow[] = [
+  { term: 'Who can register', value: null, omit: true },
+  { term: 'Date', value: null, omit: true },
+  { term: 'Venue', value: null, omit: true },
+  { term: 'Deadline', value: null, omit: true },
+  { term: 'Fee', value: null, omit: true },
 ]
 
 export function RegisterPage() {
@@ -24,172 +33,96 @@ export function RegisterPage() {
     `Register for ${site.fullName} through the official registration link. No form, no personal data and no invented deadline on this site.`,
   )
 
-  const registrationUrl = siteConfig.registrationUrl
-
-  /* Answers are limited to things that are true today. A question the
-     organisers have not answered yet is not published at all. */
-  const faqs: FaqItem[] = [
-    {
-      question: 'How do I register?',
-      answer: registrationUrl
-        ? 'Open the official registration button above. It goes straight to the organiser’s own registration page — nothing on this site takes your details.'
-        : 'Registration runs through one official link. It replaces the coming-soon state on this page the moment the organisers publish it.',
-    },
-    {
-      question: 'When and where is the event?',
-      answer:
-        'Date and venue are confirmed by the organisers and published on the Event page. Nothing on this site is estimated, so no date appears until it is fixed.',
-    },
-    {
-      question: 'Does this site collect my details?',
-      answer:
-        'No. There is no form, no account and no payment step here — this site only points you to the official registration route.',
-    },
-    {
-      question: 'Who can I contact with a question?',
-      answer: siteConfig.contactEmail
-        ? `Write to ${siteConfig.contactEmail} and the organisers will answer.`
-        : 'Organiser contact details are published on this page as soon as they are confirmed.',
-    },
-  ]
+  const confirmedRows = details.filter((row) => row.value !== null)
+  const faqs = buildFaq()
 
   return (
     <>
-      <PageHead
-        tone="forest"
-        eyebrow="Register Now"
-        title="One link. That is the whole process."
-        lede={`${site.fullName} registration runs through a single official link. This page carries it — and nothing else asks you for anything.`}
-      />
-
-      <section className="section" aria-labelledby="register-heading">
-        <div className="container register-sheet">
-          <div>
-            <p className="eyebrow eyebrow--green">How registration works</p>
-
-            <ol className="register-path">
-              {path.map((step) => (
-                <li className="register-path__item" key={step.title}>
-                  <div>
-                    <h2 id={step.title === 'Read the experience' ? 'register-heading' : undefined}>
-                      {step.title}
-                    </h2>
-                    <p>{step.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            <ul className="register-facts" role="list">
-              <li>
-                <span className="schedule__term">Personal data</span>
-                <span className="schedule__detail">Nothing is collected on this site</span>
-              </li>
-              <li>
-                <span className="schedule__term">Deadline</span>
-                <span className="schedule__detail schedule__detail--pending">
-                  To be announced
-                </span>
-              </li>
-              <li>
-                <span className="schedule__term">Questions</span>
-                <span className="schedule__detail">
-                  {siteConfig.contactEmail ? (
-                    <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
-                  ) : (
-                    <span className="schedule__detail--pending">
-                      Contact details coming soon
-                    </span>
-                  )}
-                </span>
-              </li>
-            </ul>
+      {/* ---------------- Forest: the one action ---------------- */}
+      <section className="register-open" data-theme="forest" aria-labelledby="register-title">
+        <div className="wrap grid register-open__grid">
+          <div className="register-open__main">
+            <p className="label">Register Now</p>
+            <MaskedHeading
+              as="h1"
+              id="register-title"
+              className="display display--page register-open__title"
+              when="now"
+              lines={['Register for', `${site.fullName}.`]}
+            />
+            <p className="register-open__lede">
+              One official link carries the whole process. This site never asks you for details,
+              and it never shows a deadline, a fee or a date that has not been confirmed.
+            </p>
+            <RegisterCta />
           </div>
 
-          <aside className="register-action" aria-labelledby="register-action-heading">
-            <p className="register-action__kicker">Official registration</p>
-
-            <h2 className="register-action__title" id="register-action-heading">
-              {site.fullName}
+          <aside className="register-open__rail" aria-labelledby="register-details-title">
+            <h2 className="label" id="register-details-title">
+              The details
             </h2>
 
-            <p>
-              {registrationUrl
-                ? 'This is the only official route. It opens the organiser’s registration page.'
-                : 'The registration link has not been published yet, so this page states that plainly instead of pretending otherwise.'}
-            </p>
+            {confirmedRows.length > 0 ? (
+              <dl className="register-open__list">
+                {confirmedRows.map((row) => (
+                  <div key={row.term}>
+                    <dt className="label label--paper">{row.term}</dt>
+                    <dd>{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <p className="pending">{strings.detailsPending}</p>
+            )}
 
-            <div className="register-action__cta">
-              {registrationUrl ? (
-                <a
-                  className="btn btn--primary"
-                  href={registrationUrl}
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  Open registration
-                </a>
-              ) : (
-                <span
-                  className="btn btn--primary btn--inert"
-                  role="status"
-                  aria-disabled="true"
-                >
-                  Registration link coming soon
-                </span>
-              )}
-
-              {registrationUrl ? (
-                <span className="register-action__hint">Opens the official page in a new tab.</span>
-              ) : (
-                <span className="register-action__hint">
-                  It will replace this state the moment it is supplied.
-                </span>
-              )}
-            </div>
-
-            <ul className="register-facts" role="list">
-              <li>
-                <span className="schedule__term">Status</span>
-                <span className="schedule__detail">
-                  {registrationUrl ? 'Link published' : 'Link pending'}
-                </span>
-              </li>
-            </ul>
+            <HandNote note={notes.registerCta} mark="underline" />
           </aside>
         </div>
       </section>
 
-      {/* ---------------- Questions ---------------- */}
-      <section className="section sheet--sunk" aria-labelledby="faq-heading">
-        <div className="container faq-sheet">
-          <div className="faq-sheet__intro">
-            <p className="eyebrow eyebrow--green">Questions</p>
-            <h2 className="faq-sheet__title" id="faq-heading">
-              Before you register.
-            </h2>
-            <p className="faq-sheet__body">
-              Only answers that are already true are published here. Anything the organisers
-              have not confirmed is left out rather than filled in.
+      {/* ---------------- Paper: questions and contact ---------------- */}
+      <section className="section register-questions" data-theme="paper" aria-labelledby="faq-title">
+        <div className="wrap grid register-questions__grid">
+          <div className="register-questions__intro">
+            <p className="label">Questions</p>
+            <MaskedHeading
+              as="h2"
+              id="faq-title"
+              className="display display--section"
+              lines={['Before you register.']}
+            />
+            <p className="register-questions__note">
+              Only answers that are already true are published here. Anything the organisers have
+              not confirmed is left out rather than filled in.
             </p>
           </div>
 
-          <div>
-            <Faq items={faqs} />
+          <div className="register-questions__body">
+            <FaqAccordion items={faqs} idPrefix="register-faq" />
 
-            <div className="faq-sheet__support">
-              <p className="meta">Still unsure about something?</p>
+            <div className="register-contact">
+              <h3 className="label">Contact</h3>
               {siteConfig.contactEmail ? (
-                <a className="btn btn--secondary btn--sm" href={`mailto:${siteConfig.contactEmail}`}>
-                  Contact the organisers
-                </a>
+                <>
+                  <CopyEmail />
+                  <p className="register-contact__hint">Click the address to copy it.</p>
+                </>
               ) : (
-                <p className="meta">
-                  Organiser contact details are published on this page once they are confirmed.
-                </p>
+                <p className="pending">{strings.contactPending}</p>
               )}
+              <ClockText />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ---------------- Closing route ---------------- */}
+      <section className="section section--tight register-close" data-theme="paper">
+        <div className="wrap register-close__inner">
+          <p>Everything the event publishes sits on one page.</p>
+          <Link className="link link--static" to="/event">
+            See the event
+          </Link>
         </div>
       </section>
     </>
